@@ -22,6 +22,12 @@ The cross-cutting layout-collapse and motion pass, applied once all page regions
 - [ ] Entrance reveals work and respect `prefers-reduced-motion`; ticker and pulsing dot also halt under reduced motion.
 - [ ] No layout breakage at 599px / 600px / 959px / 960px boundaries.
 
+## Comments
+
+**Implemented.** Breakpoints: ≥960 full 3-col; 600–959 right rail folds in + sidebar/rail become horizontal wrap-bands; <600 single-column stack with **CSS-only hamburger** (checkbox-hack, animated to X, no JS). `scroll-margin-top` on all `[id]` header/sections so sticky-nav anchors clear. `scrollReveal`: IntersectionObserver in BaseLayout reveals 7 `[data-reveal]` sections; `.js` class set pre-paint so no-JS shows all (progressive). `prefers-reduced-motion` honored across ticker, pulsing dot, nav transitions, and reveals (forced visible).
+
+Verified: build OK; observer + js-class + hamburger + 7 reveal targets in output; reduced-motion guards in compiled CSS + inline; 16 tests green.
+
 ## Blocked by
 
 - 03 — Hero band + assetPresence helper (tested)

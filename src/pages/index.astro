@@ -56,8 +56,25 @@ import ContactSection from '../components/ContactSection.astro';
     min-height: 200px;
   }
 
-  /* Responsive collapse is finalized in issue 10; minimal guard here. */
-  @media (max-width: 959px) {
+  /* Tablet: rail folds in, sidebar + rail become horizontal bands above/below main */
+  @media (min-width: 600px) and (max-width: 959px) {
+    .band { grid-template-columns: 1fr; }
+    .rail-left, .rail-right { border: none; min-height: 0; }
+    .rail-left :global(.sidebar),
+    .rail-right :global(.rail) {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .rail-left :global(.sidebar) > *,
+    .rail-right :global(.rail) > * {
+      flex: 1 1 220px;
+      margin-bottom: 0;
+    }
+  }
+
+  /* Mobile: full single-column stack */
+  @media (max-width: 599px) {
     .band { grid-template-columns: 1fr; }
     .rail-left, .rail-right { border: none; min-height: 0; }
   }

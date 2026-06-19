@@ -3,6 +3,10 @@ import { navItems } from '../data/content';
 ---
 
 <nav class="nav" aria-label="Primary">
+  <input type="checkbox" id="nav-toggle" class="nav-toggle" hidden />
+  <label for="nav-toggle" class="burger" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </label>
   <ul>
     {navItems.map((item, i) => (
       <li>
@@ -47,7 +51,39 @@ import { navItems } from '../data/content';
     background: var(--color-rust);
     color: var(--color-text-cream-dim);
   }
-  @media (max-width: 600px) {
-    a { padding: 10px 4px; font-size: 9px; letter-spacing: 1px; }
+
+  /* Hamburger — hidden on desktop/tablet */
+  .burger { display: none; }
+
+  @media (max-width: 599px) {
+    .burger {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding: 11px 16px;
+      cursor: pointer;
+    }
+    .burger span {
+      width: 22px;
+      height: 2px;
+      background: var(--color-text-cream);
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+    ul {
+      flex-direction: column;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.25s ease;
+    }
+    .nav-toggle:checked ~ ul { max-height: 420px; }
+    li { flex: none; border-right: none; border-top: 1px solid var(--color-bg-mid); }
+    a { padding: 12px 16px; font-size: 11px; text-align: left; }
+    /* animate burger -> X */
+    .nav-toggle:checked ~ .burger span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    .nav-toggle:checked ~ .burger span:nth-child(2) { opacity: 0; }
+    .nav-toggle:checked ~ .burger span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    ul, .burger span { transition: none; }
   }
 </style>
