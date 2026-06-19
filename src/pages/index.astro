@@ -5,6 +5,9 @@ import ProjectGrid from '../components/ProjectGrid.astro';
 import ExperienceTimeline from '../components/ExperienceTimeline.astro';
 import Sidebar from '../components/Sidebar.astro';
 import RightRail from '../components/RightRail.astro';
+import AboutSection from '../components/AboutSection.astro';
+import CredentialsSection from '../components/CredentialsSection.astro';
+import WilderfarerSection from '../components/WilderfarerSection.astro';
 ---
 
 <BaseLayout>
@@ -26,11 +29,11 @@ import RightRail from '../components/RightRail.astro';
     </aside>
   </div>
 
-  {/* Full-width sections below the band — issues 08 / 09 */}
-  <section id="about"></section>
-  <section id="credentials"></section>
-  <section id="wilderfarer"></section>
-  <section id="contact"></section>
+  {/* Full-width sections below the band */}
+  <AboutSection />
+  <CredentialsSection />
+  <WilderfarerSection />
+  <section id="contact"></section>{/* Contact — issue 09 */}
 </BaseLayout>
 
 <style>

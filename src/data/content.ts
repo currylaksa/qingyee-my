@@ -69,6 +69,26 @@ export const personalInfo: PersonalInfo = {
   identity: ['Selenophile', 'Dendrophile', 'Hodophile'],
 };
 
+export const about = {
+  // Drafted from known facts (graduand, present-perfect). Edit freely.
+  bio: [
+    'Chan Qing Yee is a Computer Science (Networks & Security) graduand from Universiti Teknologi Malaysia, finishing with a 3.90 CGPA. Her final-year project — SecureExam UTM, a production zero-trust examination platform with 26 mapped security controls and AI behavioural risk scoring — earned Silver at DIGITEX 2026, supervised by Prof. Madya Ts. Dr. Siti Hajar Binti Othman.',
+    'Before her final year she interned as a Project Engineer at Huawei Technologies Malaysia, where she shipped 7 internal automation tools that cut repetitive engineering workflows. Based in Johor Bahru, she is targeting security and full-stack engineering roles in Singapore.',
+  ],
+  details: [
+    { label: 'University', value: 'Universiti Teknologi Malaysia (UTM), Faculty of Computing' },
+    { label: 'Programme', value: 'CS (Networks & Security)' },
+    { label: 'CGPA', value: '3.90' },
+    { label: 'Supervisor', value: 'Prof. Madya Ts. Dr. Siti Hajar Binti Othman' },
+    { label: 'Location', value: 'Johor Bahru → Singapore' },
+  ],
+};
+
+export const wilderfarer = {
+  narrative:
+    'Off the keyboard, Chan goes by Wilderfarer — a selenophile, dendrophile, and hodophile who treats moonrise, treelines, and travel as the counterweight to deployments. Running is the throughline: a 6:11/km half-marathon pace today, chasing a sub-2:00 finish, with badminton and hiking filling the rest.',
+};
+
 export const hero = {
   featured: 'Featured',
   headline: 'Zero-Trust Exam Platform Earns Silver at DIGITEX 2026',

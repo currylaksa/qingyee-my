@@ -23,3 +23,9 @@ The detailed full-width sections stacked below the 3-column band (rail widgets s
 ## Blocked by
 
 - 06 — Left sidebar
+
+## Comments
+
+**Implemented.** Three full-width sections below the band: `AboutSection` (#about — drafted 2-para bio + UTM/supervisor detail list + 120px headshot via `assetPresence`/QY fallback), `CredentialsSection` (#credentials — 4 cert cards, each date a visible `Issued — TODO` slot), `WilderfarerSection` (#wilderfarer — drafted narrative + identity terms + Running Log paces + `TODO: add recent trails` hiking slot). Bio/narrative drafted from known facts only; no fabricated cert dates or hiking entries.
+
+Verified: build OK; all 3 anchors present; 4 cert TODO slots + 1 hiking TODO; supervisor rendered; 16 tests green.
