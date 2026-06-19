@@ -22,3 +22,7 @@ The Experience section of the main column: a timeline of work/FYP rows rendered 
 ## Blocked by
 
 - 01 — Foundation & deployable shell
+
+## Comments
+
+**Implemented.** `ExperienceTimeline` ("Experience", briefcase icon) renders both rows from `experience` data — Huawei intern (2024) + FYP SecureExam (2022–25). Row layout per spec §6.6: Courier rust year (min-width 44px), Josefin uppercase role, muted org, body desc, light divider (none on last). Wired below Project Dossier in main column. Verified: build OK, both rows in output, 16 tests still green.
