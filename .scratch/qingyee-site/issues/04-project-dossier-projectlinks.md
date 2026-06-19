@@ -24,3 +24,9 @@ The Project Dossier grid in the main column, plus the `projectLinks` helper enco
 ## Blocked by
 
 - 01 — Foundation & deployable shell
+
+## Comments
+
+**Implemented.** `projectLinks` pure helper (+ `isUsableUrl`): http(s) only, null/empty/`TODO`-sentinel → absent. 9 tests (16 total in suite). `ProjectGrid` ("Project Dossier", code-circle icon, `id="projects"` so nav anchors to the band grid per PRD) renders all 6 projects via `ProjectCard` (dark header, rust icon, cream title, stack tags, link row). Added astro-icon + `@iconify-json/tabler` (build-time inline SVG, no client JS) — reused by later issues.
+
+Verified: build OK; 6 cards present; exactly 1 card link row (SecureExam → Live), 0 Code links (all repos null/TODO); `npm test` 16/16. Removed the empty `#projects` placeholder section.
