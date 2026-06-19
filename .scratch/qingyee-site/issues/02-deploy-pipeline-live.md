@@ -1,6 +1,6 @@
 # 02 — Deploy pipeline live
 
-Status: ready-for-human
+Status: done
 
 ## Parent
 
@@ -37,3 +37,5 @@ Wire continuous deployment so the shell (and every later push) ships to `qingyee
 **Local git — done:** `git init -b main` + initial commit (36 files; `node_modules/`, `dist/` ignored). No remote yet.
 
 **Remaining (HITL — needs owner credentials/dashboards):** `gh auth login` → create + push GitHub repo (currylaksa) → connect to Cloudflare Pages → set `PUBLIC_WEB3FORMS_KEY` → change Exabytes nameservers to Cloudflare's + add Pages custom domain.
+
+**DONE (2026-06-20):** Repo `currylaksa/qingyee-my` (public) → Cloudflare Pages git integration (build `npm run build`, output `dist`, auto-deploy on `main`). Nameservers migrated Exabytes → Cloudflare (`christian/connie.ns.cloudflare.com`). Custom domains `qingyee.my` + `www.qingyee.my` both **Active, SSL enabled**. `PUBLIC_WEB3FORMS_KEY` env slot set (placeholder `NA` until real key). Pipeline live; pushes auto-deploy.
