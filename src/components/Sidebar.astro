@@ -1,0 +1,162 @@
+---
+import { Icon } from 'astro-icon/components';
+import Widget from './Widget.astro';
+import StatRow from './StatRow.astro';
+import SkillTag from './SkillTag.astro';
+import { personalInfo, byTheNumbers, stack, findMe } from '../data/content';
+import { getAssetPresence } from '../lib/assetPresence.server';
+
+const { hasHeadshot } = getAssetPresence();
+---
+
+<div class="sidebar">
+  <Widget title="Profile" icon="user-circle">
+    <div class="profile">
+      {hasHeadshot ? (
+        <img class="avatar photo" src="/headshot.jpg" alt={personalInfo.fullName} width="78" height="78" />
+      ) : (
+        <div class="avatar initials" aria-label={personalInfo.fullName}>{personalInfo.initials}</div>
+      )}
+      <p class="name">{personalInfo.fullName}</p>
+      <p class="sub">{personalInfo.brand}</p>
+      <p class="desc">{personalInfo.programme} / {personalInfo.university}</p>
+    </div>
+  </Widget>
+
+  <div class="online">
+    <span class="dot" aria-hidden="true"></span>
+    <span>Online — JB, Malaysia</span>
+  </div>
+
+  <Widget title="By the Numbers" icon="chart-bar">
+    {byTheNumbers.map((s) => <StatRow label={s.label} value={s.value} />)}
+  </Widget>
+
+  <Widget title="Stack" icon="tool">
+    <div class="tags">
+      {stack.map((t) => <SkillTag label={t.label} variant={t.variant} />)}
+    </div>
+  </Widget>
+
+  <Widget title="Find Me" icon="link">
+    <ul class="links">
+      {findMe.map((l) => (
+        <li>
+          <a href={l.href} target={l.href.startsWith('http') ? '_blank' : undefined} rel="noopener">
+            <Icon name={`tabler:${l.icon}`} class="lic" />
+            <span>{l.label}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </Widget>
+</div>
+
+<style>
+  .sidebar {
+    padding: 12px 10px;
+  }
+
+  /* Profile */
+  .profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .avatar {
+    width: 78px;
+    height: 78px;
+    border-radius: 50%;
+    border: 3px solid var(--color-border-heavy);
+  }
+  .avatar.photo {
+    object-fit: cover;
+  }
+  .avatar.initials {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-rust);
+    color: var(--color-text-cream);
+    font-family: var(--font-display);
+    font-size: 26px;
+  }
+  .name {
+    margin-top: 8px;
+    font-family: var(--font-display);
+    font-size: 14px;
+    color: var(--color-text-primary);
+  }
+  .sub {
+    font-family: var(--font-body);
+    font-weight: 300;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+  }
+  .desc {
+    margin-top: 6px;
+    font-family: var(--font-body);
+    font-weight: 300;
+    font-size: 9px;
+    line-height: 1.5;
+    color: var(--color-text-body);
+  }
+
+  /* Online indicator */
+  .online {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-bottom: 12px;
+    padding: 7px 10px;
+    background: var(--color-bg-dark);
+    font-family: var(--font-body);
+    font-weight: 300;
+    font-size: 9px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--color-text-cream);
+  }
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--color-rust);
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .dot { animation: none; }
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+
+  /* Find Me */
+  .links li + li { margin-top: 6px; }
+  .links a {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-family: var(--font-body);
+    font-weight: 300;
+    font-size: 10px;
+    color: var(--color-text-body);
+  }
+  .links a:hover { color: var(--color-rust); }
+  .lic {
+    width: 14px;
+    height: 14px;
+    color: var(--color-rust);
+    flex-shrink: 0;
+  }
+</style>

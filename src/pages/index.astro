@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import HeroSection from '../components/HeroSection.astro';
 import ProjectGrid from '../components/ProjectGrid.astro';
 import ExperienceTimeline from '../components/ExperienceTimeline.astro';
+import Sidebar from '../components/Sidebar.astro';
 ---
 
 <BaseLayout>
@@ -10,7 +11,7 @@ import ExperienceTimeline from '../components/ExperienceTimeline.astro';
       3-column band (#home) — issues 03/04/05 (main), 06 (sidebar), 07 (rail). */}
   <div class="band">
     <aside class="rail-left" aria-label="Profile sidebar">
-      {/* Sidebar — issue 06 */}
+      <Sidebar />
     </aside>
 
     <section class="main">

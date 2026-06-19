@@ -28,3 +28,9 @@ The 180px left sidebar and the reusable widget primitives it establishes for the
 
 - 01 — Foundation & deployable shell
 - 03 — Hero band + assetPresence helper (tested)
+
+## Comments
+
+**Implemented.** Reusable primitives `Widget` (dark header: rust icon + cream title), `StatRow` (label/mono value), `SkillTag` (filled/outline). `Sidebar` assembles: Profile (avatar — `hasHeadshot` ? photo : rust circle "QY"), Online indicator (rust pulsing dot, reduced-motion guard), By-the-Numbers (Projects=6, Controls=26), Stack (filled+outline tags), Find Me (GitHub/LinkedIn/Email/WhatsApp).
+
+Verified: build OK; no headshot → QY initials; temp `headshot.jpg` → `<img>` photo, no code change; stats show 6/26; all 4 find-me hrefs present; 16 tests green.
