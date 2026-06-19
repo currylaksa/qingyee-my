@@ -23,3 +23,7 @@ The 160px right rail using the widget primitives from issue 06.
 ## Blocked by
 
 - 06 — Left sidebar
+
+## Comments
+
+**Implemented.** `RightRail` reuses `Widget`/`StatRow`: Credentials (4 cert rows, icon + name + org), Running Log (HM/10K/5K/VDOT/Goal HM), Wilderfarer (rust-left-border parchment Courier-italic blockquote, identity lines Selenophile/Dendrophile/Hodophile, status "JB → Singapore"). Verified: build OK, all certs + 3 identity terms + status + quote in output, 16 tests green. Band now complete (left rail + main + right rail).
