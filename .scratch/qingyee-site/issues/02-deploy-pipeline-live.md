@@ -26,3 +26,14 @@ Wire continuous deployment so the shell (and every later push) ships to `qingyee
 ## Blocked by
 
 - 01 — Foundation & deployable shell
+
+## Comments
+
+**DNS audit (ADR-0002 prerequisite) — 2026-06-19, safe to migrate:**
+- Current nameservers: `ns184.mschosting.com`, `ns185.mschosting.com`, `ns186.mschosting.com` (Exabytes/MSC hosting).
+- A record: apex + `www` → `103.7.9.22` (Exabytes parking; replaced by Pages target).
+- MX: none. TXT: none. → No email/SPF/verification to preserve; clean migration.
+
+**Local git — done:** `git init -b main` + initial commit (36 files; `node_modules/`, `dist/` ignored). No remote yet.
+
+**Remaining (HITL — needs owner credentials/dashboards):** `gh auth login` → create + push GitHub repo (currylaksa) → connect to Cloudflare Pages → set `PUBLIC_WEB3FORMS_KEY` → change Exabytes nameservers to Cloudflare's + add Pages custom domain.
