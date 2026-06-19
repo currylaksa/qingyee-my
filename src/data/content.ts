@@ -69,6 +69,17 @@ export const personalInfo: PersonalInfo = {
   identity: ['Selenophile', 'Dendrophile', 'Hodophile'],
 };
 
+export const hero = {
+  featured: 'Featured',
+  headline: 'Zero-Trust Exam Platform Earns Silver at DIGITEX 2026',
+  body:
+    'CS (Networks & Security) graduand Chan Qing Yee has shipped SecureExam UTM to production — a full-stack zero-trust examination platform with AI behavioural risk scoring, MFA, TOTP, RBAC, and 26 mapped security controls. Deployed on DigitalOcean Singapore.',
+  goldPill: 'DIGITEX 2026 Silver',
+  darkPills: ['Zero-Trust', 'AI Risk Scoring', 'Production Live'],
+  liveUrl: 'https://secureexam-cqy.tech',
+  cvPath: '/cv.pdf',
+};
+
 export const navItems: NavItem[] = [
   { label: 'Home', href: '#home' },
   { label: 'About', href: '#about' },

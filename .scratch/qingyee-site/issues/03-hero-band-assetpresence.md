@@ -24,3 +24,9 @@ The hero region of the main column, plus the shared `assetPresence` build-time h
 ## Blocked by
 
 - 01 — Foundation & deployable shell
+
+## Comments
+
+**Implemented.** `assetPresence` split into pure `resolveAssetPresence`/`isUsableKey` (tested, 7 cases incl. placeholder "NA"/"TODO" → no key) + `assetPresence.server.ts` I/O reader (fs existsSync + `import.meta.env.PUBLIC_WEB3FORMS_KEY`). `HeroSection` renders Featured label, headline, body (graduand/present-perfect), gold + dark pills, CTA row. `hasCv` false → Download CV hidden, "View SecureExam Live" sole + centered (`cta single`).
+
+Verified: `npm test` 7/7 green; build no-cv → only View Live + `cta single`; temp `cv.pdf` → Download CV appears, `cta` un-centered, no code change. Temp file removed.
