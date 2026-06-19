@@ -25,3 +25,9 @@ The `#contact` full-width section with a real working form and channel links.
 ## Blocked by
 
 - 03 — Hero band + assetPresence helper (tested)
+
+## Comments
+
+**Implemented.** `ContactSection` (#contact): when `hasFormKey`, renders native POST form to web3forms (hidden `access_key` from `PUBLIC_WEB3FORMS_KEY`, `subject`, off-screen `botcheck` honeypot, name/email/message) + progressive `fetch` enhancement that swaps to an inline rust/cream success state (works as plain POST with JS off). When no usable key, form is hidden and only the notice + `mailto` show. "Prefer email?" mailto fallback always present. Channels: Email / LinkedIn / WhatsApp.
+
+Verified: no-key build → 0 forms, notice + mailto, channels present; `PUBLIC_WEB3FORMS_KEY=...` build → 1 form with real access_key, honeypot, message field; 16 tests green. CF env currently `NA` → form self-hides until real key set.
