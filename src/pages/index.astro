@@ -1,0 +1,54 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout>
+  {/* Content regions are scaffolded empty here; later issues fill them.
+      3-column band (#home) — issues 03/04/05 (main), 06 (sidebar), 07 (rail). */}
+  <div class="band">
+    <aside class="rail-left" aria-label="Profile sidebar">
+      {/* Sidebar — issue 06 */}
+    </aside>
+
+    <section class="main">
+      {/* Hero — issue 03 · Project Dossier — issue 04 · Experience — issue 05 */}
+    </section>
+
+    <aside class="rail-right" aria-label="Credentials and personal">
+      {/* Right rail — issue 07 */}
+    </aside>
+  </div>
+
+  {/* Full-width sections below the band — issues 08 / 09 */}
+  <section id="about"></section>
+  <section id="projects"></section>
+  <section id="credentials"></section>
+  <section id="wilderfarer"></section>
+  <section id="contact"></section>
+</BaseLayout>
+
+<style>
+  .band {
+    display: grid;
+    grid-template-columns: var(--sidebar-w) 1fr var(--rail-w);
+  }
+  .rail-left {
+    background: var(--color-bg-sidebar);
+    border-right: 1px solid var(--color-border-mid);
+    min-height: 200px;
+  }
+  .main {
+    min-height: 200px;
+  }
+  .rail-right {
+    background: var(--color-bg-sidebar);
+    border-left: 1px solid var(--color-border-mid);
+    min-height: 200px;
+  }
+
+  /* Responsive collapse is finalized in issue 10; minimal guard here. */
+  @media (max-width: 959px) {
+    .band { grid-template-columns: 1fr; }
+    .rail-left, .rail-right { border: none; min-height: 0; }
+  }
+</style>

@@ -1,0 +1,38 @@
+---
+import { personalInfo } from '../data/content';
+
+const today = new Date().toLocaleDateString('en-GB', {
+  weekday: 'long',
+  day: '2-digit',
+  month: 'long',
+  year: 'numeric',
+}).toUpperCase();
+---
+
+<div class="topbar">
+  <span class="date">{today}</span>
+  <span class="status">Currently: {personalInfo.status}</span>
+</div>
+
+<style>
+  .topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 5px 20px;
+    background: var(--color-rust);
+    border-bottom: 2px solid var(--color-rust-dark);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 1px;
+    color: var(--color-text-cream-dim);
+  }
+  .status {
+    text-transform: uppercase;
+  }
+  @media (max-width: 600px) {
+    .date { display: none; }
+    .topbar { justify-content: center; }
+  }
+</style>

@@ -1,0 +1,38 @@
+---
+import { ticker } from '../data/content';
+---
+
+<div class="ticker" aria-hidden="true">
+  <div class="track">
+    <span class="item">{ticker}</span>
+    <span class="item">{ticker}</span>
+  </div>
+</div>
+
+<style>
+  .ticker {
+    overflow: hidden;
+    white-space: nowrap;
+    background: var(--color-rust);
+    border-bottom: 2px solid var(--color-rust-dark);
+    padding: 6px 0;
+  }
+  .track {
+    display: inline-flex;
+    animation: ticker-scroll 22s linear infinite;
+  }
+  .item {
+    padding-right: 3rem;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 1px;
+    color: var(--color-text-cream-dim);
+  }
+  @keyframes ticker-scroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .track { animation: none; }
+  }
+</style>

@@ -1,0 +1,53 @@
+---
+import { navItems } from '../data/content';
+---
+
+<nav class="nav" aria-label="Primary">
+  <ul>
+    {navItems.map((item, i) => (
+      <li>
+        <a href={item.href} class={i === 0 ? 'active' : ''}>{item.label}</a>
+      </li>
+    ))}
+  </ul>
+</nav>
+
+<style>
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--color-bg-dark);
+    border-bottom: 3px solid var(--color-rust);
+  }
+  ul {
+    display: flex;
+    margin: 0 auto;
+    max-width: var(--site-max);
+  }
+  li {
+    flex: 1;
+    border-right: 1px solid var(--color-bg-mid);
+  }
+  li:last-child { border-right: none; }
+  a {
+    display: block;
+    text-align: center;
+    padding: 12px 6px;
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--color-text-cream);
+    transition: background 0.15s ease;
+  }
+  a:hover { background: var(--color-bg-mid); }
+  a.active {
+    background: var(--color-rust);
+    color: var(--color-text-cream-dim);
+  }
+  @media (max-width: 600px) {
+    a { padding: 10px 4px; font-size: 9px; letter-spacing: 1px; }
+  }
+</style>
