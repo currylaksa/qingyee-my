@@ -159,11 +159,115 @@ export const education = {
 };
 
 /** Proof pillars under the hero (brief §3). */
-export const pillars: string[] = [
-  'Cisco CCNA (R&S, Enterprise, DevNet) + Google Cybersecurity + OCI Associate',
-  'Production zero-trust platform — SecureExam, DIGITEX 2026 Silver',
-  'Huawei Malaysia internship — 7 network automation tools',
+export type Pillar = { label: string; text: string };
+export const pillars: Pillar[] = [
+  {
+    label: 'certifications',
+    text: 'Cisco CCNA (R&S, Enterprise, DevNet) + Google Cybersecurity + OCI Associate',
+  },
+  {
+    label: 'production',
+    text: 'Zero-trust platform shipped — SecureExam, DIGITEX 2026 Silver',
+  },
+  {
+    label: 'internship',
+    text: 'Huawei Malaysia — built 7 network automation tools',
+  },
 ];
+
+/* ------------------------------------------------------------------
+   SecureExam — the centerpiece. Shared by the Home teaser/preview and
+   the full case study + interactive diagram (Milestone 3).
+   ------------------------------------------------------------------ */
+
+export type ZeroTrustLayer = {
+  num: string; // "01" — ordered like network hops
+  layer: string; // short name
+  tag: string; // mono kicker tag, e.g. "authn"
+  control: string;
+  threats: string[];
+};
+
+/** 8 defense-in-depth layers, verbatim from brief §8. */
+export const zeroTrustLayers: ZeroTrustLayer[] = [
+  {
+    num: '01',
+    layer: 'Browser lockdown',
+    tag: 'client',
+    control:
+      'Fullscreen lockdown, copy/paste + devtools restrictions, heartbeat tokens rotating through the session.',
+    threats: ['Exam cheating', 'Stale-session hijack'],
+  },
+  {
+    num: '02',
+    layer: 'TLS 1.3',
+    tag: 'transport',
+    control: 'End-to-end HTTPS (Let’s Encrypt) + HSTS.',
+    threats: ['Eavesdropping', 'Man-in-the-middle'],
+  },
+  {
+    num: '03',
+    layer: 'Nginx reverse proxy',
+    tag: 'edge',
+    control:
+      'App fronted behind UFW firewall, fail2ban, rate limiting; Node never publicly exposed.',
+    threats: ['Brute force', 'Port scanning', 'Direct app exposure'],
+  },
+  {
+    num: '04',
+    layer: 'JWT + TOTP MFA',
+    tag: 'authn',
+    control: 'Short-lived JWTs + TOTP multi-factor auth.',
+    threats: ['Credential stuffing', 'Password reuse'],
+  },
+  {
+    num: '05',
+    layer: 'RBAC · 4 roles',
+    tag: 'authz',
+    control: 'Least privilege across 4 roles and 35+ endpoints.',
+    threats: ['Privilege escalation', 'Broken access control (IDOR)'],
+  },
+  {
+    num: '06',
+    layer: 'Node + Express',
+    tag: 'app',
+    control: 'Input validation + secure headers across 25+ mapped controls.',
+    threats: ['XSS', 'CSRF', 'Injection'],
+  },
+  {
+    num: '07',
+    layer: 'MySQL 8',
+    tag: 'data',
+    control: 'Least-privilege DB user, parameterized queries, hardened auth.',
+    threats: ['SQL injection', 'Data exfiltration'],
+  },
+  {
+    num: '08',
+    layer: 'Risk scorer',
+    tag: 'detection',
+    control:
+      'Flask microservice (Control #26), Isolation Forest anomaly model, bound to localhost (127.0.0.1:8001).',
+    threats: ['Anomalous exam behaviour'],
+  },
+];
+
+export const secureexam = {
+  title: 'SecureExam UTM',
+  award: 'DIGITEX 2026 Silver',
+  liveUrl: 'https://secureexam-cqy.tech',
+  repoUrl: null as string | null,
+  role: 'Solo full-stack · FYP under Prof. Madya Ts. Dr. Siti Hajar Othman',
+  teaser:
+    'A production zero-trust examination platform: eight defense-in-depth layers from browser lockdown to an Isolation-Forest risk scorer, with MFA, RBAC, and 26 mapped security controls — built solo and shipped to DigitalOcean Singapore.',
+  glance: [
+    { label: 'LOC', value: '8,100+' },
+    { label: 'Controls', value: '26' },
+    { label: 'Endpoints', value: '35+' },
+    { label: 'RBAC roles', value: '4' },
+  ] as Stat[],
+  stack: ['Node / Express', 'React 19', 'MySQL 8', 'Flask'],
+  layers: zeroTrustLayers,
+};
 
 export const runningLog: Stat[] = [
   { label: 'HM', value: '6:11/km' },
