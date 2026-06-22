@@ -49,6 +49,25 @@
     text-decoration: none;
   }
 
+  /* Subtle "packet" travelling down the zero-trust rail, once on load.
+     Neutralised by the reduced-motion block below. */
+  @keyframes packet-descend {
+    0% {
+      top: 0;
+      opacity: 0;
+    }
+    8% {
+      opacity: 1;
+    }
+    92% {
+      opacity: 1;
+    }
+    100% {
+      top: 100%;
+      opacity: 0;
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     html {
       scroll-behavior: auto;

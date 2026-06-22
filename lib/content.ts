@@ -266,7 +266,47 @@ export const secureexam = {
     { label: 'RBAC roles', value: '4' },
   ] as Stat[],
   stack: ['Node / Express', 'React 19', 'MySQL 8', 'Flask'],
+  deployedOn: 'DigitalOcean Singapore',
   layers: zeroTrustLayers,
+
+  threatModel: {
+    intro:
+      'An online exam platform is a high-value target with two distinct adversaries: students motivated to cheat, and attackers motivated by the credentials and exam data behind the login. SecureExam treats every request as untrusted and defends in depth — no single control is load-bearing.',
+    threats: [
+      {
+        title: 'Exam integrity',
+        body: 'Candidates attempting to cheat — leaving the exam window, copy/paste, dev tools, or sharing a live session.',
+      },
+      {
+        title: 'Account takeover',
+        body: 'Credential stuffing and password reuse against the login, and hijacking of stale or stolen sessions.',
+      },
+      {
+        title: 'Data theft',
+        body: 'Exfiltration of exam content, answers, or personal data through the app, the database, or the transport.',
+      },
+      {
+        title: 'Tampering',
+        body: 'Privilege escalation across roles, broken access control (IDOR), and injection against the API and database.',
+      },
+    ],
+  },
+
+  deployment: [
+    'Nginx reverse proxy fronts the app — Node is never publicly exposed.',
+    'UFW firewall + fail2ban + rate limiting at the edge.',
+    'Let’s Encrypt TLS 1.3 with HSTS.',
+    'PM2 runs two processes: secureexam-backend (Node) and risk-scorer (Flask) bound to 127.0.0.1:8001.',
+    'Least-privilege MySQL user; parameterized queries throughout.',
+    'SSH hardening (key-only auth, no root login).',
+  ],
+
+  whatsNext: [
+    'Move secrets out of env files into a managed vault.',
+    'Add automated dependency and container scanning to CI.',
+    'Train the risk scorer on labelled data and track precision/recall, not just anomaly scores.',
+    'Add an automated IDOR/RBAC test suite over all 35+ endpoints.',
+  ],
 };
 
 export const runningLog: Stat[] = [
