@@ -8,7 +8,7 @@ export default function NavLinks() {
   const pathname = usePathname();
 
   return (
-    <ul className="flex items-center gap-1">
+    <ul className="flex flex-wrap items-center gap-x-1 gap-y-0.5">
       {navItems.map((item) => {
         const active =
           item.href === '/'
