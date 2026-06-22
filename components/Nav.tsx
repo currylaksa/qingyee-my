@@ -13,12 +13,11 @@ export default function Nav() {
         <Link
           href="/"
           className="flex items-center gap-2 font-mono text-sm font-medium tracking-tight"
-          aria-label={`${personalInfo.fullName} — home`}
         >
           <span className="grid h-7 w-7 place-items-center rounded-md bg-ink text-xs text-paper">
             {personalInfo.initials}
           </span>
-          <span className="hidden sm:inline">qingyee.my</span>
+          <span className="sr-only sm:not-sr-only">qingyee.my</span>
         </Link>
 
         <nav aria-label="Primary" className="hidden md:block">

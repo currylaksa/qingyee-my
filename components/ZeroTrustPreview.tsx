@@ -10,7 +10,6 @@ export default function ZeroTrustPreview() {
   return (
     <Link
       href="/projects/secureexam#diagram"
-      aria-label="View the interactive zero-trust architecture diagram"
       className="group block rounded-[var(--radius-card)] border border-hairline bg-card p-5 transition-colors hover:border-accent/40"
     >
       <div className="mb-4 flex items-center justify-between">

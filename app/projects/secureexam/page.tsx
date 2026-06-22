@@ -90,7 +90,12 @@ export default function SecureExamPage() {
       <section className="border-b border-hairline">
         <Container className="py-16 sm:py-20">
           <Kicker>the threat model</Kicker>
-          <p className="mt-6 max-w-3xl text-lg">{secureexam.threatModel.intro}</p>
+          <h2 className="mt-4 max-w-2xl text-2xl font-semibold tracking-tight sm:text-3xl">
+            What SecureExam defends against
+          </h2>
+          <p className="mt-4 max-w-3xl text-lg text-muted">
+            {secureexam.threatModel.intro}
+          </p>
           <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {secureexam.threatModel.threats.map((threat) => (
               <div

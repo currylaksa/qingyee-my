@@ -64,7 +64,7 @@ export default function ContactPage() {
                   configured. In the meantime, please reach me by{' '}
                   <a
                     href={`mailto:${personalInfo.email}`}
-                    className="text-accent hover:text-accent-hover"
+                    className="text-accent underline underline-offset-2 hover:text-accent-hover"
                   >
                     email
                   </a>
