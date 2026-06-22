@@ -8,15 +8,22 @@ export default function ProjectCard({ project }: { project: Project }) {
 
   return (
     <article className="flex h-full flex-col rounded-[var(--radius-card)] border border-hairline bg-card p-5 transition-colors hover:border-accent/40">
-      <h3 className="text-lg font-semibold tracking-tight">
-        {project.href ? (
-          <Link href={project.href} className="transition-colors hover:text-accent">
-            {project.title}
-          </Link>
-        ) : (
-          <span>{project.title}</span>
+      <div className="flex items-center justify-between gap-2">
+        <h3 className="text-lg font-semibold tracking-tight">
+          {project.href ? (
+            <Link href={project.href} className="transition-colors hover:text-accent">
+              {project.title}
+            </Link>
+          ) : (
+            <span>{project.title}</span>
+          )}
+        </h3>
+        {project.status && (
+          <span className="shrink-0 rounded-full border border-hairline px-2 py-0.5 font-mono text-[0.625rem] text-muted">
+            {project.status}
+          </span>
         )}
-      </h3>
+      </div>
 
       <p className="mt-2 flex-1 text-sm text-muted">{project.description}</p>
 
@@ -33,7 +40,7 @@ export default function ProjectCard({ project }: { project: Project }) {
               href={project.href}
               className="font-medium text-accent transition-colors hover:text-accent-hover"
             >
-              Case study →
+              {project.ctaLabel ?? 'View →'}
             </Link>
           )}
           {links.map((link) => (

@@ -16,9 +16,9 @@ import {
   runningLog,
 } from '@/lib/content';
 
-// Home "selected work": SecureExam (centerpiece) + the network-layer lab
-// portfolio + a security-flavoured side project.
-const featuredSlugs = ['secureexam', 'networking-labs', 'duodrop'];
+// Home "selected work": SecureExam (centerpiece) + real network-relevant
+// internship work + a security-flavoured side project. All shipped/live.
+const featuredSlugs = ['secureexam', 'huawei-automation', 'duodrop'];
 
 export default function Home() {
   const { hasCv } = getAssetPresence();

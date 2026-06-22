@@ -15,8 +15,12 @@ export type Project = {
   description: string;
   liveUrl: string | null;
   repoUrl: string | null;
-  /** Internal case-study route, when one exists. */
+  /** Internal detail/case-study route, when one exists. */
   href?: string;
+  /** Link text for the internal route; defaults to "View →". */
+  ctaLabel?: string;
+  /** Optional status pill, e.g. "In progress". */
+  status?: string;
 };
 
 export type Cert = { name: string; org: string; date: string | null; verifyUrl?: string | null };
@@ -76,7 +80,7 @@ export const navItems: NavItem[] = [
 export const about = {
   bio: [
     'Chan Qing Yee is a Computer Science (Networks & Security) graduand from Universiti Teknologi Malaysia, finishing with a 3.90 CGPA. Her final-year project — SecureExam UTM, a production zero-trust examination platform with 26 mapped security controls and AI behavioural risk scoring — earned Silver at DIGITEX 2026, supervised by Prof. Madya Ts. Dr. Siti Hajar Binti Othman.',
-    'Before her final year she interned as a Project Engineer at Huawei Technologies Malaysia, where she shipped 7 internal automation tools that cut repetitive engineering workflows. Based in Johor Bahru, she is targeting network-security engineering roles in Singapore.',
+    'Before her final year she interned as a Project Engineer at Huawei Technologies Malaysia, where she shipped 5 internal automation tools that cut repetitive engineering workflows. Based in Johor Bahru, she is targeting network-security engineering roles in Singapore.',
   ],
   details: [
     { label: 'University', value: 'Universiti Teknologi Malaysia (UTM), Faculty of Computing' },
@@ -103,6 +107,17 @@ export const projects: Project[] = [
     liveUrl: 'https://secureexam-cqy.tech',
     repoUrl: 'https://github.com/currylaksa/zero-trust-exam',
     href: '/projects/secureexam',
+    ctaLabel: 'Case study →',
+  },
+  {
+    slug: 'huawei-automation',
+    title: 'Huawei automation suite',
+    stack: ['Python', 'PowerShell', 'Selenium'],
+    description:
+      '5 sanitized automation tools built during a Project Engineer internship at Huawei Malaysia — parsing, correlating, and validating network-site records, with secure credential handling.',
+    liveUrl: null,
+    repoUrl: null,
+    href: '/projects/huawei',
   },
   {
     slug: 'networking-labs',
@@ -113,15 +128,7 @@ export const projects: Project[] = [
     liveUrl: null,
     repoUrl: null,
     href: '/projects/networking-labs',
-  },
-  {
-    slug: 'huawei-automation',
-    title: 'Huawei automation suite',
-    stack: ['Python', 'Automation'],
-    description:
-      '7 internal automation tools built during a Project Engineer internship at Huawei Malaysia, reducing manual engineering workflows.',
-    liveUrl: null,
-    repoUrl: null,
+    status: 'In progress',
   },
   {
     slug: 'duodrop',
@@ -180,7 +187,7 @@ export const pillars: Pillar[] = [
   },
   {
     label: 'internship',
-    text: 'Huawei Malaysia — built 7 network automation tools',
+    text: 'Huawei Malaysia — built 5 network automation tools',
   },
 ];
 
@@ -317,6 +324,143 @@ export const secureexam = {
     'Train the risk scorer on labelled data and track precision/recall, not just anomaly scores.',
     'Add an automated IDOR/RBAC test suite over all 35+ endpoints.',
   ],
+};
+
+/* ------------------------------------------------------------------
+   Huawei internship — sanitized automation portfolio (5 tools).
+   Source files are served from public/projects/huawei/.
+   ------------------------------------------------------------------ */
+
+export type HuaweiTool = {
+  name: string;
+  usage: string;
+  summary: string;
+  highlights: string[];
+  skills: string[];
+  source: string;
+};
+
+export const huawei = {
+  role: 'Project Engineer Intern · Huawei Technologies Malaysia',
+  intro:
+    'During my internship I built five automation tools using Python, PowerShell, Selenium, and Excel automation — cutting repetitive operational work and making network-site information easier to validate and report.',
+  note:
+    'The scripts here are sanitized: credentials, internal URLs, personal information, customer and subcontractor names, and operational datasets have been removed.',
+  securityRelevance: [
+    'Secure handling of credentials and internal endpoints — read from environment variables, never stored in source.',
+    'Correlation and validation of records across multiple operational data sources.',
+    'Detection of missing, duplicate, or anomalous records.',
+    'Resilient, fault-tolerant batch processing with audit-friendly results.',
+    'Diagnostic logging and evidence collection when automation fails.',
+  ],
+  tools: [
+    {
+      name: 'Work Permit Site Extractor',
+      usage: 'Shared with teammates',
+      summary:
+        'Processes weekly work-permit spreadsheets: extracts network-site IDs from multiple columns, normalizes inconsistent delimiters, deduplicates, groups sites by region, maps IDs to names, and outputs formatted Excel reports.',
+      highlights: [
+        'Parses comma-, slash-, and whitespace-separated site identifiers.',
+        'Combines and deduplicates records across multiple workbooks.',
+        'Enriches site IDs using a separate mapping workbook.',
+      ],
+      skills: ['Python', 'openpyxl', 'data validation', 'deduplication'],
+      source: '/projects/huawei/work_permit_site_extractor/work_permit_extractor.py',
+    },
+    {
+      name: 'Site Key Status Checker',
+      usage: 'Shared with teammates',
+      summary:
+        'Correlates two Excel data sources to show a network site’s key status, key holder, collection location, responsible handler, and collector details when required.',
+      highlights: [
+        'Accepts one or many site IDs and correlates across separate datasets.',
+        'Enriches key-holder records with collection-location data.',
+        'Restricts collector details to relevant status conditions.',
+      ],
+      skills: ['Python', 'pandas', 'data correlation', 'input validation'],
+      source: '/projects/huawei/site_key_status_checker/key_status_checker.py',
+    },
+    {
+      name: 'Multi-Site Clock-In/Out Automation',
+      usage: 'Shared with teammates',
+      summary:
+        'Automates repetitive browser workflows for batches of network sites: logs in with environment-based credentials, validates sites against a work permit, performs clock-in/out, and produces a success/failure summary.',
+      highlights: [
+        'Selenium explicit waits for reliable browser interaction.',
+        'Validates site IDs before acting; continues when individual sites fail.',
+        'Keeps credentials and endpoint URLs outside the source code.',
+      ],
+      skills: ['Python', 'Selenium', 'secure configuration', 'fault tolerance'],
+      source: '/projects/huawei/multi_site_clock_automation/site_clock_automation.py',
+    },
+    {
+      name: 'Daily Clock Report Automation',
+      usage: 'Personal productivity tool',
+      summary:
+        'A PowerShell workflow that transforms a raw daily clock report into structured Excel reports — filtering categories, validating distances, building PivotTables, and flagging duplicate records.',
+      highlights: [
+        'Controls Microsoft Excel through COM automation.',
+        'Generates detailed and summary PivotTables.',
+        'Highlights duplicate and unmatched records for review.',
+      ],
+      skills: ['PowerShell', 'Excel COM', 'data cleansing', 'anomaly detection'],
+      source: '/projects/huawei/daily_clock_report/clock_report.ps1',
+    },
+    {
+      name: 'Batch Email Request Automation',
+      usage: 'Personal productivity tool',
+      summary:
+        'A Selenium workflow that submits batches of network-related identifiers through an authenticated internal request form, recording failures with diagnostic screenshots.',
+      highlights: [
+        'Keeps authentication under user control (manual login).',
+        'Isolates failures so one record does not stop the batch.',
+        'Saves screenshots to support troubleshooting.',
+      ],
+      skills: ['Python', 'Selenium', 'auth-aware design', 'exception handling'],
+      source: '/projects/huawei/batch_email_request/batch_email_request.py',
+    },
+  ] as HuaweiTool[],
+};
+
+/* ------------------------------------------------------------------
+   Networking lab portfolio — in progress. The network-layer companion
+   to SecureExam. Topologies/screenshots land here as labs complete.
+   ------------------------------------------------------------------ */
+
+export type NetworkingLab = {
+  name: string;
+  tool: string;
+  description: string;
+  status: 'In progress' | 'Planned';
+};
+
+export const networkingLabs = {
+  status: 'In progress',
+  intro:
+    'The network-layer companion to SecureExam’s application-layer zero trust — together they make the case for full-stack, defense-in-depth security. These labs are being built now; topologies and screenshots will be added here as each is completed.',
+  labs: [
+    {
+      name: 'Enterprise network simulation',
+      tool: 'Cisco Packet Tracer',
+      description:
+        'A multi-site enterprise topology with OSPF routing, VLAN segmentation, and ACLs enforcing least-privilege traffic between segments.',
+      status: 'In progress',
+    },
+    {
+      name: 'pfSense + Snort IDS',
+      tool: 'GNS3',
+      description:
+        'A perimeter firewall with Snort intrusion detection — the network-layer companion to SecureExam’s application-layer controls.',
+      status: 'Planned',
+    },
+    {
+      name: 'BGP peering lab',
+      tool: 'GNS3',
+      description:
+        'eBGP peering and route policy between autonomous systems, exploring path selection and basic route hardening.',
+      status: 'Planned',
+    },
+  ] as NetworkingLab[],
 };
 
 export const runningLog: Stat[] = [
