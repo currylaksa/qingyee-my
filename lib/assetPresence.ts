@@ -1,8 +1,8 @@
 /* ============================================================
    assetPresence — resolves which owner-supplied assets exist,
-   driving conditional render (issue 03/06/09).
-   Pure decision logic (resolveAssetPresence / isUsableKey) is
-   isolated from filesystem/env access for testability.
+   driving conditional render. Pure decision logic
+   (resolveAssetPresence / isUsableKey) is isolated from
+   filesystem/env access for testability (see assetPresence.server.ts).
    ============================================================ */
 
 export type AssetInputs = {
@@ -17,8 +17,8 @@ export type AssetPresence = {
   hasFormKey: boolean;
 };
 
-// Cloudflare env slot ships with placeholders like "NA"/"TODO" before the
-// real Web3Forms key exists — treat those as "no key" so no broken form renders.
+// The env slot may ship with placeholders like "NA"/"TODO" before the real
+// Web3Forms key exists — treat those as "no key" so no broken form renders.
 const PLACEHOLDER_KEYS = new Set(['', 'na', 'n/a', 'todo', 'changeme', 'your_key_here']);
 
 export function isUsableKey(key: string | undefined | null): boolean {

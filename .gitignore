@@ -1,16 +1,19 @@
 # build output
-dist/
+/.next/
+/out/
 .output/
+
+# next
+next-env.d.ts
+/.vercel
 
 # dependencies
 node_modules/
 
-# astro
-.astro/
-
 # environment
 .env
 .env.production
+.env*.local
 
 # logs
 npm-debug.log*
@@ -19,3 +22,7 @@ npm-debug.log*
 .DS_Store
 .vscode/
 *.local
+
+# local tooling
+.claude/
+.codegraph/

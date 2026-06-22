@@ -1,0 +1,64 @@
+@import 'tailwindcss';
+
+/* ============================================================
+   Design tokens — qingyee.my rebuild (brief §10)
+   Light, recruiter-safe, hybrid. High-contrast ink on warm paper.
+   Tailwind v4 reads these to generate utilities (bg-paper, text-ink…).
+   ============================================================ */
+@theme {
+  --color-paper: #fcfbf8; /* warm off-white page background */
+  --color-card: #ffffff; /* card surfaces */
+  --color-ink: #1a1a1a; /* primary text — the core readability fix */
+  --color-muted: #6b6862; /* secondary text */
+  --color-accent: #b23a1f; /* refined deep rust — links, CTAs, active states */
+  --color-accent-hover: #98311a;
+  --color-secure: #1f7a4d; /* secure/pass green — badges, diagram "pass" */
+  --color-threat: #c0392b; /* threat red — diagram pills only */
+  --color-hairline: rgb(26 26 26 / 0.1); /* hairline borders */
+
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-serif: var(--font-fraunces), ui-serif, Georgia, serif;
+
+  --radius-card: 12px;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Visible focus rings everywhere (a11y, brief §12) */
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
