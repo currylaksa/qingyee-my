@@ -101,7 +101,7 @@ export const projects: Project[] = [
     description:
       'Zero-trust exam platform. JWT MFA, TOTP, RBAC, browser lockdown, Isolation Forest AI scoring. 26 controls, 8,100+ LOC. DIGITEX 2026 Silver.',
     liveUrl: 'https://secureexam-cqy.tech',
-    repoUrl: null,
+    repoUrl: 'https://github.com/currylaksa/zero-trust-exam',
     href: '/projects/secureexam',
   },
   {
@@ -129,17 +129,26 @@ export const projects: Project[] = [
     stack: ['WebRTC', 'libsodium', 'PWA'],
     description:
       'WebRTC P2P file transfer PWA with libsodium end-to-end encryption. No server persistence — pure peer-to-peer.',
-    liveUrl: null,
-    repoUrl: null,
+    liveUrl: 'https://duodrop.pages.dev',
+    repoUrl: 'https://github.com/currylaksa/duodrop',
   },
   {
     slug: 'worldcup-2026',
     title: 'World Cup 2026 PWA',
-    stack: ['React', 'Streamlit', 'Poisson'],
+    stack: ['React', 'PWA'],
     description:
       '"Worth Staying Up For" — a Malaysian-timezone match planner for the 48-team 2026 format.',
-    liveUrl: null,
-    repoUrl: null,
+    liveUrl: 'https://3am-club.pages.dev',
+    repoUrl: 'https://github.com/currylaksa/3am-club',
+  },
+  {
+    slug: 'qrcode-generator',
+    title: 'Free QR Code Generator',
+    stack: ['Vanilla JS', 'HTML'],
+    description:
+      'A free QR code generator that runs entirely in the browser — no build step, no frameworks, nothing uploaded or tracked.',
+    liveUrl: 'https://currylaksa.github.io/qrcode_generator_free/',
+    repoUrl: 'https://github.com/currylaksa/qrcode_generator_free',
   },
 ];
 
@@ -255,7 +264,8 @@ export const secureexam = {
   title: 'SecureExam UTM',
   award: 'DIGITEX 2026 Silver',
   liveUrl: 'https://secureexam-cqy.tech',
-  repoUrl: null as string | null,
+  repoUrl: 'https://github.com/currylaksa/zero-trust-exam',
+  demoUrl: 'https://youtu.be/nyrsI8Op4BY',
   role: 'Solo full-stack · FYP under Prof. Madya Ts. Dr. Siti Hajar Othman',
   teaser:
     'A production zero-trust examination platform: eight defense-in-depth layers from browser lockdown to an Isolation-Forest risk scorer, with MFA, RBAC, and 26 mapped security controls — built solo and shipped to DigitalOcean Singapore.',

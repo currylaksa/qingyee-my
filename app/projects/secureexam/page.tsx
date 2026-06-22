@@ -53,6 +53,16 @@ export default function SecureExamPage() {
                 {link.kind === 'live' ? 'Live site' : 'Source'} ↗
               </a>
             ))}
+            {secureexam.demoUrl && (
+              <a
+                href={secureexam.demoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-md border border-hairline px-4 py-2 text-sm font-medium transition-colors hover:border-accent hover:text-accent"
+              >
+                Watch demo ↗
+              </a>
+            )}
           </div>
 
           {/* At a glance */}
