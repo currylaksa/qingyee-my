@@ -79,8 +79,8 @@ export const navItems: NavItem[] = [
 
 export const about = {
   bio: [
-    'Chan Qing Yee is a Computer Science (Networks & Security) graduand from Universiti Teknologi Malaysia, finishing with a 3.90 CGPA. Her final-year project — SecureExam UTM, a production zero-trust examination platform with 26 mapped security controls and AI behavioural risk scoring — earned Silver at DIGITEX 2026, supervised by Prof. Madya Ts. Dr. Siti Hajar Binti Othman.',
-    'Before her final year she interned as a Project Engineer at Huawei Technologies Malaysia, where she shipped 5 internal automation tools that cut repetitive engineering workflows. Based in Johor Bahru, she is targeting network-security engineering roles in Singapore.',
+    'Chan Qing Yee is a Computer Science (Networks & Security) graduand from Universiti Teknologi Malaysia, finishing with a 3.90 CGPA. His final-year project — SecureExam UTM, a production zero-trust examination platform with 26 mapped security controls and AI behavioural risk scoring — earned Silver at DIGITEX 2026, supervised by Prof. Madya Ts. Dr. Siti Hajar Binti Othman.',
+    'Before his final year he interned as a Project Engineer at Huawei Technologies Malaysia, where he shipped 5 internal automation tools that cut repetitive engineering workflows. Based in Johor Bahru, he is targeting network-security engineering roles in Singapore.',
   ],
   details: [
     { label: 'University', value: 'Universiti Teknologi Malaysia (UTM), Faculty of Computing' },
