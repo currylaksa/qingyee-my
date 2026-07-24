@@ -103,7 +103,7 @@ export const projects: Project[] = [
     title: 'SecureExam UTM',
     stack: ['Node.js', 'React 19', 'Flask', 'MySQL 8'],
     description:
-      'Zero-trust exam platform. JWT MFA, TOTP, RBAC, browser lockdown, Isolation Forest AI scoring. 26 controls, 8,100+ LOC. DIGITEX 2026 Silver.',
+      'Zero-trust exam platform. JWT MFA, TOTP, RBAC, browser lockdown, Isolation Forest AI scoring. 26 controls, 11,700+ LOC. DIGITEX 2026 Silver.',
     liveUrl: 'https://secureexam-cqy.tech',
     repoUrl: 'https://github.com/currylaksa/zero-trust-exam',
     href: '/projects/secureexam',
@@ -277,7 +277,7 @@ export const secureexam = {
   teaser:
     'A production zero-trust examination platform: eight defense-in-depth layers from browser lockdown to an Isolation-Forest risk scorer, with MFA, RBAC, and 26 mapped security controls — built solo and shipped to DigitalOcean Singapore.',
   glance: [
-    { label: 'LOC', value: '8,100+' },
+    { label: 'LOC', value: '11,700+' },
     { label: 'Controls', value: '26' },
     { label: 'Endpoints', value: '35+' },
     { label: 'RBAC roles', value: '4' },
