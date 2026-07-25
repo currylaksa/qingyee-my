@@ -5,7 +5,7 @@ import { personalInfo, findMe } from '@/lib/content';
 // real third-party scan rather than a fragile client-side check.
 const securityBadges = [
   { label: 'Security headers', value: 'A', href: 'https://securityheaders.com/?q=qingyee.my' },
-  { label: 'TLS', value: 'A', href: 'https://www.ssllabs.com/ssltest/analyze.html?d=qingyee.my' },
+  { label: 'TLS', value: 'A+', href: 'https://www.ssllabs.com/ssltest/analyze.html?d=qingyee.my' },
   { label: 'Client trackers', value: '0', href: undefined },
 ];
 
