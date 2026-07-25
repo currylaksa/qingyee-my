@@ -17,7 +17,7 @@ export default function Nav() {
           <span className="grid h-7 w-7 place-items-center rounded-md bg-ink text-xs text-paper">
             {personalInfo.initials}
           </span>
-          <span className="sr-only sm:not-sr-only">qingyee.my</span>
+          <span className="sr-only sm:not-sr-only">{personalInfo.fullName}</span>
         </Link>
 
         <nav aria-label="Primary" className="hidden md:block">
