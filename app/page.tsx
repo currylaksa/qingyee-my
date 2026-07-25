@@ -30,7 +30,7 @@ export default function Home() {
     <>
       {/* ── Hero ─────────────────────────────────────────────── */}
       <section className="border-b border-hairline">
-        <Container className="py-20 sm:py-28">
+        <Container className="py-14 sm:py-28">
           <Kicker>{personalInfo.tagline.toLowerCase()}</Kicker>
           <h1 className="mt-5 max-w-4xl text-4xl font-semibold leading-[1.1] tracking-tight sm:text-6xl">
             {valueProp}
@@ -42,35 +42,39 @@ export default function Home() {
             left in a notebook.
           </p>
 
-          {/* Proof pillars — quiet mono-labelled badges */}
-          <ul className="mt-10 grid gap-4 sm:grid-cols-3">
-            {pillars.map((pillar) => (
-              <li
-                key={pillar.label}
-                className="rounded-[var(--radius-card)] border border-hairline bg-card p-4"
-              >
-                <p className="font-mono text-xs text-accent">{pillar.label}</p>
-                <p className="mt-2 text-sm text-ink">{pillar.text}</p>
-              </li>
-            ))}
-          </ul>
+          {/* On a phone the pillars push both CTAs off the first screen, so the
+              order flips below sm: act first, then read the proof. */}
+          <div className="mt-8 flex flex-col gap-8 sm:mt-10 sm:gap-10">
+            {/* Proof pillars — quiet mono-labelled badges */}
+            <ul className="order-2 grid gap-4 sm:order-1 sm:grid-cols-3">
+              {pillars.map((pillar) => (
+                <li
+                  key={pillar.label}
+                  className="rounded-[var(--radius-card)] border border-hairline bg-card p-4"
+                >
+                  <p className="font-mono text-xs text-accent">{pillar.label}</p>
+                  <p className="mt-2 text-sm text-ink">{pillar.text}</p>
+                </li>
+              ))}
+            </ul>
 
-          {/* CTAs */}
-          <div className="mt-10 flex flex-wrap items-center gap-3">
-            <Link
-              href="/projects/secureexam"
-              className="rounded-md bg-accent px-5 py-2.5 text-sm font-medium text-paper transition-colors hover:bg-accent-hover"
-            >
-              View SecureExam case study
-            </Link>
-            {hasCv && (
-              <a
-                href="/cv.pdf"
-                className="rounded-md border border-hairline px-5 py-2.5 text-sm font-medium transition-colors hover:border-accent hover:text-accent"
+            {/* CTAs */}
+            <div className="order-1 flex flex-col gap-3 sm:order-2 sm:flex-row sm:flex-wrap sm:items-center">
+              <Link
+                href="/projects/secureexam"
+                className="w-full rounded-md bg-accent px-5 py-3 text-center text-sm font-medium text-paper transition-colors hover:bg-accent-hover sm:w-auto sm:py-2.5"
               >
-                Download CV
-              </a>
-            )}
+                View SecureExam case study
+              </Link>
+              {hasCv && (
+                <a
+                  href="/cv.pdf"
+                  className="w-full rounded-md border border-hairline px-5 py-3 text-center text-sm font-medium transition-colors hover:border-accent hover:text-accent sm:w-auto sm:py-2.5"
+                >
+                  Download CV
+                </a>
+              )}
+            </div>
           </div>
 
           <p className="mt-8 font-mono text-xs text-muted">
@@ -81,7 +85,7 @@ export default function Home() {
 
       {/* ── Featured case study teaser ───────────────────────── */}
       <section className="border-b border-hairline">
-        <Container className="py-16 sm:py-20">
+        <Container className="py-12 sm:py-20">
           <Kicker>featured case study</Kicker>
           <div className="mt-6 grid gap-10 lg:grid-cols-2 lg:items-start">
             <div>
@@ -114,7 +118,7 @@ export default function Home() {
 
               <Link
                 href="/projects/secureexam"
-                className="mt-6 inline-block font-medium text-accent transition-colors hover:text-accent-hover"
+                className="mt-6 inline-block font-medium text-accent transition-colors hover:text-accent-hover max-lg:min-h-11"
               >
                 Read the full case study →
               </Link>
@@ -127,12 +131,12 @@ export default function Home() {
 
       {/* ── Selected projects ────────────────────────────────── */}
       <section className="border-b border-hairline">
-        <Container className="py-16 sm:py-20">
+        <Container className="py-12 sm:py-20">
           <div className="flex items-end justify-between gap-4">
             <Kicker>selected work</Kicker>
             <Link
               href="/projects"
-              className="text-sm text-muted transition-colors hover:text-accent"
+              className="tap text-sm text-muted transition-colors hover:text-accent"
             >
               See all projects →
             </Link>
@@ -147,12 +151,12 @@ export default function Home() {
 
       {/* ── Credentials strip ────────────────────────────────── */}
       <section className="border-b border-hairline">
-        <Container className="py-16 sm:py-20">
+        <Container className="py-12 sm:py-20">
           <div className="flex items-end justify-between gap-4">
             <Kicker>credentials</Kicker>
             <Link
               href="/credentials"
-              className="text-sm text-muted transition-colors hover:text-accent"
+              className="tap text-sm text-muted transition-colors hover:text-accent"
             >
               See all →
             </Link>
@@ -173,7 +177,7 @@ export default function Home() {
 
       {/* ── Wilderfarer strip ────────────────────────────────── */}
       <section className="border-b border-hairline">
-        <Container className="py-16 sm:py-20">
+        <Container className="py-12 sm:py-20">
           <Kicker>off the keyboard</Kicker>
           <div className="mt-6 grid gap-8 lg:grid-cols-[1.4fr_1fr] lg:items-center">
             <blockquote className="font-serif text-2xl leading-snug text-ink sm:text-3xl">
@@ -197,7 +201,7 @@ export default function Home() {
               </dl>
               <Link
                 href="/about"
-                className="text-sm text-muted transition-colors hover:text-accent"
+                className="tap text-sm text-muted transition-colors hover:text-accent"
               >
                 More about me →
               </Link>
@@ -208,7 +212,7 @@ export default function Home() {
 
       {/* ── Contact CTA ──────────────────────────────────────── */}
       <section>
-        <Container className="py-20 text-center sm:py-24">
+        <Container className="py-14 text-center sm:py-24">
           <h2 className="mx-auto max-w-2xl text-3xl font-semibold tracking-tight sm:text-4xl">
             Looking for an AI engineer in Singapore?
           </h2>
@@ -218,13 +222,13 @@ export default function Home() {
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <Link
               href="/contact"
-              className="rounded-md bg-accent px-5 py-2.5 text-sm font-medium text-paper transition-colors hover:bg-accent-hover"
+              className="rounded-md bg-accent px-5 py-3 text-sm font-medium text-paper transition-colors hover:bg-accent-hover sm:py-2.5"
             >
               Get in touch
             </Link>
             <a
               href={`mailto:${personalInfo.email}`}
-              className="rounded-md border border-hairline px-5 py-2.5 text-sm font-medium transition-colors hover:border-accent hover:text-accent"
+              className="rounded-md border border-hairline px-5 py-3 text-sm font-medium transition-colors hover:border-accent hover:text-accent sm:py-2.5"
             >
               {personalInfo.email}
             </a>

@@ -19,7 +19,7 @@ export default function AboutPage() {
     <>
       {/* ── Bio ──────────────────────────────────────────────── */}
       <section className="border-b border-hairline">
-        <Container className="py-16 sm:py-20">
+        <Container className="py-12 sm:py-20">
           <Kicker>about</Kicker>
           <div className="mt-6 grid gap-10 lg:grid-cols-[1.6fr_1fr] lg:items-start">
             <div>
@@ -64,7 +64,7 @@ export default function AboutPage() {
 
       {/* ── Wilderfarer ──────────────────────────────────────── */}
       <section>
-        <Container className="py-16 sm:py-20">
+        <Container className="py-12 sm:py-20">
           <Kicker>off the keyboard — Wilderfarer</Kicker>
           <blockquote className="mt-6 max-w-3xl font-serif text-2xl leading-snug sm:text-3xl">
             “{wilderfarer.pullQuote}”
@@ -91,7 +91,7 @@ export default function AboutPage() {
 
           <Link
             href="/contact"
-            className="mt-10 inline-block font-medium text-accent transition-colors hover:text-accent-hover"
+            className="mt-10 inline-block font-medium text-accent transition-colors hover:text-accent-hover max-lg:min-h-11"
           >
             Get in touch →
           </Link>

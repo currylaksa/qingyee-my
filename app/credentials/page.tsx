@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default function CredentialsPage() {
   return (
     <section>
-      <Container className="py-16 sm:py-20">
+      <Container className="py-12 sm:py-20">
         <Kicker>credentials</Kicker>
         <h1 className="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl">
           Certifications, skills &amp; achievements
@@ -37,7 +37,7 @@ export default function CredentialsPage() {
                     href={cert.verifyUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="font-mono text-xs text-accent transition-colors hover:text-accent-hover"
+                    className="tap font-mono text-xs text-accent transition-colors hover:text-accent-hover"
                   >
                     verify ↗
                   </a>

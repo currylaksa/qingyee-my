@@ -17,7 +17,7 @@ export default function ContactPage() {
 
   return (
     <section>
-      <Container className="py-16 sm:py-20">
+      <Container className="py-12 sm:py-20">
         <Kicker>contact</Kicker>
         <h1 className="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl">
           Let’s talk

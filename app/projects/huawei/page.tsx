@@ -16,10 +16,10 @@ export default function HuaweiPage() {
     <>
       {/* ── Header ───────────────────────────────────────────── */}
       <section className="border-b border-hairline">
-        <Container className="py-16 sm:py-20">
+        <Container className="py-12 sm:py-20">
           <Link
             href="/projects"
-            className="font-mono text-xs text-muted transition-colors hover:text-accent"
+            className="tap font-mono text-xs text-muted transition-colors hover:text-accent"
           >
             ← all projects
           </Link>
@@ -48,7 +48,7 @@ export default function HuaweiPage() {
 
       {/* ── The five tools ───────────────────────────────────── */}
       <section className="border-b border-hairline">
-        <Container className="py-16 sm:py-20">
+        <Container className="py-12 sm:py-20">
           <Kicker>the tools</Kicker>
           <div className="mt-8 space-y-5">
             {huawei.tools.map((tool, i) => (
@@ -89,7 +89,7 @@ export default function HuaweiPage() {
                   href={tool.source}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-4 inline-block font-mono text-xs text-accent transition-colors hover:text-accent-hover"
+                  className="mt-4 inline-block font-mono text-xs text-accent transition-colors hover:text-accent-hover max-lg:min-h-11"
                 >
                   view sanitized source ↗
                 </a>
@@ -101,7 +101,7 @@ export default function HuaweiPage() {
 
       {/* ── Network-security relevance ───────────────────────── */}
       <section>
-        <Container className="py-16 sm:py-20">
+        <Container className="py-12 sm:py-20">
           <Kicker>engineering practices carried forward</Kicker>
           <ul className="mt-6 grid gap-3 sm:grid-cols-2">
             {huawei.securityRelevance.map((item) => (

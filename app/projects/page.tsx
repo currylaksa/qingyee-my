@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default function ProjectsPage() {
   return (
     <section>
-      <Container className="py-16 sm:py-20">
+      <Container className="py-12 sm:py-20">
         <Kicker>projects</Kicker>
         <h1 className="mt-4 max-w-3xl text-3xl font-semibold tracking-tight sm:text-4xl">
           AI systems, built and shipped end to end

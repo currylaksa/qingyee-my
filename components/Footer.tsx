@@ -28,11 +28,13 @@ export default function Footer() {
             return (
               <span key={b.label} className="flex items-center gap-2">
                 {b.href ? (
+                  // Phone tap area comes from padding, not .tap: inline-flex
+                  // would swallow the space between the label and its value.
                   <a
                     href={b.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hover:text-accent"
+                    className="hover:text-accent max-lg:py-3.5"
                   >
                     {body}
                   </a>
@@ -60,7 +62,7 @@ export default function Footer() {
                   href={link.href}
                   target={link.href.startsWith('http') ? '_blank' : undefined}
                   rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                  className="text-muted transition-colors hover:text-accent"
+                  className="tap text-muted transition-colors hover:text-accent"
                 >
                   {link.label}
                 </a>

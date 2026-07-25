@@ -45,8 +45,10 @@ export default function ContactForm({ accessKey }: { accessKey: string }) {
     );
   }
 
+  // text-base below sm: anything under 16px makes iOS Safari zoom the page in
+  // on focus, and it never zooms back out.
   const field =
-    'mt-1 w-full rounded-md border border-hairline bg-card px-3 py-2 text-sm outline-none focus:border-accent';
+    'mt-1 w-full rounded-md border border-hairline bg-card px-3 py-2.5 text-base outline-none focus:border-accent sm:py-2 sm:text-sm';
 
   return (
     <form onSubmit={onSubmit} className="flex flex-col gap-4">
@@ -83,7 +85,7 @@ export default function ContactForm({ accessKey }: { accessKey: string }) {
       <button
         type="submit"
         disabled={status === 'submitting'}
-        className="rounded-md bg-accent px-5 py-2.5 text-sm font-medium text-paper transition-colors hover:bg-accent-hover disabled:opacity-60"
+        className="rounded-md bg-accent px-5 py-3 text-sm font-medium text-paper transition-colors hover:bg-accent-hover disabled:opacity-60 sm:py-2.5"
       >
         {status === 'submitting' ? 'Sending…' : 'Send message'}
       </button>

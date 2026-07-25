@@ -11,7 +11,7 @@ export default function ProjectCard({ project }: { project: Project }) {
       <div className="flex items-center justify-between gap-2">
         <h3 className="text-lg font-semibold tracking-tight">
           {project.href ? (
-            <Link href={project.href} className="transition-colors hover:text-accent">
+            <Link href={project.href} className="tap transition-colors hover:text-accent">
               {project.title}
             </Link>
           ) : (
@@ -38,7 +38,7 @@ export default function ProjectCard({ project }: { project: Project }) {
           {project.href && (
             <Link
               href={project.href}
-              className="font-medium text-accent transition-colors hover:text-accent-hover"
+              className="tap font-medium text-accent transition-colors hover:text-accent-hover"
             >
               {project.ctaLabel ?? 'View →'}
             </Link>
@@ -49,7 +49,7 @@ export default function ProjectCard({ project }: { project: Project }) {
               href={link.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-muted transition-colors hover:text-accent"
+              className="tap text-muted transition-colors hover:text-accent"
             >
               {link.label} ↗
             </a>

@@ -26,6 +26,14 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    /* Stop iOS Safari inflating body text when a phone is rotated. */
+    -webkit-text-size-adjust: 100%;
+  }
+
+  /* The mobile menu is a native <dialog>; modal dialogs don't stop the page
+     behind them from scrolling, so lock it here. */
+  body:has(dialog[open]) {
+    overflow: hidden;
   }
 
   body {
@@ -65,6 +73,17 @@
     100% {
       top: 100%;
       opacity: 0;
+    }
+  }
+
+  /* Comfortable thumb target for inline text links, phone only — desktop
+     keeps its original inline metrics. Applied where links sit in a row and
+     would otherwise be ~20px tall. */
+  @media (max-width: 1023.98px) {
+    .tap {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
     }
   }
 

@@ -20,10 +20,10 @@ export default function SecureExamPage() {
     <>
       {/* ── Header ───────────────────────────────────────────── */}
       <section className="border-b border-hairline">
-        <Container className="py-16 sm:py-20">
+        <Container className="py-12 sm:py-20">
           <Link
             href="/projects"
-            className="font-mono text-xs text-muted transition-colors hover:text-accent"
+            className="tap font-mono text-xs text-muted transition-colors hover:text-accent"
           >
             ← all projects
           </Link>
@@ -48,7 +48,7 @@ export default function SecureExamPage() {
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-md border border-hairline px-4 py-2 text-sm font-medium transition-colors hover:border-accent hover:text-accent"
+                className="rounded-md border border-hairline px-4 py-3 text-sm font-medium transition-colors hover:border-accent hover:text-accent sm:py-2"
               >
                 {link.kind === 'live' ? 'Live site' : 'Source'} ↗
               </a>
@@ -58,7 +58,7 @@ export default function SecureExamPage() {
                 href={secureexam.demoUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-md border border-hairline px-4 py-2 text-sm font-medium transition-colors hover:border-accent hover:text-accent"
+                className="rounded-md border border-hairline px-4 py-3 text-sm font-medium transition-colors hover:border-accent hover:text-accent sm:py-2"
               >
                 Watch demo ↗
               </a>
@@ -88,7 +88,7 @@ export default function SecureExamPage() {
 
       {/* ── Threat model ─────────────────────────────────────── */}
       <section className="border-b border-hairline">
-        <Container className="py-16 sm:py-20">
+        <Container className="py-12 sm:py-20">
           <Kicker>the threat model</Kicker>
           <h2 className="mt-4 max-w-2xl text-2xl font-semibold tracking-tight sm:text-3xl">
             What SecureExam defends against
@@ -111,8 +111,8 @@ export default function SecureExamPage() {
       </section>
 
       {/* ── The wow moment: interactive diagram ──────────────── */}
-      <section id="diagram" className="scroll-mt-24 border-b border-hairline">
-        <Container className="py-16 sm:py-20">
+      <section id="diagram" className="scroll-mt-20 border-b border-hairline lg:scroll-mt-24">
+        <Container className="py-12 sm:py-20">
           <Kicker>zero-trust architecture</Kicker>
           <h2 className="mt-4 max-w-2xl text-2xl font-semibold tracking-tight sm:text-3xl">
             Trace a request through eight defense-in-depth layers
@@ -129,7 +129,7 @@ export default function SecureExamPage() {
 
       {/* ── Deployment & hardening ───────────────────────────── */}
       <section className="border-b border-hairline">
-        <Container className="py-16 sm:py-20">
+        <Container className="py-12 sm:py-20">
           <Kicker>deployment &amp; hardening</Kicker>
           <p className="mt-6 max-w-3xl text-lg">
             I didn’t just build SecureExam — I shipped and operated it. The platform
@@ -153,7 +153,7 @@ export default function SecureExamPage() {
 
       {/* ── What I'd do next ─────────────────────────────────── */}
       <section className="border-b border-hairline">
-        <Container className="py-16 sm:py-20">
+        <Container className="py-12 sm:py-20">
           <Kicker>what I’d do next</Kicker>
           <ul className="mt-6 max-w-2xl space-y-3">
             {secureexam.whatsNext.map((item) => (
@@ -170,20 +170,20 @@ export default function SecureExamPage() {
 
       {/* ── CTA ──────────────────────────────────────────────── */}
       <section>
-        <Container className="py-16 text-center sm:py-20">
+        <Container className="py-12 text-center sm:py-20">
           <p className="text-muted">
             Want to walk through any layer in an interview?
           </p>
           <div className="mt-6 flex flex-wrap justify-center gap-3">
             <Link
               href="/contact"
-              className="rounded-md bg-accent px-5 py-2.5 text-sm font-medium text-paper transition-colors hover:bg-accent-hover"
+              className="rounded-md bg-accent px-5 py-3 text-sm font-medium text-paper transition-colors hover:bg-accent-hover sm:py-2.5"
             >
               Get in touch
             </Link>
             <a
               href={`mailto:${personalInfo.email}`}
-              className="rounded-md border border-hairline px-5 py-2.5 text-sm font-medium transition-colors hover:border-accent hover:text-accent"
+              className="rounded-md border border-hairline px-5 py-3 text-sm font-medium transition-colors hover:border-accent hover:text-accent sm:py-2.5"
             >
               {personalInfo.email}
             </a>

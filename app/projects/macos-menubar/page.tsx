@@ -16,10 +16,10 @@ export default function MenuBarPage() {
     <>
       {/* ── Header ───────────────────────────────────────────── */}
       <section className="border-b border-hairline">
-        <Container className="py-16 sm:py-20">
+        <Container className="py-12 sm:py-20">
           <Link
             href="/projects"
-            className="font-mono text-xs text-muted transition-colors hover:text-accent"
+            className="tap font-mono text-xs text-muted transition-colors hover:text-accent"
           >
             ← all projects
           </Link>
@@ -36,7 +36,7 @@ export default function MenuBarPage() {
 
       {/* ── The three apps ───────────────────────────────────── */}
       <section>
-        <Container className="py-16 sm:py-20">
+        <Container className="py-12 sm:py-20">
           <Kicker>the apps</Kicker>
           <div className="mt-8 space-y-5">
             {menuBarApps.apps.map((app, i) => (
@@ -77,7 +77,7 @@ export default function MenuBarPage() {
                   href={app.repoUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-4 inline-block font-mono text-xs text-accent transition-colors hover:text-accent-hover"
+                  className="mt-4 inline-block font-mono text-xs text-accent transition-colors hover:text-accent-hover max-lg:min-h-11"
                 >
                   view source ↗
                 </a>
