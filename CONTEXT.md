@@ -23,8 +23,12 @@ _Avoid_: SecureExam (always pair with UTM on first mention), "the exam app"
 SecureExam maps exactly **26** security controls; the AI Behavioural Risk Scoring feature is specifically Control #26. The number 26 is canonical — never round or approximate it.
 
 **Project Dossier**:
-The section/grid title for the projects showcase. Renders **6** projects (SecureExam, DuoDrop, Huawei Automation Suite, World Cup 2026 PWA, VibeUI Hot Meal Bar, Raspberry Pi IoT Lab).
+The section/grid title for the projects showcase. Renders **6** projects (SecureExam UTM, Huawei Automation Suite, DuoDrop, World Cup 2026 PWA, macOS menu-bar utilities, Free QR Code Generator).
 _Avoid_: "Portfolio" as the grid name (that's the whole site)
+
+**AI Solutions Engineer**:
+Chan's target role and the site's headline positioning as of July 2026. The security and zero-trust work is framed as the *depth* behind the AI work — proof that models get deployed, hardened, and operated — never as the headline itself.
+_Avoid_: "Network & Security Engineer" as a title (the previous positioning), "aspiring", "junior"
 
 **DIGITEX 2026**:
 The competition where SecureExam won **Silver** (Grand Finale, 15 June 2026, Johor Bahru). Always "Silver", never "second place".

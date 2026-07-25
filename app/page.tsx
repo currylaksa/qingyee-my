@@ -16,8 +16,8 @@ import {
   runningLog,
 } from '@/lib/content';
 
-// Home "selected work": SecureExam (centerpiece) + real network-relevant
-// internship work + a security-flavoured side project. All shipped/live.
+// Home "selected work": SecureExam (centerpiece) + real production internship
+// work + an engineering-flavoured side project. All shipped/live.
 const featuredSlugs = ['secureexam', 'huawei-automation', 'duodrop'];
 
 export default function Home() {
@@ -37,9 +37,9 @@ export default function Home() {
           </h1>
           <p className="mt-6 max-w-2xl text-lg text-muted">
             {personalInfo.fullName} — {personalInfo.programme} graduand,{' '}
-            {personalInfo.gradYear}. Application-layer zero trust meets
-            network-layer security: defense-in-depth, built and operated end to
-            end.
+            {personalInfo.gradYear}. Machine-learning services, full-stack
+            delivery, and hardened cloud deployment — shipped and operated, not
+            left in a notebook.
           </p>
 
           {/* Proof pillars — quiet mono-labelled badges */}
@@ -210,7 +210,7 @@ export default function Home() {
       <section>
         <Container className="py-20 text-center sm:py-24">
           <h2 className="mx-auto max-w-2xl text-3xl font-semibold tracking-tight sm:text-4xl">
-            Looking for a network-security engineer in Singapore?
+            Looking for an AI engineer in Singapore?
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-muted">
             I’m open to roles and happy to walk through any of this in detail.

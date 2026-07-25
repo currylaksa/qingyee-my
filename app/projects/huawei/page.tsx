@@ -8,7 +8,7 @@ import { huawei } from '@/lib/content';
 export const metadata: Metadata = {
   title: 'Huawei automation suite',
   description:
-    'Five sanitized automation tools built during a Project Engineer internship at Huawei Malaysia — secure credential handling, record correlation, and validation across network-site data.',
+    'Five sanitized automation tools built during a Project Engineer internship at Huawei Malaysia — cutting daily reporting by 93% through Python, PowerShell, and Selenium automation.',
 };
 
 export default function HuaweiPage() {
@@ -29,6 +29,15 @@ export default function HuaweiPage() {
           </h1>
           <p className="mt-3 font-mono text-sm text-muted">{huawei.role}</p>
           <p className="mt-6 max-w-3xl text-lg text-muted">{huawei.intro}</p>
+
+          <dl className="mt-8 grid grid-cols-2 gap-px overflow-hidden rounded-[var(--radius-card)] border border-hairline bg-hairline sm:grid-cols-4">
+            {huawei.impact.map((stat) => (
+              <div key={stat.label} className="bg-card p-4">
+                <dd className="text-2xl font-semibold tracking-tight">{stat.value}</dd>
+                <dt className="font-mono text-xs text-muted">{stat.label}</dt>
+              </div>
+            ))}
+          </dl>
 
           <p className="mt-6 max-w-3xl rounded-[var(--radius-card)] border border-hairline bg-card p-4 text-sm text-muted">
             <span className="font-mono text-xs text-accent">// note · </span>
@@ -93,7 +102,7 @@ export default function HuaweiPage() {
       {/* ── Network-security relevance ───────────────────────── */}
       <section>
         <Container className="py-16 sm:py-20">
-          <Kicker>why it matters for network security</Kicker>
+          <Kicker>engineering practices carried forward</Kicker>
           <ul className="mt-6 grid gap-3 sm:grid-cols-2">
             {huawei.securityRelevance.map((item) => (
               <li

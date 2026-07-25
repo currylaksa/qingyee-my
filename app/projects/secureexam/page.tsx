@@ -8,9 +8,9 @@ import { secureexam, personalInfo } from '@/lib/content';
 import { projectLinks } from '@/lib/projectLinks';
 
 export const metadata: Metadata = {
-  title: 'SecureExam UTM — zero-trust exam platform',
+  title: 'SecureExam UTM — ML-backed zero-trust exam platform',
   description:
-    'A production zero-trust examination platform with 26 mapped security controls and an interactive 8-layer defense-in-depth architecture diagram. DIGITEX 2026 Silver.',
+    'A production examination platform built around an Isolation Forest risk-scoring microservice, wired into 26 mapped security controls and an interactive 8-layer architecture diagram. DIGITEX 2026 Silver.',
 };
 
 const links = projectLinks({ liveUrl: secureexam.liveUrl, repoUrl: secureexam.repoUrl });

@@ -2,6 +2,8 @@
    Single source of truth for site content (ported from the Astro
    build's src/data/content.ts). Canonical facts: 6 projects,
    26 controls, DIGITEX 2026 = Silver, status = graduand.
+   Positioning: AI solutions engineering, with the zero-trust /
+   security work as the proof of engineering depth.
    A `null` URL means "not yet supplied" — links to it are hidden
    (see lib/projectLinks.ts — the "no dead links" policy).
    ============================================================ */
@@ -49,7 +51,7 @@ export type PersonalInfo = {
 export const personalInfo: PersonalInfo = {
   fullName: 'Chan Qing Yee',
   initials: 'QY',
-  tagline: 'Network & Security Engineer',
+  tagline: 'AI Solutions Engineer',
   brand: 'Wilderfarer',
   programme: 'CS (Networks & Security)',
   university: 'Universiti Teknologi Malaysia',
@@ -67,7 +69,7 @@ export const personalInfo: PersonalInfo = {
 
 /** Primary one-line value prop (brief §3). */
 export const valueProp =
-  'I design, build, and harden zero-trust systems, end to end.';
+  'I build AI-integrated systems, from architecture to production.';
 
 export const navItems: NavItem[] = [
   { label: 'Home', href: '/' },
@@ -79,8 +81,8 @@ export const navItems: NavItem[] = [
 
 export const about = {
   bio: [
-    'Chan Qing Yee is a Computer Science (Networks & Security) graduand from Universiti Teknologi Malaysia, finishing with a 3.90 CGPA. His final-year project — SecureExam UTM, a production zero-trust examination platform with 26 mapped security controls and AI behavioural risk scoring — earned Silver at DIGITEX 2026, supervised by Prof. Madya Ts. Dr. Siti Hajar Binti Othman.',
-    'Before his final year he interned as a Project Engineer at Huawei Technologies Malaysia, where he shipped 5 internal automation tools that cut repetitive engineering workflows. Based in Johor Bahru, he is targeting network-security engineering roles in Singapore.',
+    'Chan Qing Yee is a Computer Science graduand from Universiti Teknologi Malaysia, finishing with a 3.90 CGPA, who builds AI-integrated systems end to end — from model service to production deployment. His final-year project, SecureExam UTM, pairs a Python/Flask machine-learning microservice (Isolation Forest anomaly detection, scoring behaviour in real time) with a full-stack Node and React 19 platform, and earned Silver at DIGITEX 2026 under Prof. Madya Ts. Dr. Siti Hajar Binti Othman.',
+    'Before his final year he interned as a Project Engineer at Huawei Technologies Malaysia, where he shipped 5 Python and PowerShell automation tools that cut daily reporting from 15 minutes to 1 — a 93% reduction. His security background is the depth behind the AI work: everything he builds is deployed, hardened, and operated, not left in a notebook. Based in Johor Bahru, he is targeting AI engineering roles in Singapore.',
   ],
   details: [
     { label: 'University', value: 'Universiti Teknologi Malaysia (UTM), Faculty of Computing' },
@@ -103,7 +105,7 @@ export const projects: Project[] = [
     title: 'SecureExam UTM',
     stack: ['Node.js', 'React 19', 'Flask', 'MySQL 8'],
     description:
-      'Zero-trust exam platform. JWT MFA, TOTP, RBAC, browser lockdown, Isolation Forest AI scoring. 26 controls, 11,700+ LOC. DIGITEX 2026 Silver.',
+      'Isolation Forest risk-scoring microservice inside a production zero-trust exam platform. 26 controls, 35+ endpoints, 11,700+ LOC. DIGITEX 2026 Silver.',
     liveUrl: 'https://secureexam-cqy.tech',
     repoUrl: 'https://github.com/currylaksa/zero-trust-exam',
     href: '/projects/secureexam',
@@ -114,21 +116,10 @@ export const projects: Project[] = [
     title: 'Huawei automation suite',
     stack: ['Python', 'PowerShell', 'Selenium'],
     description:
-      '5 sanitized automation tools built during a Project Engineer internship at Huawei Malaysia — parsing, correlating, and validating network-site records, with secure credential handling.',
+      '5 sanitized automation tools built during a Project Engineer internship at Huawei Malaysia — cutting daily reporting from 15 minutes to 1, a 93% reduction.',
     liveUrl: null,
     repoUrl: null,
     href: '/projects/huawei',
-  },
-  {
-    slug: 'networking-labs',
-    title: 'Networking lab portfolio',
-    stack: ['Packet Tracer', 'pfSense', 'Snort', 'GNS3', 'BGP'],
-    description:
-      'Network-layer security labs: enterprise simulation (OSPF, VLANs, ACLs), pfSense + Snort IDS, and a BGP peering lab. The network-layer companion to SecureExam.',
-    liveUrl: null,
-    repoUrl: null,
-    href: '/projects/networking-labs',
-    status: 'In progress',
   },
   {
     slug: 'duodrop',
@@ -149,6 +140,16 @@ export const projects: Project[] = [
     repoUrl: 'https://github.com/currylaksa/3am-club',
   },
   {
+    slug: 'macos-menubar',
+    title: 'macOS menu-bar utilities',
+    stack: ['Swift', 'AppKit', 'Core Graphics'],
+    description:
+      'Three native, zero-dependency Swift menu-bar apps — a Claude session-usage gauge, a RAM monitor reading the Mach kernel directly, and a procedurally generated pixel hiker.',
+    liveUrl: null,
+    repoUrl: null,
+    href: '/projects/macos-menubar',
+  },
+  {
     slug: 'qrcode-generator',
     title: 'Free QR Code Generator',
     stack: ['Vanilla JS', 'HTML'],
@@ -160,34 +161,101 @@ export const projects: Project[] = [
 ];
 
 export const certs: Cert[] = [
-  { name: 'CCNA Routing & Switching', org: 'Cisco', date: null },
-  { name: 'CCNA Enterprise', org: 'Cisco', date: null },
-  { name: 'DevNet Associate', org: 'Cisco', date: null },
-  { name: 'Google Cybersecurity', org: 'Google', date: null },
-  { name: 'OCI Associate', org: 'Oracle', date: null },
+  { name: 'OCI 2025 AI Foundations Associate', org: 'Oracle', date: null },
+  { name: 'Google Cybersecurity Professional', org: 'Google', date: null },
+  { name: 'CCNA: DevNet Associate', org: 'Cisco', date: null },
+  {
+    name: 'CCNA: Enterprise Networking, Security & Automation',
+    org: 'Cisco',
+    date: null,
+  },
+  {
+    name: 'CCNA: Switching, Routing & Wireless Essentials',
+    org: 'Cisco',
+    date: null,
+  },
 ];
 
 export const education = {
   degree: 'B.Sc. Computer Science (Networks & Security)',
   university: 'Universiti Teknologi Malaysia',
-  year: '2026',
+  year: 'Jul 2026',
   cgpa: '3.90',
 };
+
+/** Competition results (resume §Achievements). */
+export type Achievement = { title: string; detail: string; date: string };
+export const achievements: Achievement[] = [
+  {
+    title: 'DIGITEX 2026 Silver Medal',
+    detail: 'Grand Finale, Johor Bahru — for SecureExam UTM.',
+    date: 'Jun 2026',
+  },
+  {
+    title: 'UTM Hackathon Champion',
+    detail: 'DevBoost AI — an emotion-sensing AI onboarding platform.',
+    date: '2025',
+  },
+  {
+    title: 'UM Hackathon Finalist',
+    detail: 'ZakatGo — a blockchain-integrated automated payment platform.',
+    date: '2025',
+  },
+];
+
+/** Grouped technical skills (resume §Technical Skills). */
+export type SkillGroup = { label: string; items: string[] };
+export const skillGroups: SkillGroup[] = [
+  {
+    label: 'AI & machine learning',
+    items: [
+      'Isolation Forest anomaly detection',
+      'Behavioural risk scoring',
+      'Applied ML for security monitoring',
+    ],
+  },
+  {
+    label: 'Languages',
+    items: ['Python', 'JavaScript', 'TypeScript', 'Swift', 'Java', 'C++', 'SQL'],
+  },
+  {
+    label: 'Frameworks & libraries',
+    items: [
+      'Node.js',
+      'Express',
+      'React 19',
+      'Vite',
+      'Next.js',
+      'Flask',
+      'Selenium',
+      'Pandas',
+    ],
+  },
+  {
+    label: 'Cloud & DevOps',
+    items: ['DigitalOcean', 'Nginx', 'PM2', 'Linux', 'Git', 'GitHub', 'CI'],
+  },
+  { label: 'Databases', items: ['MySQL', 'Firebase'] },
+  {
+    label: 'Languages spoken',
+    items: ['Mandarin (native)', 'English (fluent)', 'Malay (fluent)'],
+  },
+];
 
 /** Proof pillars under the hero (brief §3). */
 export type Pillar = { label: string; text: string };
 export const pillars: Pillar[] = [
   {
-    label: 'certifications',
-    text: 'Cisco CCNA (R&S, Enterprise, DevNet) + Google Cybersecurity + OCI Associate',
+    label: 'machine learning',
+    text: 'Isolation Forest risk scorer running in production — Python, Flask',
   },
   {
     label: 'production',
-    text: 'Zero-trust platform shipped — SecureExam, DIGITEX 2026 Silver',
+    text: 'Full-stack platform shipped and operated — DIGITEX 2026 Silver',
   },
   {
     label: 'internship',
-    text: 'Huawei Malaysia — built 5 network automation tools',
+    text: 'Huawei Malaysia — 5 automation tools, 93% faster daily reporting',
   },
 ];
 
@@ -275,7 +343,7 @@ export const secureexam = {
   demoUrl: 'https://youtu.be/nyrsI8Op4BY',
   role: 'Solo full-stack · FYP under Prof. Madya Ts. Dr. Siti Hajar Othman',
   teaser:
-    'A production zero-trust examination platform: eight defense-in-depth layers from browser lockdown to an Isolation-Forest risk scorer, with MFA, RBAC, and 26 mapped security controls — built solo and shipped to DigitalOcean Singapore.',
+    'A production examination platform built around a machine-learning risk scorer: a Flask microservice runs Isolation Forest anomaly detection over live session behaviour, wired into eight defense-in-depth layers, 35+ endpoints, and 26 mapped security controls — built solo and shipped to DigitalOcean Singapore.',
   glance: [
     { label: 'LOC', value: '11,700+' },
     { label: 'Controls', value: '26' },
@@ -343,7 +411,13 @@ export type HuaweiTool = {
 export const huawei = {
   role: 'Project Engineer Intern · Huawei Technologies Malaysia',
   intro:
-    'During my internship I built five automation tools using Python, PowerShell, Selenium, and Excel automation — cutting repetitive operational work and making network-site information easier to validate and report.',
+    'During my internship I built and deployed five automation tools using Python, PowerShell, Selenium, and Excel automation — cutting daily reporting from 15 minutes to 1, a 93% reduction, and making site information easier to validate and report. Alongside this I supported delivery coordination for Malaysia’s U Mobile 5G Network Upgrade across 100+ subcontractor teams.',
+  impact: [
+    { label: 'Tools shipped', value: '5' },
+    { label: 'Reporting time', value: '15m → 1m' },
+    { label: 'Reduction', value: '93%' },
+    { label: 'Teams supported', value: '100+' },
+  ] as Stat[],
   note:
     'The scripts here are sanitized: credentials, internal URLs, personal information, customer and subcontractor names, and operational datasets have been removed.',
   securityRelevance: [
@@ -423,44 +497,62 @@ export const huawei = {
 };
 
 /* ------------------------------------------------------------------
-   Networking lab portfolio — in progress. The network-layer companion
-   to SecureExam. Topologies/screenshots land here as labs complete.
+   macOS menu-bar utilities — three native, zero-dependency Swift apps.
    ------------------------------------------------------------------ */
 
-export type NetworkingLab = {
+export type MenuBarApp = {
   name: string;
-  tool: string;
-  description: string;
-  status: 'In progress' | 'Planned';
+  tagline: string;
+  summary: string;
+  highlights: string[];
+  stack: string[];
+  repoUrl: string;
 };
 
-export const networkingLabs = {
-  status: 'In progress',
+export const menuBarApps = {
   intro:
-    'The network-layer companion to SecureExam’s application-layer zero trust — together they make the case for full-stack, defense-in-depth security. These labs are being built now; topologies and screenshots will be added here as each is completed.',
-  labs: [
+    'Three native macOS menu-bar apps written in plain Swift and AppKit — no Electron, no packages, no Dock icon. Each is a single small binary that does one thing and costs the machine almost nothing.',
+  apps: [
     {
-      name: 'Enterprise network simulation',
-      tool: 'Cisco Packet Tracer',
-      description:
-        'A multi-site enterprise topology with OSPF routing, VLAN segmentation, and ACLs enforcing least-privilege traffic between segments.',
-      status: 'In progress',
+      name: 'Claude Usage Bar',
+      tagline: 'Session usage at a glance',
+      summary:
+        'Shows Claude.ai session usage as a ring gauge in the menu bar, with live percentage used and a countdown to reset — so you know whether you can keep going without switching tabs.',
+      highlights: [
+        'Ring drawn natively in Core Graphics, not text glyphs — monochrome until it matters.',
+        'Turns orange at 80% and red at 90%, so colour appears exactly when to worry.',
+        '~40–50 MB RAM against 150–300 MB for the equivalent browser tab.',
+      ],
+      stack: ['Swift', 'AppKit', 'Core Graphics'],
+      repoUrl: 'https://github.com/currylaksa/claude-usage-bar-for-mac',
     },
     {
-      name: 'pfSense + Snort IDS',
-      tool: 'GNS3',
-      description:
-        'A perimeter firewall with Snort intrusion detection — the network-layer companion to SecureExam’s application-layer controls.',
-      status: 'Planned',
+      name: 'RAMBar',
+      tagline: 'Memory gauge in ~150 lines',
+      summary:
+        'A tiny fill gauge and percentage showing memory in use, reading the same numbers Activity Monitor does — straight from the Mach kernel rather than parsing CLI output.',
+      highlights: [
+        'Reads host_statistics64 directly; “Memory Used” = app + wired + compressed.',
+        'Click through for App Memory, Wired, Compressed, and Swap, fetched on open.',
+        'Ticks every 30s with a 10s tolerance and skips redrawing when nothing changed.',
+      ],
+      stack: ['Swift', 'AppKit', 'Mach kernel APIs'],
+      repoUrl: 'https://github.com/currylaksa/ramusagebar',
     },
     {
-      name: 'BGP peering lab',
-      tool: 'GNS3',
-      description:
-        'eBGP peering and route policy between autonomous systems, exploring path selection and basic route hardening.',
-      status: 'Planned',
+      name: 'wilderfarer-bar',
+      tagline: 'A pixel hiker for your deep work',
+      summary:
+        'A tiny hiker who walks a procedurally generated landscape while you work, sets up camp when you step away, and counts 12 active minutes as one kilometre. The Wilderfarer identity, rendered.',
+      highlights: [
+        'Terrain seeded from the date — four biomes, one named trail per day.',
+        'Nightfall after 19:30; a summit flag at a half-marathon of focused work.',
+        '100% local and offline — activity never leaves the machine.',
+      ],
+      stack: ['Swift', 'AppKit', 'procedural generation'],
+      repoUrl: 'https://github.com/currylaksa/wilderfarer-bar',
     },
-  ] as NetworkingLab[],
+  ] as MenuBarApp[],
 };
 
 export const runningLog: Stat[] = [

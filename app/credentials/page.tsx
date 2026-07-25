@@ -1,12 +1,13 @@
 import type { Metadata } from 'next';
 import Container from '@/components/Container';
 import Kicker from '@/components/Kicker';
-import { certs, education } from '@/lib/content';
+import TechTag from '@/components/TechTag';
+import { certs, education, achievements, skillGroups } from '@/lib/content';
 
 export const metadata: Metadata = {
   title: 'Credentials',
   description:
-    'Certifications and education: Cisco CCNA (R&S, Enterprise), Cisco DevNet Associate, Google Cybersecurity, Oracle OCI Associate, and a B.Sc. in Computer Science (Networks & Security), UTM.',
+    'Certifications, skills, and achievements: Oracle OCI AI Foundations Associate, Google Cybersecurity, Cisco CCNA (DevNet, ENSA, SRWE), DIGITEX 2026 Silver, and a B.Sc. in Computer Science, UTM.',
 };
 
 export default function CredentialsPage() {
@@ -15,7 +16,7 @@ export default function CredentialsPage() {
       <Container className="py-16 sm:py-20">
         <Kicker>credentials</Kicker>
         <h1 className="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl">
-          Certifications &amp; education
+          Certifications, skills &amp; achievements
         </h1>
 
         {/* Certifications grid */}
@@ -45,6 +46,45 @@ export default function CredentialsPage() {
             </li>
           ))}
         </ul>
+
+        {/* Technical skills */}
+        <div className="mt-12">
+          <Kicker>technical skills</Kicker>
+          <div className="mt-6 grid gap-4 sm:grid-cols-2">
+            {skillGroups.map((group) => (
+              <div
+                key={group.label}
+                className="rounded-[var(--radius-card)] border border-hairline bg-card p-5"
+              >
+                <p className="font-mono text-xs text-accent">{group.label}</p>
+                <ul className="mt-3 flex flex-wrap gap-1.5">
+                  {group.items.map((item) => (
+                    <li key={item}>
+                      <TechTag>{item}</TechTag>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Achievements */}
+        <div className="mt-12">
+          <Kicker>achievements</Kicker>
+          <ul className="mt-6 space-y-3">
+            {achievements.map((a) => (
+              <li
+                key={a.title}
+                className="flex flex-wrap items-baseline gap-x-3 gap-y-1 rounded-[var(--radius-card)] border border-hairline bg-card p-5"
+              >
+                <span className="text-base font-semibold">{a.title}</span>
+                <span className="font-mono text-xs text-muted">{a.date}</span>
+                <span className="w-full text-sm text-muted">{a.detail}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
 
         {/* Education */}
         <div className="mt-12">

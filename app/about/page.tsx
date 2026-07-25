@@ -9,7 +9,7 @@ import { about, wilderfarer, personalInfo, runningLog } from '@/lib/content';
 export const metadata: Metadata = {
   title: 'About',
   description:
-    'Chan Qing Yee — a Computer Science (Networks & Security) graduand from UTM targeting network-security engineering roles in Singapore.',
+    'Chan Qing Yee — a Computer Science graduand from UTM building AI-integrated systems, targeting AI engineering roles in Singapore.',
 };
 
 export default function AboutPage() {

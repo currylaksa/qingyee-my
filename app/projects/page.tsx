@@ -7,7 +7,7 @@ import { projects } from '@/lib/content';
 export const metadata: Metadata = {
   title: 'Projects',
   description:
-    'Security-focused projects: a production zero-trust exam platform, network automation tooling, networking labs, and encrypted peer-to-peer file transfer.',
+    'AI and full-stack projects: a production ML-backed exam platform, Python automation tooling, native Swift utilities, and encrypted peer-to-peer file transfer.',
 };
 
 export default function ProjectsPage() {
@@ -16,12 +16,13 @@ export default function ProjectsPage() {
       <Container className="py-16 sm:py-20">
         <Kicker>projects</Kicker>
         <h1 className="mt-4 max-w-3xl text-3xl font-semibold tracking-tight sm:text-4xl">
-          Application-layer zero trust meets network-layer security
+          AI systems, built and shipped end to end
         </h1>
         <p className="mt-4 max-w-2xl text-lg text-muted">
-          SecureExam hardens the application layer; the networking labs and Huawei
-          automation work cover the network layer. Together they make the case for
-          full-stack, defense-in-depth security.
+          SecureExam pairs a machine-learning risk scorer with a hardened
+          full-stack platform; the Huawei suite automates real operational
+          workflows in Python. Everything here runs somewhere — deployed,
+          operated, and measured.
         </p>
 
         <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">

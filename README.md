@@ -1,6 +1,6 @@
 # qingyee.my
 
-Personal portfolio of **Chan Qing Yee** — CS (Networks & Security) graduand (UTM), DIGITEX 2026 Silver Medalist, Zero-Trust builder, and *Wilderfarer*. Theme: **Warm Rust & Cream / Retro Americana**.
+Personal portfolio of **Chan Qing Yee** — AI Solutions Engineer, CS graduand (UTM), DIGITEX 2026 Silver Medalist, and *Wilderfarer*. Theme: **Warm Rust & Cream / Retro Americana**.
 
 🔗 **Live:** https://qingyee.my
 
@@ -8,10 +8,9 @@ Personal portfolio of **Chan Qing Yee** — CS (Networks & Security) graduand (U
 
 | Layer | Choice |
 |---|---|
-| Framework | [Astro](https://astro.build) (static) |
-| Styling | Plain CSS + design tokens (no Tailwind — see `docs/adr/0001`) |
-| Icons | astro-icon + Tabler (build-time inline SVG) |
-| Fonts | Abril Fatface · Josefin Sans · Courier Prime (Google Fonts) |
+| Framework | [Next.js](https://nextjs.org) 15 App Router (`output: 'export'`) |
+| Styling | Tailwind CSS 4 + design tokens in `app/globals.css` |
+| Fonts | Geist Sans · Geist Mono · Fraunces (the Wilderfarer pull-quote only) |
 | Contact form | [Web3Forms](https://web3forms.com) (static, no backend) |
 | Tests | Vitest |
 | Hosting | Cloudflare Pages (push-to-deploy) |
@@ -20,39 +19,44 @@ Personal portfolio of **Chan Qing Yee** — CS (Networks & Security) graduand (U
 
 ```bash
 npm install
-npm run dev      # local dev server
-npm run build    # static build -> dist/
+npm run dev      # local dev server (turbopack)
+npm run build    # static export -> out/
 npm test         # vitest (assetPresence + projectLinks)
 ```
 
-Node 18+.
+Node 20 (pinned in `.node-version`).
 
 ## Structure
 
 ```
-src/
-├── layouts/BaseLayout.astro    # chrome: topbar, header, sticky nav, ticker, footer
-├── components/                 # Hero, ProjectGrid, Sidebar, RightRail, sections, widgets
-├── lib/                        # assetPresence + projectLinks (pure, tested)
-├── data/content.ts             # single source of truth for all content
-└── pages/index.astro           # single-page layout
-docs/adr/                       # architecture decision records
-CONTEXT.md                      # domain glossary
+app/
+├── layout.tsx              # chrome: nav, footer, metadata, JSON-LD Person
+├── page.tsx                # home
+├── projects/               # index + secureexam, huawei, macos-menubar
+├── credentials/ about/ contact/
+├── globals.css             # design tokens + Tailwind
+└── sitemap.ts robots.ts    # static metadata routes
+components/                 # Nav, Footer, ProjectCard, ZeroTrustDiagram, …
+lib/                        # content.ts + assetPresence/projectLinks (pure, tested)
+docs/adr/                   # architecture decision records
+CONTEXT.md                  # domain glossary
 ```
 
 ## Content
 
-All copy and data live in [`src/data/content.ts`](src/data/content.ts) — edit there to update projects, certs, stats, bio, links.
+All copy and data live in [`lib/content.ts`](lib/content.ts) — edit there to update projects, certs, skills, achievements, bio, links.
 
 ## Owner-supplied assets
 
 The site renders gracefully without these and auto-includes them once present:
 
-- `public/cv.pdf` — hero "Download CV" button (hidden until added)
-- `public/headshot.jpg` — profile photo (falls back to "QY" initials)
-- `PUBLIC_WEB3FORMS_KEY` env var — activates the contact form (mailto fallback until set)
-- TODO project URLs (DuoDrop, World Cup, VibeUI, Raspberry Pi), cert dates, hiking log, `og-image.png`
+- `public/cv.pdf` — "Download CV" button in the nav and hero (hidden until added)
+- `public/headshot.jpg` — About-page portrait (section omitted until added)
+- `NEXT_PUBLIC_WEB3FORMS_KEY` env var — activates the contact form (mailto fallback until set)
+- Cert dates and `verifyUrl`s in `lib/content.ts` (omitted while `null`)
+
+Project URLs follow a **no dead links** policy: a `null` URL renders no link at all (see `lib/projectLinks.ts`).
 
 ## Deploy
 
-Pushes to `main` auto-build on Cloudflare Pages (`npm run build` → `dist/`). DNS managed by Cloudflare; custom domains `qingyee.my` + `www`.
+Pushes to `main` auto-build on Cloudflare Pages (`npm run build` → `out/`). DNS managed by Cloudflare; custom domains `qingyee.my` + `www`. Security headers are served from `public/_headers`.

@@ -23,10 +23,12 @@ export const metadata: Metadata = {
   },
   description: valueProp,
   keywords: [
-    'Network Security Engineer',
+    'AI Solutions Engineer',
+    'AI Systems Integration',
+    'Machine Learning Engineer',
+    'Anomaly Detection',
+    'Full-Stack Engineer',
     'Zero Trust',
-    'Cisco CCNA',
-    'Cybersecurity',
     'Singapore',
     'Chan Qing Yee',
   ],
@@ -50,7 +52,7 @@ const personJsonLd = {
   '@type': 'Person',
   name: personalInfo.fullName,
   url: 'https://qingyee.my',
-  jobTitle: 'Network & Security Engineer',
+  jobTitle: 'AI Solutions Engineer',
   alumniOf: { '@type': 'CollegeOrUniversity', name: personalInfo.university },
   address: {
     '@type': 'PostalAddress',
@@ -60,11 +62,13 @@ const personJsonLd = {
   email: `mailto:${personalInfo.email}`,
   sameAs: [personalInfo.github, personalInfo.linkedin],
   knowsAbout: [
-    'Network Security',
+    'Artificial Intelligence',
+    'Applied Machine Learning',
+    'Anomaly Detection',
+    'AI Systems Integration',
+    'Full-Stack Development',
     'Zero Trust Architecture',
-    'Cisco CCNA',
-    'Intrusion Detection',
-    'Application Security',
+    'Cloud Deployment',
   ],
 };
 
