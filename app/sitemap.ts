@@ -11,6 +11,7 @@ const routes = [
   '/projects/',
   '/projects/secureexam/',
   '/projects/huawei/',
+  '/projects/sunray/',
   '/projects/macos-menubar/',
   '/credentials/',
   '/about/',

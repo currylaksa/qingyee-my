@@ -7,7 +7,7 @@ import { isUsableKey } from '@/lib/assetPresence';
 
 export const metadata: Metadata = {
   title: 'Contact',
-  description: `Get in touch with ${personalInfo.fullName} — open to AI engineering roles in Singapore.`,
+  description: `Get in touch with ${personalInfo.fullName} — open to network and security engineering roles in Singapore.`,
 };
 
 const formKey = process.env.NEXT_PUBLIC_WEB3FORMS_KEY;

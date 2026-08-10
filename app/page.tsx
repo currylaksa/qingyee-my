@@ -16,12 +16,13 @@ import {
   runningLog,
 } from '@/lib/content';
 
-// Home "selected work": SecureExam (centerpiece) + real production internship
-// work + an engineering-flavoured side project. All shipped/live.
-const featuredSlugs = ['secureexam', 'huawei-automation', 'duodrop'];
+// Home "selected work": SecureExam (production zero-trust platform) + Huawei
+// (carrier-network internship) + Sunray (enterprise network design). Chosen to
+// cover the networking story end to end — production, carrier, and design.
+const featuredSlugs = ['secureexam', 'huawei-automation', 'sunray-network'];
 
 export default function Home() {
-  const { hasCv } = getAssetPresence();
+  const { hasCv, hasCvAi } = getAssetPresence();
   const selected = featuredSlugs
     .map((slug) => projects.find((p) => p.slug === slug))
     .filter((p): p is NonNullable<typeof p> => Boolean(p));
@@ -37,9 +38,9 @@ export default function Home() {
           </h1>
           <p className="mt-6 max-w-2xl text-lg text-muted">
             {personalInfo.fullName} — {personalInfo.programme} graduand,{' '}
-            {personalInfo.gradYear}. Machine-learning services, full-stack
-            delivery, and hardened cloud deployment — shipped and operated, not
-            left in a notebook.
+            {personalInfo.gradYear}. Enterprise routing and segmentation,
+            carrier-network deployment, and hardened production infrastructure
+            — designed, deployed, and operated, not left in a lab.
           </p>
 
           {/* On a phone the pillars push both CTAs off the first screen, so the
@@ -72,6 +73,15 @@ export default function Home() {
                   className="w-full rounded-md border border-hairline px-5 py-3 text-center text-sm font-medium transition-colors hover:border-accent hover:text-accent sm:w-auto sm:py-2.5"
                 >
                   Download CV
+                </a>
+              )}
+              {/* Secondary positioning — deliberately lighter than the CV button. */}
+              {hasCvAi && (
+                <a
+                  href="/cv-ai.pdf"
+                  className="tap text-center font-mono text-xs text-muted transition-colors hover:text-accent"
+                >
+                  AI engineering version ↗
                 </a>
               )}
             </div>
@@ -214,7 +224,7 @@ export default function Home() {
       <section>
         <Container className="py-14 text-center sm:py-24">
           <h2 className="mx-auto max-w-2xl text-3xl font-semibold tracking-tight sm:text-4xl">
-            Looking for an AI engineer in Singapore?
+            Looking for a network & security engineer in Singapore?
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-muted">
             I’m open to roles and happy to walk through any of this in detail.

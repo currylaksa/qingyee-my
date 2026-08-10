@@ -6,9 +6,9 @@ import TechTag from '@/components/TechTag';
 import { huawei } from '@/lib/content';
 
 export const metadata: Metadata = {
-  title: 'Huawei automation suite',
+  title: 'U Mobile 5G network upgrade — Huawei Malaysia',
   description:
-    'Five sanitized automation tools built during a Project Engineer internship at Huawei Malaysia — cutting daily reporting by 93% through Python, PowerShell, and Selenium automation.',
+    'Project Engineer internship on Huawei Malaysia’s U Mobile 5G RAN and Microwave network upgrade — deployment coordination across 100+ subcontractor teams and 1,000+ site acceptance deliverables, plus five automation tools that cut daily reporting by 93%.',
 };
 
 export default function HuaweiPage() {
@@ -25,7 +25,7 @@ export default function HuaweiPage() {
           </Link>
 
           <h1 className="mt-6 text-3xl font-semibold tracking-tight sm:text-4xl">
-            Huawei automation suite
+            U Mobile 5G network upgrade
           </h1>
           <p className="mt-3 font-mono text-sm text-muted">{huawei.role}</p>
           <p className="mt-6 max-w-3xl text-lg text-muted">{huawei.intro}</p>

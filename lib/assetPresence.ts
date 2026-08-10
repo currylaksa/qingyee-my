@@ -7,12 +7,15 @@
 
 export type AssetInputs = {
   cvExists: boolean;
+  /** The secondary, AI-engineering-flavoured CV (public/cv-ai.pdf). */
+  cvAiExists: boolean;
   headshotExists: boolean;
   formKey: string | undefined;
 };
 
 export type AssetPresence = {
   hasCv: boolean;
+  hasCvAi: boolean;
   hasHeadshot: boolean;
   hasFormKey: boolean;
 };
@@ -29,6 +32,7 @@ export function isUsableKey(key: string | undefined | null): boolean {
 export function resolveAssetPresence(inputs: AssetInputs): AssetPresence {
   return {
     hasCv: inputs.cvExists,
+    hasCvAi: inputs.cvAiExists,
     hasHeadshot: inputs.headshotExists,
     hasFormKey: isUsableKey(inputs.formKey),
   };

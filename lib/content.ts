@@ -1,9 +1,9 @@
 /* ============================================================
    Single source of truth for site content (ported from the Astro
-   build's src/data/content.ts). Canonical facts: 6 projects,
+   build's src/data/content.ts). Canonical facts: 7 projects,
    26 controls, DIGITEX 2026 = Silver, status = graduand.
-   Positioning: AI solutions engineering, with the zero-trust /
-   security work as the proof of engineering depth.
+   Positioning: network & security engineering, with the applied-ML
+   and full-stack work as the secondary story (automation depth).
    A `null` URL means "not yet supplied" — links to it are hidden
    (see lib/projectLinks.ts — the "no dead links" policy).
    ============================================================ */
@@ -51,7 +51,7 @@ export type PersonalInfo = {
 export const personalInfo: PersonalInfo = {
   fullName: 'Chan Qing Yee',
   initials: 'QY',
-  tagline: 'AI Solutions Engineer',
+  tagline: 'Network & Security Engineer',
   brand: 'Wilderfarer',
   programme: 'CS (Networks & Security)',
   university: 'Universiti Teknologi Malaysia',
@@ -69,7 +69,7 @@ export const personalInfo: PersonalInfo = {
 
 /** Primary one-line value prop (brief §3). */
 export const valueProp =
-  'I build AI-integrated systems, from architecture to production.';
+  'I design, secure, and operate networks — from routing and segmentation to production zero-trust.';
 
 export const navItems: NavItem[] = [
   { label: 'Home', href: '/' },
@@ -81,8 +81,8 @@ export const navItems: NavItem[] = [
 
 export const about = {
   bio: [
-    'Chan Qing Yee is a Computer Science graduand from Universiti Teknologi Malaysia, finishing with a 3.90 CGPA, who builds AI-integrated systems end to end — from model service to production deployment. His final-year project, SecureExam UTM, pairs a Python/Flask machine-learning microservice (Isolation Forest anomaly detection, scoring behaviour in real time) with a full-stack Node and React 19 platform, and earned Silver at DIGITEX 2026 under Prof. Madya Ts. Dr. Siti Hajar Binti Othman.',
-    'Before his final year he interned as a Project Engineer at Huawei Technologies Malaysia, where he shipped 5 Python and PowerShell automation tools that cut daily reporting from 15 minutes to 1 — a 93% reduction. His security background is the depth behind the AI work: everything he builds is deployed, hardened, and operated, not left in a notebook. Based in Johor Bahru, he is targeting AI engineering roles in Singapore.',
+    'Chan Qing Yee is a Computer Science (Computer Network and Security) graduand from Universiti Teknologi Malaysia, finishing with a 3.90 CGPA, who deploys and secures networks end to end. He has completed the Cisco CCNA curriculum across Switching, Routing and Wireless Essentials; Enterprise Networking, Security and Automation; and DevNet Associate — and put it to work designing a segmented enterprise network with VLANs, inter-VLAN routing, OSPF, DHCP, ACL filtering, and VPN tunnelling.',
+    'He interned as a Project Engineer at Huawei Technologies Malaysia on the U Mobile 5G Network Upgrade (RAN and Microwave), coordinating daily deployment across 100+ subcontractor teams and overseeing 1,000+ site acceptance deliverables — while shipping 5 Python and PowerShell automation tools that cut daily reporting from 15 minutes to 1, a 93% reduction. His final-year project, SecureExam UTM, took that further into production: a 26-control zero-trust layer on a hardened DigitalOcean Singapore host, which earned Silver at DIGITEX 2026 under Prof. Madya Ts. Dr. Siti Hajar Binti Othman. Based in Johor Bahru, he is targeting network and security engineering roles in Singapore.',
   ],
   details: [
     { label: 'University', value: 'Universiti Teknologi Malaysia (UTM), Faculty of Computing' },
@@ -103,9 +103,9 @@ export const projects: Project[] = [
   {
     slug: 'secureexam',
     title: 'SecureExam UTM',
-    stack: ['Node.js', 'React 19', 'Flask', 'MySQL 8'],
+    stack: ['Zero Trust', 'Nginx', 'TLS 1.3', 'Node.js'],
     description:
-      'Isolation Forest risk-scoring microservice inside a production zero-trust exam platform. 26 controls, 35+ endpoints, 11,700+ LOC. DIGITEX 2026 Silver.',
+      'Production zero-trust platform: 26 mapped controls over 35+ endpoints, per-request IP binding, JWT stage-machine MFA, and an Nginx/UFW/fail2ban edge. DIGITEX 2026 Silver.',
     liveUrl: 'https://secureexam-cqy.tech',
     repoUrl: 'https://github.com/currylaksa/zero-trust-exam',
     href: '/projects/secureexam',
@@ -113,13 +113,25 @@ export const projects: Project[] = [
   },
   {
     slug: 'huawei-automation',
-    title: 'Huawei automation suite',
-    stack: ['Python', 'PowerShell', 'Selenium'],
+    title: 'U Mobile 5G network upgrade',
+    stack: ['5G RAN', 'Microwave', 'Python', 'PowerShell'],
     description:
-      '5 sanitized automation tools built during a Project Engineer internship at Huawei Malaysia — cutting daily reporting from 15 minutes to 1, a 93% reduction.',
+      'Project Engineer internship on Huawei’s U Mobile 5G upgrade — deployment coordination across 100+ subcontractor teams and 1,000+ site acceptance deliverables, plus 5 automation tools cutting daily reporting by 93%.',
     liveUrl: null,
     repoUrl: null,
     href: '/projects/huawei',
+  },
+  {
+    slug: 'sunray-network',
+    title: 'Enterprise network design',
+    stack: ['OSPF', 'VLANs', 'ACLs', 'IPsec VPN'],
+    description:
+      'A network design for a Malaysian SME, built and verified in Cisco Packet Tracer: 8 routers over 7 departmental segments, OSPF area 0, VLAN-segmented staff floors, relayed DHCP, an IPsec remote-access VPN, and ACLs that keep remote workers out of Finance.',
+    liveUrl: null,
+    repoUrl: null,
+    href: '/projects/sunray',
+    ctaLabel: 'Case study →',
+    status: 'Coursework',
   },
   {
     slug: 'duodrop',
@@ -161,19 +173,19 @@ export const projects: Project[] = [
 ];
 
 export const certs: Cert[] = [
-  { name: 'OCI 2025 AI Foundations Associate', org: 'Oracle', date: null },
-  { name: 'Google Cybersecurity Professional', org: 'Google', date: null },
-  { name: 'CCNA: DevNet Associate', org: 'Cisco', date: null },
-  {
-    name: 'CCNA: Enterprise Networking, Security & Automation',
-    org: 'Cisco',
-    date: null,
-  },
   {
     name: 'CCNA: Switching, Routing & Wireless Essentials',
     org: 'Cisco',
     date: null,
   },
+  {
+    name: 'CCNA: Enterprise Networking, Security & Automation',
+    org: 'Cisco',
+    date: null,
+  },
+  { name: 'CCNA: DevNet Associate', org: 'Cisco', date: null },
+  { name: 'Google Cybersecurity Professional', org: 'Google', date: null },
+  { name: 'OCI 2025 AI Foundations Associate', org: 'Oracle', date: null },
 ];
 
 export const education = {
@@ -207,35 +219,77 @@ export const achievements: Achievement[] = [
 export type SkillGroup = { label: string; items: string[] };
 export const skillGroups: SkillGroup[] = [
   {
-    label: 'AI & machine learning',
+    label: 'Networking',
     items: [
-      'Isolation Forest anomaly detection',
-      'Behavioural risk scoring',
-      'Applied ML for security monitoring',
+      'OSPF',
+      'VLANs',
+      'Inter-VLAN routing',
+      'DHCP',
+      'TCP/IP',
+      'Subnetting & IP addressing',
+      'Cisco Packet Tracer',
+      'Wireshark',
+      '5G RAN & Microwave',
     ],
   },
   {
-    label: 'Languages',
-    items: ['Python', 'JavaScript', 'TypeScript', 'Swift', 'Java', 'C++', 'SQL'],
+    label: 'Security',
+    items: [
+      'Zero-Trust architecture',
+      'Access Control Lists (ACLs)',
+      'Firewalls',
+      'VPN',
+      'TLS/SSL',
+      'JWT + MFA',
+      'RBAC',
+      'Protocol analysis',
+    ],
   },
   {
-    label: 'Frameworks & libraries',
+    label: 'Cloud & infrastructure',
+    items: [
+      'Oracle Cloud (OCI)',
+      'DigitalOcean',
+      'Linux',
+      'Nginx',
+      'PM2',
+      'SSH hardening',
+      'Git',
+      'GitHub',
+      'CI',
+    ],
+  },
+  {
+    label: 'Automation & scripting',
+    items: ['Python', 'PowerShell', 'Selenium', 'Pandas'],
+  },
+  {
+    label: 'Software & data',
     items: [
       'Node.js',
       'Express',
       'React 19',
-      'Vite',
       'Next.js',
+      'Vite',
       'Flask',
-      'Selenium',
-      'Pandas',
+      'MySQL',
+      'Firebase',
+      'SQL',
+      'JavaScript',
+      'TypeScript',
+      'Swift',
+      'Java',
+      'C++',
     ],
   },
   {
-    label: 'Cloud & DevOps',
-    items: ['DigitalOcean', 'Nginx', 'PM2', 'Linux', 'Git', 'GitHub', 'CI'],
+    label: 'Applied machine learning',
+    items: [
+      'Isolation Forest anomaly detection',
+      'Behavioural risk scoring',
+      'ML for security monitoring',
+    ],
   },
-  { label: 'Databases', items: ['MySQL', 'Firebase'] },
   {
     label: 'Languages spoken',
     items: ['Mandarin (native)', 'English (fluent)', 'Malay (fluent)'],
@@ -246,16 +300,16 @@ export const skillGroups: SkillGroup[] = [
 export type Pillar = { label: string; text: string };
 export const pillars: Pillar[] = [
   {
-    label: 'machine learning',
-    text: 'Isolation Forest risk scorer running in production — Python, Flask',
+    label: 'carrier networks',
+    text: 'Huawei Malaysia — U Mobile 5G RAN & Microwave upgrade, 100+ teams',
   },
   {
-    label: 'production',
-    text: 'Full-stack platform shipped and operated — DIGITEX 2026 Silver',
+    label: 'routing & segmentation',
+    text: 'Full Cisco CCNA curriculum — OSPF, VLANs, ACLs, VPN, DHCP',
   },
   {
-    label: 'internship',
-    text: 'Huawei Malaysia — 5 automation tools, 93% faster daily reporting',
+    label: 'production security',
+    text: 'Zero-trust platform shipped and operated — DIGITEX 2026 Silver',
   },
 ];
 
@@ -343,14 +397,14 @@ export const secureexam = {
   demoUrl: 'https://youtu.be/nyrsI8Op4BY',
   role: 'Solo full-stack · FYP under Prof. Madya Ts. Dr. Siti Hajar Othman',
   teaser:
-    'A production examination platform built around a machine-learning risk scorer: a Flask microservice runs Isolation Forest anomaly detection over live session behaviour, wired into eight defense-in-depth layers, 35+ endpoints, and 26 mapped security controls — built solo and shipped to DigitalOcean Singapore.',
+    'A production examination platform where every request is treated as untrusted: eight defense-in-depth layers spanning TLS 1.3, an Nginx/UFW/fail2ban edge, per-request IP binding, JWT stage-machine MFA, and least-privilege RBAC — 26 mapped controls over 35+ endpoints, built solo and operated on a hardened DigitalOcean Singapore host.',
   glance: [
     { label: 'LOC', value: '11,700+' },
     { label: 'Controls', value: '26' },
     { label: 'Endpoints', value: '35+' },
     { label: 'RBAC roles', value: '4' },
   ] as Stat[],
-  stack: ['Node / Express', 'React 19', 'MySQL 8', 'Flask'],
+  stack: ['Nginx', 'TLS 1.3', 'Node / Express', 'MySQL 8', 'Flask'],
   deployedOn: 'DigitalOcean Singapore',
   layers: zeroTrustLayers,
 
@@ -411,12 +465,12 @@ export type HuaweiTool = {
 export const huawei = {
   role: 'Project Engineer Intern · Huawei Technologies Malaysia',
   intro:
-    'During my internship I built and deployed five automation tools using Python, PowerShell, Selenium, and Excel automation — cutting daily reporting from 15 minutes to 1, a 93% reduction, and making site information easier to validate and report. Alongside this I supported delivery coordination for Malaysia’s U Mobile 5G Network Upgrade across 100+ subcontractor teams.',
+    'I coordinated daily deployment operations for Malaysia’s U Mobile 5G Network Upgrade (RAN and Microwave) across Northern and Southern Malaysia — tracking 100+ subcontractor teams, resolving operational bottlenecks between Huawei, subcontractors, and the client, and managing the official site handover of 1,000+ acceptance deliverables including UAT and Launch Completion Reports. To keep that pace, I built and deployed five automation tools in Python, PowerShell, Selenium, and Excel automation, cutting daily reporting from 15 minutes to 1 — a 93% reduction.',
   impact: [
+    { label: 'Teams tracked', value: '100+' },
+    { label: 'Site deliverables', value: '1,000+' },
     { label: 'Tools shipped', value: '5' },
     { label: 'Reporting time', value: '15m → 1m' },
-    { label: 'Reduction', value: '93%' },
-    { label: 'Teams supported', value: '100+' },
   ] as Stat[],
   note:
     'The scripts here are sanitized: credentials, internal URLs, personal information, customer and subcontractor names, and operational datasets have been removed.',
@@ -494,6 +548,229 @@ export const huawei = {
       source: '/projects/huawei/batch_email_request/batch_email_request.py',
     },
   ] as HuaweiTool[],
+};
+
+/* ------------------------------------------------------------------
+   Sunray enterprise network — SECR 3242 Internetworking Technology
+   coursework. A 4-person team project; the company is the case-study
+   subject, NOT a client. Source report lives in docs/reference/ and is
+   deliberately never served: it carries teammates' personal details and
+   lab credentials. Nothing secret from it appears below.
+   ------------------------------------------------------------------ */
+
+export type NetworkSegment = {
+  name: string;
+  subnet: string;
+  gateway: string;
+  purpose: string;
+};
+
+export type DesignDecision = {
+  title: string;
+  tag: string;
+  body: string;
+  details: string[];
+};
+
+export type ConnectivityCheck = {
+  source: string;
+  destination: string;
+  result: 'pass' | 'blocked';
+  note: string;
+};
+
+export const sunray = {
+  title: 'Enterprise network design',
+  subject: 'Sunray Construction & Interior Sdn Bhd',
+  course: 'SECR 3242 Internetworking Technology · UTM, Semester 1 2024/25',
+  role: 'University coursework · 4-person team project',
+  teaser:
+    'A comprehensive network design for a Malaysian SME, built and verified in Cisco Packet Tracer: 8 routers across 7 departmental segments, OSPF as the interior routing protocol, VLAN-segmented staff floors, a DHCP-relayed address plan, an IPsec remote-access VPN, and ACLs that keep remote workers out of Finance and the Executive Office.',
+  glance: [
+    { label: 'Routers', value: '8' },
+    { label: 'Segments', value: '7' },
+    { label: 'DHCP pools', value: '8' },
+    { label: 'VLANs', value: '2' },
+  ] as Stat[],
+  stack: ['Cisco Packet Tracer', 'OSPF', 'VLANs', 'ACLs', 'IPsec VPN', 'DHCP'],
+
+  brief:
+    'The brief was to act as a network consulting team for a Malaysian SME and deliver a secure, scalable design covering core and edge routing, Layer 2 segmentation, wireless and remote access, and a defensible security posture. The company — a construction and interior design firm with departments that hold very different sensitivities — was the case-study subject rather than a real client.',
+
+  segments: [
+    {
+      name: 'Staff Room 1',
+      subnet: '192.168.0.0/28',
+      gateway: '192.168.0.1',
+      purpose:
+        'General employee floor on VLAN 10. A /28 caps it at 16 addresses — sized to the room rather than handed a wasteful /24.',
+    },
+    {
+      name: 'Staff Room 2',
+      subnet: '192.168.0.16/28',
+      gateway: '192.168.0.17',
+      purpose:
+        'Second employee floor on VLAN 20, isolated from VLAN 10 at Layer 2 and routed only through the core.',
+    },
+    {
+      name: 'Finance',
+      subnet: '192.168.1.0/24',
+      gateway: '192.168.1.1',
+      purpose:
+        'Financial records. The most restricted segment — guarded by a standard ACL applied outbound on the core.',
+    },
+    {
+      name: 'IT Department',
+      subnet: '192.168.2.0/24',
+      gateway: '192.168.2.1',
+      purpose: 'Network operations and vulnerability management for the estate.',
+    },
+    {
+      name: 'Server Room',
+      subnet: '192.168.3.0/24',
+      gateway: '192.168.3.1',
+      purpose:
+        'Hosts the DHCP and DNS server at 192.168.3.2 that every other segment relays to.',
+    },
+    {
+      name: 'Executive Office',
+      subnet: '192.168.4.0/24',
+      gateway: '192.168.4.1',
+      purpose:
+        'CEO, Director, and Manager. Sensitive enough to be an explicit ACL destination alongside Finance.',
+    },
+    {
+      name: 'Remote Access',
+      subnet: '192.168.5.0/24',
+      gateway: '192.168.5.1',
+      purpose:
+        'Work-from-home laptops over IPsec VPN, plus 802.11ac/b/g/n wireless clients on site.',
+    },
+  ] as NetworkSegment[],
+
+  transitNote:
+    'Router-to-router links are carved out of 192.168.6.0/24 as /30s — two usable addresses per point-to-point link, no waste.',
+
+  decisions: [
+    {
+      title: 'OSPF everywhere inside, static at the edge',
+      tag: 'routing',
+      body:
+        'A single OSPF process (area 0) runs across all seven internal routers so paths are learned dynamically and survive a link failure. The Internet router is deliberately excluded and reached by static routes instead.',
+      details: [
+        'Keeping the edge out of OSPF means internal topology is never advertised to an external device.',
+        'The core originates a default route into the domain, so every internal router learns one way out.',
+        'Each department sits behind its own router, distributing forwarding load rather than concentrating it.',
+      ],
+    },
+    {
+      title: 'VLAN segmentation with router-on-a-stick',
+      tag: 'layer 2',
+      body:
+        'The two staff rooms are separate broadcast domains — VLAN 10 and VLAN 20 — trunked to the core switch and routed by subinterfaces on the main router.',
+      details: [
+        'Access ports pinned to their VLAN in access mode so they cannot negotiate a trunk.',
+        'Trunk links restricted with an explicit allowed-VLAN list rather than passing every VLAN.',
+        'Inter-VLAN routing on tagged subinterfaces, each owning its /28 gateway.',
+        'PVST keeps the switched core loop-free.',
+      ],
+    },
+    {
+      title: 'Centralised DHCP with relay agents',
+      tag: 'addressing',
+      body:
+        'One DHCP server in the Server Room serves eight named pools — one per segment — with every remote router configured as a relay agent so broadcasts reach it across routed boundaries.',
+      details: [
+        'A helper address on each department-facing interface forwards DHCP to 192.168.3.2.',
+        'Pool masks are sized per segment: /24 for the large departments, /28 for the staff rooms.',
+        'DNS is handed out uniformly across all pools for consistent name resolution.',
+      ],
+    },
+    {
+      title: 'IPsec remote-access VPN',
+      tag: 'remote access',
+      body:
+        'Work-from-home staff terminate an IPsec tunnel on the main router, authenticated per user and assigned an address from a dedicated VPN pool.',
+      details: [
+        'ISAKMP policy negotiating AES-256 with Diffie-Hellman group 5 and a 3600-second rekey lifetime.',
+        'ESP transform set pairing AES encryption with SHA integrity, so tampering is detected as well as prevented.',
+        'A dynamic crypto map with reverse-route injection adds each client’s route as it connects.',
+        'Clients draw from a dedicated pool, which is what makes them addressable — and therefore filterable — as a group.',
+      ],
+    },
+    {
+      title: 'ACLs that assume the remote user is untrusted',
+      tag: 'access control',
+      body:
+        'Two complementary ACLs enforce least privilege: one stops VPN clients reaching the sensitive departments, the other allows only known sources into Finance.',
+      details: [
+        'An extended ACL on the remote-access router denies the VPN pool to both the Finance and Executive Office subnets, then permits everything else.',
+        'A standard ACL applied outbound on the core permits only the Server Room, Executive Office, transit links, and the Internet block into Finance — everything else falls to the implicit deny.',
+        'Remote users keep access to general resources; only the sensitive segments are withheld.',
+      ],
+    },
+    {
+      title: 'Firewall between the estate and the Internet',
+      tag: 'perimeter',
+      body:
+        'A dedicated firewall separates the internal network from the Internet segment, with asymmetric rules in each direction.',
+      details: [
+        'Outbound: internal hosts may reach the Internet server freely.',
+        'Inbound: only the Internet server itself is permitted in — every other external host is refused.',
+        'Static routing across the firewall, since the edge intentionally sits outside OSPF.',
+      ],
+    },
+  ] as DesignDecision[],
+
+  verification: {
+    intro:
+      'Every segment pair was ping-tested from end to end. The interesting result is the one that fails: a VPN laptop cannot reach Finance, while an Executive Office host on the same destination succeeds — which is exactly what the ACLs were written to do. A design is only proven when the denials are demonstrated, not just the reachability.',
+    checks: [
+      {
+        source: 'VPN laptop',
+        destination: 'Executive Office',
+        result: 'pass',
+        note: 'Reachable — the remote user still gets general access.',
+      },
+      {
+        source: 'VPN laptop',
+        destination: 'Server Room',
+        result: 'pass',
+        note: 'Reachable across the OSPF domain.',
+      },
+      {
+        source: 'VPN laptop',
+        destination: 'Staff Rooms 1 & 2',
+        result: 'pass',
+        note: 'Inter-VLAN routing works from off-site.',
+      },
+      {
+        source: 'VPN laptop',
+        destination: 'Internet',
+        result: 'pass',
+        note: 'Egress through the firewall succeeds.',
+      },
+      {
+        source: 'VPN laptop',
+        destination: 'Finance',
+        result: 'blocked',
+        note: 'Denied by design — host unreachable, returned by the ACL on the remote-access router.',
+      },
+      {
+        source: 'Executive Office',
+        destination: 'Finance',
+        result: 'pass',
+        note: 'Permitted by the Finance ACL — proving the block is source-specific, not a broken route.',
+      },
+    ] as ConnectivityCheck[],
+  },
+
+  whatsNext: [
+    'Replace the pre-shared VPN group key with certificate-based authentication.',
+    'Move the flat area 0 into multiple OSPF areas with summarisation as the site grows.',
+    'Add switchport port-security and DHCP snooping to the access layer.',
+    'Log ACL denies to a syslog collector so blocked attempts are visible, not silent.',
+  ],
 };
 
 /* ------------------------------------------------------------------

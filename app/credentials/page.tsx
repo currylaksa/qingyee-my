@@ -7,7 +7,7 @@ import { certs, education, achievements, skillGroups } from '@/lib/content';
 export const metadata: Metadata = {
   title: 'Credentials',
   description:
-    'Certifications, skills, and achievements: Oracle OCI AI Foundations Associate, Google Cybersecurity, Cisco CCNA (DevNet, ENSA, SRWE), DIGITEX 2026 Silver, and a B.Sc. in Computer Science, UTM.',
+    'Certifications, skills, and achievements: Cisco CCNA (Switching, Routing & Wireless Essentials, Enterprise Networking, Security & Automation, DevNet Associate), Google Cybersecurity, Oracle OCI AI Foundations Associate, DIGITEX 2026 Silver, and a B.Sc. in Computer Science, UTM.',
 };
 
 export default function CredentialsPage() {

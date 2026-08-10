@@ -27,5 +27,11 @@ npm-debug.log*
 .claude/
 .codegraph/
 
+# source documents — local only, never committed. This repo is PUBLIC, so
+# committing these would publish teammates' names, matric numbers, and photos
+# from the group network report, plus its lab VPN credentials. Site copy is
+# written *from* these files; the files themselves stay off GitHub.
+docs/reference/
+
 # typescript incremental build info
 tsconfig.tsbuildinfo

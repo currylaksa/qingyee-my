@@ -1,6 +1,6 @@
 # qingyee.my
 
-Personal portfolio of **Chan Qing Yee** — AI Solutions Engineer, CS graduand (UTM), DIGITEX 2026 Silver Medalist, and *Wilderfarer*. Theme: **Warm Rust & Cream / Retro Americana**.
+Personal portfolio of **Chan Qing Yee** — Network & Security Engineer, CS graduand (UTM), DIGITEX 2026 Silver Medalist, and *Wilderfarer*. Theme: **Warm Rust & Cream / Retro Americana**.
 
 🔗 **Live:** https://qingyee.my
 
@@ -50,7 +50,8 @@ All copy and data live in [`lib/content.ts`](lib/content.ts) — edit there to u
 
 The site renders gracefully without these and auto-includes them once present:
 
-- `public/cv.pdf` — "Download CV" button in the nav and hero (hidden until added)
+- `public/cv.pdf` — Network & Security resume; "Download CV" button in the nav and hero (hidden until added)
+- `public/cv-ai.pdf` — secondary AI engineering resume
 - `public/headshot.jpg` — About-page portrait (section omitted until added)
 - `NEXT_PUBLIC_WEB3FORMS_KEY` env var — activates the contact form (mailto fallback until set)
 - Cert dates and `verifyUrl`s in `lib/content.ts` (omitted while `null`)

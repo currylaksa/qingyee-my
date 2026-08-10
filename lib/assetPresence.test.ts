@@ -25,25 +25,64 @@ describe('isUsableKey', () => {
 describe('resolveAssetPresence', () => {
   it('maps cv/headshot existence straight through', () => {
     expect(
-      resolveAssetPresence({ cvExists: true, headshotExists: false, formKey: undefined }),
+      resolveAssetPresence({
+        cvExists: true,
+        cvAiExists: false,
+        headshotExists: false,
+        formKey: undefined,
+      }),
     ).toMatchObject({ hasCv: true, hasHeadshot: false });
+  });
+
+  it('tracks the secondary AI CV independently of the primary one', () => {
+    expect(
+      resolveAssetPresence({
+        cvExists: true,
+        cvAiExists: false,
+        headshotExists: false,
+        formKey: undefined,
+      }).hasCvAi,
+    ).toBe(false);
+    expect(
+      resolveAssetPresence({
+        cvExists: false,
+        cvAiExists: true,
+        headshotExists: false,
+        formKey: undefined,
+      }).hasCvAi,
+    ).toBe(true);
   });
 
   it('all present', () => {
     expect(
-      resolveAssetPresence({ cvExists: true, headshotExists: true, formKey: 'real-key' }),
-    ).toEqual({ hasCv: true, hasHeadshot: true, hasFormKey: true });
+      resolveAssetPresence({
+        cvExists: true,
+        cvAiExists: true,
+        headshotExists: true,
+        formKey: 'real-key',
+      }),
+    ).toEqual({ hasCv: true, hasCvAi: true, hasHeadshot: true, hasFormKey: true });
   });
 
   it('all absent (placeholder key)', () => {
     expect(
-      resolveAssetPresence({ cvExists: false, headshotExists: false, formKey: 'NA' }),
-    ).toEqual({ hasCv: false, hasHeadshot: false, hasFormKey: false });
+      resolveAssetPresence({
+        cvExists: false,
+        cvAiExists: false,
+        headshotExists: false,
+        formKey: 'NA',
+      }),
+    ).toEqual({ hasCv: false, hasCvAi: false, hasHeadshot: false, hasFormKey: false });
   });
 
   it('hasFormKey false when key missing even if assets exist', () => {
     expect(
-      resolveAssetPresence({ cvExists: true, headshotExists: true, formKey: undefined }).hasFormKey,
+      resolveAssetPresence({
+        cvExists: true,
+        cvAiExists: true,
+        headshotExists: true,
+        formKey: undefined,
+      }).hasFormKey,
     ).toBe(false);
   });
 });

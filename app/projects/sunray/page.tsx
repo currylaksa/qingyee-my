@@ -1,0 +1,251 @@
+import type { Metadata } from 'next';
+import Link from 'next/link';
+import Container from '@/components/Container';
+import Kicker from '@/components/Kicker';
+import TechTag from '@/components/TechTag';
+import SunrayTopology from '@/components/SunrayTopology';
+import { sunray, personalInfo } from '@/lib/content';
+
+export const metadata: Metadata = {
+  title: 'Enterprise network design — OSPF, VLANs, IPsec VPN & ACLs',
+  description:
+    'A comprehensive network design for a Malaysian SME in Cisco Packet Tracer: 8 routers over 7 departmental segments, OSPF area 0, VLAN segmentation with router-on-a-stick, relayed DHCP, an IPsec remote-access VPN, and ACLs verified by end-to-end connectivity testing.',
+};
+
+export default function SunrayPage() {
+  return (
+    <>
+      {/* ── Header ───────────────────────────────────────────── */}
+      <section className="border-b border-hairline">
+        <Container className="py-12 sm:py-20">
+          <Link
+            href="/projects"
+            className="tap font-mono text-xs text-muted transition-colors hover:text-accent"
+          >
+            ← all projects
+          </Link>
+
+          <h1 className="mt-6 text-3xl font-semibold tracking-tight sm:text-4xl">
+            {sunray.title}
+          </h1>
+          <p className="mt-3 text-sm text-muted">{sunray.role}</p>
+          <p className="mt-1 font-mono text-xs text-muted">{sunray.course}</p>
+          {/* Named explicitly as the study subject — never as a client. */}
+          <p className="mt-1 font-mono text-xs text-muted">
+            case-study subject · {sunray.subject}
+          </p>
+
+          <p className="mt-6 max-w-3xl text-lg text-muted">{sunray.teaser}</p>
+
+          {/* At a glance */}
+          <dl className="mt-10 grid grid-cols-2 gap-px overflow-hidden rounded-[var(--radius-card)] border border-hairline bg-hairline sm:grid-cols-4">
+            {sunray.glance.map((stat) => (
+              <div key={stat.label} className="bg-card p-4">
+                <dd className="text-2xl font-semibold tracking-tight">{stat.value}</dd>
+                <dt className="font-mono text-xs text-muted">{stat.label}</dt>
+              </div>
+            ))}
+          </dl>
+
+          <div className="mt-4 flex flex-wrap gap-1.5">
+            {sunray.stack.map((tech) => (
+              <TechTag key={tech}>{tech}</TechTag>
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      {/* ── The brief ────────────────────────────────────────── */}
+      <section className="border-b border-hairline">
+        <Container className="py-12 sm:py-20">
+          <Kicker>the brief</Kicker>
+          <p className="mt-6 max-w-3xl text-lg text-muted">{sunray.brief}</p>
+        </Container>
+      </section>
+
+      {/* ── Topology ─────────────────────────────────────────── */}
+      <section className="border-b border-hairline">
+        <Container className="py-12 sm:py-20">
+          <Kicker>topology</Kicker>
+          <h2 className="mt-4 max-w-2xl text-2xl font-semibold tracking-tight sm:text-3xl">
+            Two cores, seven segments, one way out
+          </h2>
+          <p className="mt-4 max-w-3xl text-muted">
+            Every department hangs off its own router; the two cores carry
+            traffic between them over a /30 link. The firewall and the Internet
+            router sit deliberately outside the OSPF area, reached by static
+            routes, so internal topology is never advertised outward.
+          </p>
+          <div className="mt-10">
+            <SunrayTopology />
+          </div>
+        </Container>
+      </section>
+
+      {/* ── Address plan ─────────────────────────────────────── */}
+      <section className="border-b border-hairline">
+        <Container className="py-12 sm:py-20">
+          <Kicker>the address plan</Kicker>
+          <h2 className="mt-4 max-w-2xl text-2xl font-semibold tracking-tight sm:text-3xl">
+            Seven segments, sized to what they hold
+          </h2>
+          <p className="mt-4 max-w-3xl text-muted">
+            Each department sits in its own subnet behind its own router, so a
+            fault or a filter applies to one segment rather than the whole
+            estate. {sunray.transitNote}
+          </p>
+
+          {/* Wide table scrolls inside its own container on narrow screens. */}
+          <div className="mt-8 overflow-x-auto rounded-[var(--radius-card)] border border-hairline">
+            <table className="w-full min-w-[42rem] border-collapse text-left text-sm">
+              <thead>
+                <tr className="bg-card">
+                  <th className="p-4 font-mono text-xs font-normal text-muted">
+                    Segment
+                  </th>
+                  <th className="p-4 font-mono text-xs font-normal text-muted">
+                    Subnet
+                  </th>
+                  <th className="p-4 font-mono text-xs font-normal text-muted">
+                    Gateway
+                  </th>
+                  <th className="p-4 font-mono text-xs font-normal text-muted">
+                    Role
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {sunray.segments.map((segment) => (
+                  <tr key={segment.name} className="border-t border-hairline">
+                    <td className="p-4 font-medium">{segment.name}</td>
+                    <td className="p-4 font-mono text-xs text-accent">
+                      {segment.subnet}
+                    </td>
+                    <td className="p-4 font-mono text-xs text-muted">
+                      {segment.gateway}
+                    </td>
+                    <td className="p-4 text-muted">{segment.purpose}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </Container>
+      </section>
+
+      {/* ── Design decisions ─────────────────────────────────── */}
+      <section className="border-b border-hairline">
+        <Container className="py-12 sm:py-20">
+          <Kicker>design decisions</Kicker>
+          <h2 className="mt-4 max-w-2xl text-2xl font-semibold tracking-tight sm:text-3xl">
+            Six choices that shape the network
+          </h2>
+
+          <div className="mt-8 grid gap-5 lg:grid-cols-2">
+            {sunray.decisions.map((decision) => (
+              <article
+                key={decision.title}
+                className="flex flex-col rounded-[var(--radius-card)] border border-hairline bg-card p-5"
+              >
+                <p className="font-mono text-xs text-accent">{decision.tag}</p>
+                <h3 className="mt-2 text-lg font-semibold tracking-tight">
+                  {decision.title}
+                </h3>
+                <p className="mt-3 text-sm text-muted">{decision.body}</p>
+                <ul className="mt-4 space-y-2 border-t border-hairline pt-4">
+                  {decision.details.map((detail) => (
+                    <li key={detail} className="flex gap-3 text-sm text-muted">
+                      <span aria-hidden="true" className="font-mono text-accent">
+                        →
+                      </span>
+                      <span>{detail}</span>
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      {/* ── Verification ─────────────────────────────────────── */}
+      <section className="border-b border-hairline">
+        <Container className="py-12 sm:py-20">
+          <Kicker>verification</Kicker>
+          <h2 className="mt-4 max-w-2xl text-2xl font-semibold tracking-tight sm:text-3xl">
+            Proving the denials, not just the reachability
+          </h2>
+          <p className="mt-4 max-w-3xl text-lg text-muted">
+            {sunray.verification.intro}
+          </p>
+
+          <ul className="mt-8 grid gap-3 sm:grid-cols-2">
+            {sunray.verification.checks.map((check) => (
+              <li
+                key={`${check.source}-${check.destination}`}
+                className="flex gap-3 rounded-[var(--radius-card)] border border-hairline bg-card p-4"
+              >
+                <span
+                  aria-hidden="true"
+                  className={`font-mono ${
+                    check.result === 'pass' ? 'text-secure' : 'text-accent'
+                  }`}
+                >
+                  {check.result === 'pass' ? '✓' : '✕'}
+                </span>
+                <div>
+                  <p className="text-sm font-medium">
+                    {check.source}{' '}
+                    <span className="font-mono text-xs text-muted">→</span>{' '}
+                    {check.destination}
+                  </p>
+                  <p className="mt-1 text-sm text-muted">{check.note}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </Container>
+      </section>
+
+      {/* ── What I'd do next ─────────────────────────────────── */}
+      <section className="border-b border-hairline">
+        <Container className="py-12 sm:py-20">
+          <Kicker>what I’d do next</Kicker>
+          <ul className="mt-6 max-w-2xl space-y-3">
+            {sunray.whatsNext.map((item) => (
+              <li key={item} className="flex gap-3 text-muted">
+                <span aria-hidden="true" className="font-mono text-accent">
+                  →
+                </span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </Container>
+      </section>
+
+      {/* ── CTA ──────────────────────────────────────────────── */}
+      <section>
+        <Container className="py-12 text-center sm:py-20">
+          <p className="text-muted">
+            Happy to walk through the routing or the ACLs in an interview.
+          </p>
+          <div className="mt-6 flex flex-wrap justify-center gap-3">
+            <Link
+              href="/contact"
+              className="rounded-md bg-accent px-5 py-3 text-sm font-medium text-paper transition-colors hover:bg-accent-hover sm:py-2.5"
+            >
+              Get in touch
+            </Link>
+            <a
+              href={`mailto:${personalInfo.email}`}
+              className="rounded-md border border-hairline px-5 py-3 text-sm font-medium transition-colors hover:border-accent hover:text-accent sm:py-2.5"
+            >
+              {personalInfo.email}
+            </a>
+          </div>
+        </Container>
+      </section>
+    </>
+  );
+}
