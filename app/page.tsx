@@ -40,7 +40,7 @@ export default function Home() {
             {personalInfo.fullName} — {personalInfo.programme} graduand,{' '}
             {personalInfo.gradYear}. Enterprise routing and segmentation,
             carrier-network deployment, and hardened production infrastructure
-            — designed, deployed, and operated, not left in a lab.
+            — designed, deployed, and operated.
           </p>
 
           {/* On a phone the pillars push both CTAs off the first screen, so the

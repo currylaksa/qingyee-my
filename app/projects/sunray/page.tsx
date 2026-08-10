@@ -95,8 +95,31 @@ export default function SunrayPage() {
             estate. {sunray.transitNote}
           </p>
 
-          {/* Wide table scrolls inside its own container on narrow screens. */}
-          <div className="mt-8 overflow-x-auto rounded-[var(--radius-card)] border border-hairline">
+          {/* Phones get a card per segment — a 4-column table can only be
+              swiped at that width. sm and up get the real table. */}
+          <ul className="mt-8 flex flex-col gap-3 sm:hidden">
+            {sunray.segments.map((segment) => (
+              <li
+                key={segment.name}
+                className="rounded-[var(--radius-card)] border border-hairline bg-card p-4"
+              >
+                <p className="font-medium">{segment.name}</p>
+                <dl className="mt-2 flex flex-wrap gap-x-5 gap-y-1 font-mono text-xs">
+                  <div className="flex items-baseline gap-1.5">
+                    <dt className="text-muted">subnet</dt>
+                    <dd className="text-accent">{segment.subnet}</dd>
+                  </div>
+                  <div className="flex items-baseline gap-1.5">
+                    <dt className="text-muted">gateway</dt>
+                    <dd className="text-ink">{segment.gateway}</dd>
+                  </div>
+                </dl>
+                <p className="mt-2 text-sm text-muted">{segment.purpose}</p>
+              </li>
+            ))}
+          </ul>
+
+          <div className="mt-8 hidden overflow-x-auto rounded-[var(--radius-card)] border border-hairline sm:block">
             <table className="w-full min-w-[42rem] border-collapse text-left text-sm">
               <thead>
                 <tr className="bg-card">

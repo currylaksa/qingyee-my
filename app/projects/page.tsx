@@ -19,11 +19,11 @@ export default function ProjectsPage() {
           Networks designed, secured, and shipped
         </h1>
         <p className="mt-4 max-w-2xl text-lg text-muted">
-          SecureExam is a production zero-trust platform; the Sunray design
+          SecureExam is a production zero-trust platform; the Sunray project
           is a segmented enterprise network built on OSPF routing, VLANs,
-          and VPN; the Huawei suite is carrier-network deployment across
-          100+ teams. Everything here runs somewhere — deployed, operated,
-          and measured.
+          and VPN; the Huawei internship was carrier-network deployment
+          across 100+ teams. Designed, deployed, and measured — with what
+          shipped and what stayed a design each labelled as such.
         </p>
 
         <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">

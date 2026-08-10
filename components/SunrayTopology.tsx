@@ -8,7 +8,7 @@ import { sunray } from '@/lib/content';
    drift from the address table. */
 
 const W = 1020;
-const H = 540;
+const H = 500;
 
 /** Segment boxes, keyed by the `name` used in sunray.segments. */
 const SEGMENTS: { name: string; x: number; parent: 'MR1' | 'CORE' | 'MR2' }[] = [
@@ -152,12 +152,99 @@ function LinkLabel({
   );
 }
 
+/** One tier of the phone layout: a labelled group of nodes. */
+function Tier({
+  label,
+  note,
+  children,
+}: {
+  label: string;
+  note?: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <li className="relative pl-6">
+      {/* connector into the next tier */}
+      <span
+        aria-hidden="true"
+        className="absolute left-[3px] top-2 h-full w-px bg-hairline"
+      />
+      <span
+        aria-hidden="true"
+        className="absolute left-0 top-1.5 h-[7px] w-[7px] rounded-full bg-accent"
+      />
+      <p className="font-mono text-xs text-accent">{label}</p>
+      {note && <p className="mt-1 font-mono text-[0.7rem] text-muted">{note}</p>}
+      <div className="mt-2 flex flex-col gap-2">{children}</div>
+    </li>
+  );
+}
+
+function TierNode({ name, sub }: { name: string; sub?: string }) {
+  return (
+    <div className="rounded-[var(--radius-card)] border border-hairline bg-card px-3 py-2">
+      <p className="text-sm font-medium">{name}</p>
+      {sub && <p className="font-mono text-xs text-muted">{sub}</p>}
+    </div>
+  );
+}
+
+/** Phone layout: the same topology read as tiers, top to bottom. A 752px-wide
+    SVG can only be swiped on a phone, which is not "clear" — so below lg the
+    diagram becomes this list instead. Only one of the two is ever in the
+    accessibility tree, since the other is display:none. */
+function StackedTopology() {
+  const under = (parent: 'MR1' | 'CORE' | 'MR2') =>
+    SEGMENTS.filter((s) => s.parent === parent);
+
+  return (
+    // The trailing connector on the final tier would dangle into nothing.
+    <ol className="flex flex-col gap-5 rounded-[var(--radius-card)] border border-hairline bg-paper p-5 [&>li:last-child>span:first-child]:hidden">
+      <Tier label="internet edge" note="outside OSPF · static routes">
+        <TierNode name="Internet server" sub="209.165.0.2" />
+        <TierNode name="Internet router" />
+        <TierNode name="Firewall" />
+      </Tier>
+
+      <Tier label="core" note="OSPF process 10 · area 0 · 192.168.6.0/30 between cores">
+        <TierNode name="Core MR1" />
+        <TierNode name="Core MR2" />
+      </Tier>
+
+      <Tier label="staff floors" note="via core switch · 802.1Q trunk">
+        {under('CORE').map((s, i) => (
+          <TierNode
+            key={s.name}
+            name={s.name}
+            sub={`VLAN ${i === 0 ? '10' : '20'} · ${subnetOf(s.name)}`}
+          />
+        ))}
+      </Tier>
+
+      <Tier label="segments on MR1">
+        {under('MR1').map((s) => (
+          <TierNode key={s.name} name={s.name} sub={subnetOf(s.name)} />
+        ))}
+      </Tier>
+
+      <Tier label="segments on MR2">
+        {under('MR2').map((s) => (
+          <TierNode key={s.name} name={s.name} sub={subnetOf(s.name)} />
+        ))}
+      </Tier>
+    </ol>
+  );
+}
+
 export default function SunrayTopology() {
   return (
     <figure className="m-0">
-      {/* The diagram stays legible rather than shrinking to fit a phone, so it
-          scrolls inside its own container instead of the page scrolling. */}
-      <div className="overflow-x-auto rounded-[var(--radius-card)] border border-hairline bg-paper">
+      {/* Phones get the stacked tiers; lg and up get the drawn topology. */}
+      <div className="lg:hidden">
+        <StackedTopology />
+      </div>
+
+      <div className="hidden overflow-x-auto rounded-[var(--radius-card)] border border-hairline bg-paper lg:block">
         <svg
           viewBox={`0 0 ${W} ${H}`}
           role="img"
@@ -241,10 +328,10 @@ export default function SunrayTopology() {
 
           {/* OSPF boundary — everything below the firewall is one area. */}
           <rect
-            x={26}
+            x={16}
             y={Y_CORE_ROUTERS - 44}
-            width={968}
-            height={H - (Y_CORE_ROUTERS - 44) - 24}
+            width={988}
+            height={285}
             rx={12}
             fill="none"
             stroke="var(--color-accent)"
@@ -252,7 +339,7 @@ export default function SunrayTopology() {
             strokeDasharray="5 5"
           />
           <text
-            x={36}
+            x={28}
             y={Y_CORE_ROUTERS - 26}
             fontSize="10.5"
             fontFamily="var(--font-mono)"
