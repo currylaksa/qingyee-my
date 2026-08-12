@@ -839,6 +839,27 @@ export const runningLog: Stat[] = [
   { label: 'Goal HM', value: '<2:00' },
 ];
 
+/**
+ * Tracked entry points. Cloudflare Web Analytics drops query strings, so a
+ * UTM tag would be discarded — but Path is a logged dimension. Each slug
+ * below becomes /r/<slug>/, a noindex page that bounces to `target`, so
+ * otherwise-invisible "direct" traffic shows up as its own row in Top paths.
+ * Only stable links belong here — the CV, the signature — not one-off sends.
+ */
+export type TrackedLink = {
+  slug: string;
+  /** Where this link is published — the reason the row exists. */
+  note: string;
+  /** Internal path to land on. */
+  target: string;
+};
+
+export const trackedLinks: TrackedLink[] = [
+  { slug: 'cv', note: 'Network & Security CV', target: '/' },
+  { slug: 'cv-ai', note: 'AI engineering CV', target: '/' },
+  { slug: 'email', note: 'Email signature', target: '/' },
+];
+
 export const findMe: Link[] = [
   { label: 'GitHub', href: personalInfo.github },
   { label: 'LinkedIn', href: personalInfo.linkedin },
