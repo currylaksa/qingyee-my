@@ -1,20 +1,14 @@
 import type { Metadata } from 'next';
 import Container from '@/components/Container';
 import Kicker from '@/components/Kicker';
-import ContactForm from '@/components/ContactForm';
-import { personalInfo, findMe } from '@/lib/content';
-import { isUsableKey } from '@/lib/assetPresence';
+import { personalInfo, contactChannels, contactFacts } from '@/lib/content';
 
 export const metadata: Metadata = {
   title: 'Contact',
   description: `Get in touch with ${personalInfo.fullName} — open to network and security engineering roles in Singapore.`,
 };
 
-const formKey = process.env.NEXT_PUBLIC_WEB3FORMS_KEY;
-
 export default function ContactPage() {
-  const hasFormKey = isUsableKey(formKey);
-
   return (
     <section>
       <Container className="py-12 sm:py-20">
@@ -32,46 +26,57 @@ export default function ContactPage() {
         </p>
 
         <div className="mt-10 grid gap-10 lg:grid-cols-2 lg:items-start">
-          {/* Direct channels */}
+          {/* Direct channels — label above the real address so a recruiter can
+              read and copy it without clicking through. */}
           <div>
-            <ul className="space-y-3">
-              {findMe.map((link) => (
-                <li key={link.label}>
-                  <a
-                    href={link.href}
-                    target={link.href.startsWith('http') ? '_blank' : undefined}
-                    rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                    className="group flex items-center justify-between rounded-[var(--radius-card)] border border-hairline bg-card px-4 py-3 transition-colors hover:border-accent/40"
-                  >
-                    <span className="text-sm font-medium">{link.label}</span>
-                    <span className="font-mono text-xs text-muted transition-colors group-hover:text-accent">
-                      ↗
-                    </span>
-                  </a>
-                </li>
-              ))}
+            <h2 className="font-mono text-sm text-accent">// direct channels</h2>
+            <ul className="mt-4 space-y-3">
+              {contactChannels.map((link) => {
+                const external = link.href.startsWith('http');
+                return (
+                  <li key={link.label}>
+                    <a
+                      href={link.href}
+                      target={external ? '_blank' : undefined}
+                      rel={external ? 'noopener noreferrer' : undefined}
+                      className="group flex items-center justify-between gap-4 rounded-[var(--radius-card)] border border-hairline bg-card px-4 py-3 transition-colors hover:border-accent/40"
+                    >
+                      <span className="min-w-0">
+                        <span className="block font-mono text-xs text-muted">
+                          {link.label}
+                        </span>
+                        <span className="mt-0.5 block truncate text-sm font-medium transition-colors group-hover:text-accent">
+                          {link.value} ↗
+                        </span>
+                      </span>
+                    </a>
+                  </li>
+                );
+              })}
             </ul>
           </div>
 
-          {/* Form (or fallback when no key is configured yet) */}
+          {/* Good to know — sets expectations and balances the column. */}
           <div>
-            {hasFormKey ? (
-              <ContactForm accessKey={formKey!} />
-            ) : (
-              <div className="rounded-[var(--radius-card)] border border-dashed border-hairline bg-card p-6">
-                <p className="text-sm text-muted">
-                  The message form will appear here once the contact endpoint is
-                  configured. In the meantime, please reach me by{' '}
-                  <a
-                    href={`mailto:${personalInfo.email}`}
-                    className="tap text-accent underline underline-offset-2 hover:text-accent-hover"
-                  >
-                    email
-                  </a>
-                  .
-                </p>
-              </div>
-            )}
+            <h2 className="font-mono text-sm text-accent">// good to know</h2>
+            <dl className="mt-4 grid gap-px overflow-hidden rounded-[var(--radius-card)] border border-hairline bg-hairline sm:grid-cols-2">
+              {contactFacts.map((fact) => (
+                <div key={fact.label} className="bg-card p-4">
+                  <dt className="font-mono text-xs text-muted">{fact.label}</dt>
+                  <dd className="mt-1 text-sm">{fact.value}</dd>
+                </div>
+              ))}
+            </dl>
+            <p className="mt-4 text-sm text-muted">
+              Hiring for a network or security role? A line about the team and
+              the stack is enough — I’ll reply with availability and a CV.
+            </p>
+            <a
+              href={`mailto:${personalInfo.email}`}
+              className="mt-6 inline-flex items-center rounded-md bg-accent px-5 py-3 text-sm font-medium text-paper transition-colors hover:bg-accent-hover"
+            >
+              Email me
+            </a>
           </div>
         </div>
       </Container>

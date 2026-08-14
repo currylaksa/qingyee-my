@@ -845,3 +845,19 @@ export const findMe: Link[] = [
   { label: 'Email', href: `mailto:${personalInfo.email}` },
   { label: personalInfo.whatsappLabel, href: personalInfo.whatsapp },
 ];
+
+/** Same channels as `findMe`, carrying the readable value the contact page
+    shows under each label so a visitor can copy it without clicking. */
+export const contactChannels: (Link & { value: string })[] = [
+  { label: 'Email', value: personalInfo.email, href: `mailto:${personalInfo.email}` },
+  { label: 'LinkedIn', value: 'linkedin.com/in/chanqingyee', href: personalInfo.linkedin },
+  { label: 'WhatsApp', value: personalInfo.whatsappLabel, href: personalInfo.whatsapp },
+  { label: 'GitHub', value: 'github.com/currylaksa', href: personalInfo.github },
+];
+
+export const contactFacts: Stat[] = [
+  { label: 'Time zone', value: 'GMT+8 — same as Singapore' },
+  { label: 'Typical reply', value: 'Within one business day' },
+  { label: 'Based in', value: 'Johor Bahru → Singapore' },
+  { label: 'Best channel', value: 'Email or LinkedIn' },
+];

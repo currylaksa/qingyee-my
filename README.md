@@ -53,7 +53,6 @@ The site renders gracefully without these and auto-includes them once present:
 - `public/cv.pdf` — Network & Security resume; "Download CV" button in the nav and hero (hidden until added)
 - `public/cv-ai.pdf` — secondary AI engineering resume
 - `public/headshot.jpg` — About-page portrait (section omitted until added)
-- `NEXT_PUBLIC_WEB3FORMS_KEY` env var — activates the contact form (mailto fallback until set)
 - Cert dates and `verifyUrl`s in `lib/content.ts` (omitted while `null`)
 
 Project URLs follow a **no dead links** policy: a `null` URL renders no link at all (see `lib/projectLinks.ts`).
