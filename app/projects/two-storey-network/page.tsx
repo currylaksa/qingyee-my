@@ -4,6 +4,9 @@ import Container from '@/components/Container';
 import Kicker from '@/components/Kicker';
 import TechTag from '@/components/TechTag';
 import CampusTopology from '@/components/CampusTopology';
+import AddressSpaceBar from '@/components/AddressSpaceBar';
+import SubnetFit from '@/components/SubnetFit';
+import ConnectivityMatrix from '@/components/ConnectivityMatrix';
 import { campusNetwork, personalInfo } from '@/lib/content';
 
 export const metadata: Metadata = {
@@ -100,14 +103,26 @@ export default function TwoStoreyNetworkPage() {
             One /23, thirteen subnets, five masks
           </h2>
           <p className="mt-4 max-w-3xl text-muted">
-            Ten host segments, each measured against the room it serves before
-            a mask was chosen — a 32-seat lab gets a /26, a two-seat
-            conferencing room gets a /29. {campusNetwork.transitNote}
+            {campusNetwork.addressPlanNote} {campusNetwork.transitNote}
           </p>
+
+          <div className="mt-10">
+            <AddressSpaceBar
+              parent={campusNetwork.parentBlock}
+              label={`${campusNetwork.parentBlock} · every subnet at its true share`}
+              blocks={[
+                ...campusNetwork.segments.map((s) => ({
+                  name: s.name,
+                  subnet: s.subnet,
+                })),
+                ...campusNetwork.transitLinks,
+              ]}
+            />
+          </div>
 
           {/* Phones get a card per segment — a 4-column table can only be
               swiped at that width. sm and up get the real table. */}
-          <ul className="mt-8 flex flex-col gap-3 sm:hidden">
+          <ul className="mt-10 flex flex-col gap-3 sm:hidden">
             {campusNetwork.segments.map((segment) => (
               <li
                 key={segment.name}
@@ -124,13 +139,17 @@ export default function TwoStoreyNetworkPage() {
                     <dd className="text-ink">{segment.gateway}</dd>
                   </div>
                 </dl>
-                <p className="mt-2 text-sm text-muted">{segment.purpose}</p>
+                {segment.hosts !== undefined && (
+                  <div className="mt-3">
+                    <SubnetFit hosts={segment.hosts} subnet={segment.subnet} />
+                  </div>
+                )}
               </li>
             ))}
           </ul>
 
-          <div className="mt-8 hidden overflow-x-auto rounded-[var(--radius-card)] border border-hairline sm:block">
-            <table className="w-full min-w-[42rem] border-collapse text-left text-sm">
+          <div className="mt-10 hidden overflow-x-auto rounded-[var(--radius-card)] border border-hairline sm:block">
+            <table className="w-full min-w-[38rem] border-collapse text-left text-sm">
               <thead>
                 <tr className="bg-card">
                   <th className="p-4 font-mono text-xs font-normal text-muted">
@@ -143,7 +162,7 @@ export default function TwoStoreyNetworkPage() {
                     Gateway
                   </th>
                   <th className="p-4 font-mono text-xs font-normal text-muted">
-                    Why this size
+                    Fit
                   </th>
                 </tr>
               </thead>
@@ -157,7 +176,11 @@ export default function TwoStoreyNetworkPage() {
                     <td className="p-4 font-mono text-xs text-muted">
                       {segment.gateway}
                     </td>
-                    <td className="p-4 text-muted">{segment.purpose}</td>
+                    <td className="p-4">
+                      {segment.hosts !== undefined && (
+                        <SubnetFit hosts={segment.hosts} subnet={segment.subnet} />
+                      )}
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -198,6 +221,35 @@ export default function TwoStoreyNetworkPage() {
               </article>
             ))}
           </div>
+
+          {/* The routing card argues that static and EIGRP coexist; this is
+              that argument's evidence, straight off the device. */}
+          <figure className="mt-8 m-0 overflow-hidden rounded-[var(--radius-card)] border border-hairline">
+            <figcaption className="border-b border-hairline bg-card px-4 py-2.5 font-mono text-xs text-muted">
+              // {campusNetwork.routingProof.caption}
+            </figcaption>
+            <pre className="overflow-x-auto p-4 font-mono text-xs leading-relaxed text-muted">
+              <code>
+                {campusNetwork.routingProof.lines.map((line) => {
+                  const code = line.trimStart()[0];
+                  const tone =
+                    code === 'S'
+                      ? 'text-accent'
+                      : code === 'D'
+                        ? 'text-secure'
+                        : undefined;
+                  return (
+                    <span key={line} className={`block ${tone ?? ''}`}>
+                      {line || ' '}
+                    </span>
+                  );
+                })}
+              </code>
+            </pre>
+          </figure>
+          <p className="mt-4 max-w-3xl text-muted">
+            {campusNetwork.routingProof.readout}
+          </p>
         </Container>
       </section>
 
@@ -206,37 +258,31 @@ export default function TwoStoreyNetworkPage() {
         <Container className="py-12 sm:py-20">
           <Kicker>verification</Kicker>
           <h2 className="mt-4 max-w-2xl text-2xl font-semibold tracking-tight sm:text-3xl">
-            Telling a cold ARP cache from a broken route
+            Every room against every room
           </h2>
           <p className="mt-4 max-w-3xl text-lg text-muted">
             {campusNetwork.verification.intro}
           </p>
 
-          <ul className="mt-8 grid gap-3 sm:grid-cols-2">
-            {campusNetwork.verification.checks.map((check) => (
-              <li
-                key={`${check.source}-${check.destination}`}
-                className="flex gap-3 rounded-[var(--radius-card)] border border-hairline bg-card p-4"
-              >
-                <span
-                  aria-hidden="true"
-                  className={`font-mono ${
-                    check.result === 'pass' ? 'text-secure' : 'text-accent'
-                  }`}
-                >
-                  {check.result === 'pass' ? '✓' : '✕'}
+          <div className="mt-8">
+            <ConnectivityMatrix matrix={campusNetwork.verification} />
+          </div>
+
+          <ul className="mt-8 max-w-3xl space-y-3">
+            {campusNetwork.verification.readout.map((line) => (
+              <li key={line} className="flex gap-3 text-muted">
+                <span aria-hidden="true" className="font-mono text-accent">
+                  →
                 </span>
-                <div>
-                  <p className="text-sm font-medium">
-                    {check.source}{' '}
-                    <span className="font-mono text-xs text-muted">→</span>{' '}
-                    {check.destination}
-                  </p>
-                  <p className="mt-1 text-sm text-muted">{check.note}</p>
-                </div>
+                <span>{line}</span>
               </li>
             ))}
           </ul>
+
+          <p className="mt-8 max-w-3xl rounded-[var(--radius-card)] border border-hairline bg-card p-4 text-sm text-muted">
+            <span className="font-mono text-xs text-accent">// note · </span>
+            {campusNetwork.verificationNote}
+          </p>
         </Container>
       </section>
 

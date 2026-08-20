@@ -481,12 +481,16 @@ export type HuaweiTool = {
   highlights: string[];
   skills: string[];
   source: string;
+  /** Indices into huawei.practices. Every mark is supported by something
+      the tool's own highlights already claim — nothing is asserted here
+      that the description below does not back up. */
+  practices: number[];
 };
 
 export const huawei = {
   role: 'Project Engineer Intern · Huawei Technologies Malaysia',
   intro:
-    'I coordinated daily deployment operations for Malaysia’s U Mobile 5G Network Upgrade (RAN and Microwave) across Northern and Southern Malaysia — tracking 100+ subcontractor teams, resolving operational bottlenecks between Huawei, subcontractors, and the client, and managing the official site handover of 1,000+ acceptance deliverables including UAT and Launch Completion Reports. To keep that pace, I built and deployed five automation tools in Python, PowerShell, Selenium, and Excel automation, cutting daily reporting from 15 minutes to 1 — a 93% reduction.',
+    'I coordinated daily deployment operations for Malaysia’s U Mobile 5G Network Upgrade (RAN and Microwave) — tracking 100+ subcontractor teams, resolving bottlenecks between Huawei, subcontractors, and the client, and managing the handover of 1,000+ acceptance deliverables. To keep that pace I built five automation tools in Python, PowerShell, and Selenium.',
   impact: [
     { label: 'Teams tracked', value: '100+' },
     { label: 'Site deliverables', value: '1,000+' },
@@ -495,19 +499,46 @@ export const huawei = {
   ] as Stat[],
   note:
     'The scripts here are sanitized: credentials, internal URLs, personal information, customer and subcontractor names, and operational datasets have been removed.',
-  securityRelevance: [
-    'Secure handling of credentials and internal endpoints — read from environment variables, never stored in source.',
-    'Correlation and validation of records across multiple operational data sources.',
-    'Detection of missing, duplicate, or anomalous records.',
-    'Resilient, fault-tolerant batch processing with audit-friendly results.',
-    'Diagnostic logging and evidence collection when automation fails.',
+  practices: [
+    {
+      name: 'Secure credential handling',
+      short: 'creds',
+      detail:
+        'Credentials and internal endpoints read from the environment or left under user control — never stored in source.',
+    },
+    {
+      name: 'Cross-source correlation & validation',
+      short: 'correlate',
+      detail:
+        'Records matched and checked across more than one operational data source before being acted on.',
+    },
+    {
+      name: 'Anomaly detection',
+      short: 'anomaly',
+      detail: 'Missing, duplicate, or unmatched records surfaced rather than silently passed through.',
+    },
+    {
+      name: 'Fault-tolerant batch processing',
+      short: 'fault-tol',
+      detail:
+        'One bad record does not stop the run; the batch continues and reports what failed.',
+    },
+    {
+      name: 'Diagnostic evidence on failure',
+      short: 'evidence',
+      detail: 'Enough captured at the point of failure to work out afterwards what went wrong.',
+    },
   ],
+
+  practicesNote:
+    'Five tools, five practices, and which proves which. The sparse columns are the honest part — diagnostic evidence rests on one tool, so it is one tool’s worth of proof.',
   tools: [
     {
       name: 'Work Permit Site Extractor',
+      practices: [1, 2],
       usage: 'Shared with teammates',
       summary:
-        'Processes weekly work-permit spreadsheets: extracts network-site IDs from multiple columns, normalizes inconsistent delimiters, deduplicates, groups sites by region, maps IDs to names, and outputs formatted Excel reports.',
+        'Turns weekly work-permit spreadsheets into one clean, regionally grouped site list.',
       highlights: [
         'Parses comma-, slash-, and whitespace-separated site identifiers.',
         'Combines and deduplicates records across multiple workbooks.',
@@ -518,9 +549,10 @@ export const huawei = {
     },
     {
       name: 'Site Key Status Checker',
+      practices: [1],
       usage: 'Shared with teammates',
       summary:
-        'Correlates two Excel data sources to show a network site’s key status, key holder, collection location, responsible handler, and collector details when required.',
+        'Answers who holds a site’s access key and where to collect it, from two separate datasets.',
       highlights: [
         'Accepts one or many site IDs and correlates across separate datasets.',
         'Enriches key-holder records with collection-location data.',
@@ -531,9 +563,10 @@ export const huawei = {
     },
     {
       name: 'Multi-Site Clock-In/Out Automation',
+      practices: [0, 1, 3],
       usage: 'Shared with teammates',
       summary:
-        'Automates repetitive browser workflows for batches of network sites: logs in with environment-based credentials, validates sites against a work permit, performs clock-in/out, and produces a success/failure summary.',
+        'Clocks batches of sites in and out through the browser, then reports what succeeded and what did not.',
       highlights: [
         'Selenium explicit waits for reliable browser interaction.',
         'Validates site IDs before acting; continues when individual sites fail.',
@@ -544,9 +577,10 @@ export const huawei = {
     },
     {
       name: 'Daily Clock Report Automation',
+      practices: [1, 2],
       usage: 'Personal productivity tool',
       summary:
-        'A PowerShell workflow that transforms a raw daily clock report into structured Excel reports — filtering categories, validating distances, building PivotTables, and flagging duplicate records.',
+        'Turns a raw daily clock report into structured Excel, with PivotTables and duplicates flagged.',
       highlights: [
         'Controls Microsoft Excel through COM automation.',
         'Generates detailed and summary PivotTables.',
@@ -557,9 +591,10 @@ export const huawei = {
     },
     {
       name: 'Batch Email Request Automation',
+      practices: [0, 3, 4],
       usage: 'Personal productivity tool',
       summary:
-        'A Selenium workflow that submits batches of network-related identifiers through an authenticated internal request form, recording failures with diagnostic screenshots.',
+        'Submits batches of identifiers through an authenticated internal form, screenshotting anything that fails.',
       highlights: [
         'Keeps authentication under user control (manual login).',
         'Isolates failures so one record does not stop the batch.',
@@ -583,7 +618,10 @@ export type NetworkSegment = {
   name: string;
   subnet: string;
   gateway: string;
-  purpose: string;
+  purpose?: string;
+  /** Workstations the room actually holds. Present only where the source
+      report counted them, which drives the fit meter. */
+  hosts?: number;
 };
 
 export type DesignDecision = {
@@ -598,6 +636,23 @@ export type ConnectivityCheck = {
   destination: string;
   result: 'pass' | 'blocked';
   note: string;
+};
+
+/** One cell of a test matrix. `untested` is not a failure — it means the
+    source report never ran that pair, and it renders as such. Nothing is
+    ever marked `pass` that the report did not actually record. */
+export type MatrixResult = 'pass' | 'blocked' | 'untested';
+
+export type ConnectivityMatrix = {
+  intro: string;
+  /** Row labels, and the short forms used for column headers. */
+  sources: string[];
+  destinations: string[];
+  destinationsShort: string[];
+  /** Row-major: cells[source][destination]. */
+  cells: MatrixResult[][];
+  /** Read out beneath the grid — what the shape of it means. */
+  readout: string[];
 };
 
 export const sunray = {
@@ -677,7 +732,7 @@ export const sunray = {
       title: 'OSPF everywhere inside, static at the edge',
       tag: 'routing',
       body:
-        'A single OSPF process (area 0) runs across all seven internal routers so paths are learned dynamically and survive a link failure. The Internet router is deliberately excluded and reached by static routes instead.',
+        'A single OSPF area 0 runs across all seven internal routers, so paths survive a link failure. The Internet router is deliberately excluded and reached statically instead.',
       details: [
         'Keeping the edge out of OSPF means internal topology is never advertised to an external device.',
         'The core originates a default route into the domain, so every internal router learns one way out.',
@@ -692,15 +747,14 @@ export const sunray = {
       details: [
         'Access ports pinned to their VLAN in access mode so they cannot negotiate a trunk.',
         'Trunk links restricted with an explicit allowed-VLAN list rather than passing every VLAN.',
-        'Inter-VLAN routing on tagged subinterfaces, each owning its /28 gateway.',
-        'PVST keeps the switched core loop-free.',
+        'Inter-VLAN routing on tagged subinterfaces, each owning its /28 gateway; PVST keeps the switched core loop-free.',
       ],
     },
     {
       title: 'Centralised DHCP with relay agents',
       tag: 'addressing',
       body:
-        'One DHCP server in the Server Room serves eight named pools — one per segment — with every remote router configured as a relay agent so broadcasts reach it across routed boundaries.',
+        'One server in the Server Room serves eight named pools, with every remote router relaying so broadcasts reach it across routed boundaries.',
       details: [
         'A helper address on each department-facing interface forwards DHCP to 192.168.3.2.',
         'Pool masks are sized per segment: /24 for the large departments, /28 for the staff rooms.',
@@ -711,30 +765,29 @@ export const sunray = {
       title: 'IPsec remote-access VPN',
       tag: 'remote access',
       body:
-        'Work-from-home staff terminate an IPsec tunnel on the main router, authenticated per user and assigned an address from a dedicated VPN pool.',
+        'Work-from-home staff terminate an IPsec tunnel on the main router, authenticated per user and given an address from a dedicated VPN pool.',
       details: [
-        'ISAKMP policy negotiating AES-256 with Diffie-Hellman group 5 and a 3600-second rekey lifetime.',
-        'ESP transform set pairing AES encryption with SHA integrity, so tampering is detected as well as prevented.',
-        'A dynamic crypto map with reverse-route injection adds each client’s route as it connects.',
-        'Clients draw from a dedicated pool, which is what makes them addressable — and therefore filterable — as a group.',
+        'ISAKMP negotiating AES-256 with Diffie-Hellman group 5 and a 3600-second rekey.',
+        'ESP pairing AES encryption with SHA integrity, so tampering is detected as well as prevented.',
+        'A dedicated pool is what makes clients addressable — and therefore filterable — as a group.',
       ],
     },
     {
       title: 'ACLs that assume the remote user is untrusted',
       tag: 'access control',
       body:
-        'Two complementary ACLs enforce least privilege: one stops VPN clients reaching the sensitive departments, the other allows only known sources into Finance.',
+        'Two ACLs enforce least privilege from different directions: an extended ACL on the remote-access router denies the VPN pool, and a standard ACL on the core admits only a named list into Finance.',
       details: [
-        'An extended ACL on the remote-access router denies the VPN pool to both the Finance and Executive Office subnets, then permits everything else.',
-        'A standard ACL applied outbound on the core permits only the Server Room, Executive Office, transit links, and the Internet block into Finance — everything else falls to the implicit deny.',
-        'Remote users keep access to general resources; only the sensitive segments are withheld.',
+        'The Finance ACL permits the Server Room, Executive Office, the transit links, and the Internet block; everything else falls to the implicit deny.',
+        'That permit list is legible in the test grid — the four sources that cannot reach Finance are exactly the four absent from it.',
+        'The VPN ACL denies the pool 192.168.3.100–.110 specifically, so it filters by allocated address rather than by segment.',
       ],
     },
     {
       title: 'Firewall between the estate and the Internet',
       tag: 'perimeter',
       body:
-        'A dedicated firewall separates the internal network from the Internet segment, with asymmetric rules in each direction.',
+        'A dedicated firewall separates the estate from the Internet segment, with deliberately asymmetric rules in each direction.',
       details: [
         'Outbound: internal hosts may reach the Internet server freely.',
         'Inbound: only the Internet server itself is permitted in — every other external host is refused.',
@@ -745,46 +798,42 @@ export const sunray = {
 
   verification: {
     intro:
-      'Every segment pair was ping-tested from end to end. The interesting result is the one that fails: a VPN laptop cannot reach Finance, while an Executive Office host on the same destination succeeds — which is exactly what the ACLs were written to do. A design is only proven when the denials are demonstrated, not just the reachability.',
-    checks: [
-      {
-        source: 'VPN laptop',
-        destination: 'Executive Office',
-        result: 'pass',
-        note: 'Reachable — the remote user still gets general access.',
-      },
-      {
-        source: 'VPN laptop',
-        destination: 'Server Room',
-        result: 'pass',
-        note: 'Reachable across the OSPF domain.',
-      },
-      {
-        source: 'VPN laptop',
-        destination: 'Staff Rooms 1 & 2',
-        result: 'pass',
-        note: 'Inter-VLAN routing works from off-site.',
-      },
-      {
-        source: 'VPN laptop',
-        destination: 'Internet',
-        result: 'pass',
-        note: 'Egress through the firewall succeeds.',
-      },
-      {
-        source: 'VPN laptop',
-        destination: 'Finance',
-        result: 'blocked',
-        note: 'Denied by design — host unreachable, returned by the ACL on the remote-access router.',
-      },
-      {
-        source: 'Executive Office',
-        destination: 'Finance',
-        result: 'pass',
-        note: 'Permitted by the Finance ACL — proving the block is source-specific, not a broken route.',
-      },
-    ] as ConnectivityCheck[],
-  },
+      'Every source was ping-tested against every destination — 56 pairs, and the grid is the result. One column fails and the rest of the estate is clean, which is the whole argument of the design: the blocks are deliberate and narrow, not collateral damage from a broken route.',
+    sources: [
+      'Remote Access',
+      'Executive Office',
+      'Server Room',
+      'IT Department',
+      'Finance',
+      'Staff Room 1',
+      'Staff Room 2',
+    ],
+    destinations: [
+      'Remote Access',
+      'Executive Office',
+      'Internet',
+      'Server Room',
+      'IT Department',
+      'Finance',
+      'Staff Room 1',
+      'Staff Room 2',
+    ],
+    destinationsShort: ['RA', 'EXEC', 'INET', 'SRV', 'IT', 'FIN', 'SR1', 'SR2'],
+    cells: [
+      ['pass', 'pass', 'pass', 'pass', 'pass', 'blocked', 'pass', 'pass'],
+      ['pass', 'pass', 'pass', 'pass', 'pass', 'pass', 'pass', 'pass'],
+      ['pass', 'pass', 'pass', 'pass', 'pass', 'pass', 'pass', 'pass'],
+      ['pass', 'pass', 'pass', 'pass', 'pass', 'blocked', 'pass', 'pass'],
+      ['pass', 'pass', 'pass', 'pass', 'pass', 'pass', 'pass', 'pass'],
+      ['pass', 'pass', 'pass', 'pass', 'pass', 'blocked', 'pass', 'pass'],
+      ['pass', 'pass', 'pass', 'pass', 'pass', 'blocked', 'pass', 'pass'],
+    ],
+    readout: [
+      'Finance is the only column with any denial in it — every other destination is reachable from everywhere.',
+      'The three sources that do get in — Executive Office, Server Room, and Finance itself — are exactly the ones named in the Finance ACL’s permit list.',
+      'The four that do not — Remote Access, IT, and both Staff Rooms — are absent from that list and fall to the implicit deny. The pattern in the column is the ACL, read back off the network.',
+    ],
+  } as ConnectivityMatrix,
 
   whatsNext: [
     'Replace the pre-shared VPN group key with certificate-based authentication.',
@@ -831,127 +880,131 @@ export const campusNetwork = {
   ],
 
   brief:
-    'The faculty is outgrowing its space, so the brief was to network a new two-storey building from the floor plan up: four teaching labs and two video-conferencing rooms at first, then four staff rooms added mid-project to test whether the design could absorb growth. One address block was issued — 172.16.36.0/23 — and everything else, from subnet sizing to routing protocol to how a workstation gets an address, was ours to decide.',
+    'The faculty is outgrowing its space, so the brief was to network a new two-storey building from the floor plan up: four teaching labs and two video-conferencing rooms at first, then four staff rooms added mid-project to test whether the design could absorb growth. One address block was issued — 172.16.36.0/23 — and everything else was ours to decide.',
+
+  /** The single block everything is carved from; drives the allocation bar. */
+  parentBlock: '172.16.36.0/23',
+
+  addressPlanNote:
+    'Each room was measured before a mask was chosen, largest first, so every subnet lands on its own boundary with no unusable gaps between them. A flat /24 per room would have run out after two rooms; equal-sized subnets would have spent 62 addresses on a two-seat conferencing room. The fit column is that decision audited — hosts the room holds against addresses the mask provides.',
 
   segments: [
     {
       name: 'Network Lab',
       subnet: '172.16.36.0/26',
       gateway: '172.16.36.62',
-      purpose:
-        'The largest room at 32 workstations. A /26 gives 62 usable addresses — the smallest mask that fits the room with headroom to spare.',
+      hosts: 32,
     },
     {
       name: 'General Purpose Lab',
       subnet: '172.16.36.64/26',
       gateway: '172.16.36.126',
-      purpose:
-        '31 workstations for programming, data analysis, and general coursework. Sized identically to the Network Lab so the two are interchangeable.',
+      hosts: 31,
     },
     {
       name: 'Computer Security Lab',
       subnet: '172.16.36.128/27',
       gateway: '172.16.36.158',
-      purpose:
-        '25 workstations. Dropping to a /27 saves 32 addresses over the labs above — the difference between fitting thirteen subnets in a /23 and not.',
+      hosts: 25,
     },
     {
       name: 'IoT Lab',
       subnet: '172.16.36.160/27',
       gateway: '172.16.36.190',
-      purpose:
-        '25 workstations on device-heavy benches. Behind Router-FF-B, so the two first-floor routers each carry one large lab and one small one.',
+      hosts: 25,
     },
     {
       name: 'Video Conferencing Room 1',
       subnet: '172.16.36.192/29',
       gateway: '172.16.36.198',
-      purpose:
-        'Two workstations for remote project meetings. A /29 leaves six usable addresses — enough for the pair, the gateway, and a spare.',
+      hosts: 2,
     },
     {
       name: 'Video Conferencing Room 2',
       subnet: '172.16.36.200/29',
       gateway: '172.16.36.206',
-      purpose:
-        'The second meeting room, on its own broadcast domain so a call in one never contends with the other.',
+      hosts: 2,
     },
     {
       name: 'Staff Room 1 · VLAN 10',
       subnet: '172.16.37.0/29',
       gateway: '172.16.37.1',
-      purpose:
-        'First floor. Added after the initial build, carved from the second half of the /23 that the first nine subnets never touched.',
+      hosts: 4,
     },
     {
       name: 'Staff Room 2 · VLAN 20',
       subnet: '172.16.37.8/29',
       gateway: '172.16.37.9',
-      purpose:
-        'First floor, sharing an access switch with Staff Room 1 but separated at Layer 2 — the switch trunks both VLANs upstream on one link.',
+      hosts: 4,
     },
     {
       name: 'Staff Room 3 · VLAN 30',
       subnet: '172.16.37.16/29',
       gateway: '172.16.37.17',
-      purpose:
-        'Ground floor. Physically a storey away from its gateway, which lives on a subinterface of the first-floor router.',
+      hosts: 4,
     },
     {
       name: 'Staff Room 4 · VLAN 40',
       subnet: '172.16.37.24/29',
       gateway: '172.16.37.25',
-      purpose:
-        'Ground floor, the fourth and last VLAN. Four staff rooms across two floors, all routed by one physical interface.',
+      hosts: 4,
     },
   ] as NetworkSegment[],
 
+  /** The three point-to-point router links. Kept apart from the host
+      segments — they carry no workstations — but counted by the
+      allocation bar, which has to account for all 512 addresses. */
+  transitLinks: [
+    { name: 'FF-A ↔ FF-B', subnet: '172.16.36.208/30' },
+    { name: 'FF-A ↔ GF', subnet: '172.16.36.212/30' },
+    { name: 'FF-B ↔ GF', subnet: '172.16.36.216/30' },
+  ],
+
   transitNote:
-    'The three router-to-router links take /30s from 172.16.36.208, .212, and .216 — two usable addresses each, which is exactly what a point-to-point link can use.',
+    'The three router-to-router links take /30s — two usable addresses each, which is exactly what a point-to-point link can use.',
 
   decisions: [
     {
       title: 'Three routers in a triangle, not a chain',
       tag: 'topology',
       body:
-        'Router-FF-A and Router-FF-B split the first floor between them; Router-GF carries the ground floor. All three are joined pairwise by serial links, so every router has two ways to reach every other one.',
+        'Two routers split the first floor between them and a third carries the ground floor, all joined pairwise — so every router has two ways to reach every other one.',
       details: [
-        'FF-A carries the General Purpose and Computer Security labs; FF-B carries the Network and IoT labs — teaching load spread across two devices rather than concentrated on one.',
+        'Teaching load spreads across two devices instead of concentrating on one.',
         'Router-GF holds both conferencing rooms and the link out to the ISP.',
-        'The third leg of the triangle is what makes dynamic routing worth running: with a chain there would be nothing to fail over to.',
+        'The third leg is what makes dynamic routing worth running: a chain would have nothing to fail over to.',
       ],
     },
     {
       title: 'One /23, cut to the size of each room',
       tag: 'addressing',
       body:
-        'Thirteen subnets under five different masks came out of a single 172.16.36.0/23. Each room was measured first and given the smallest mask that fits it, largest room first, so the block was never fragmented.',
+        'Thirteen subnets under five masks came out of a single block. Rooms were measured first and allocated largest-first, so the block was never fragmented.',
       details: [
-        'Allocating largest-first — /26, then /27, then /29, then /30 — keeps every subnet aligned on its own boundary with no unusable gaps between them.',
-        'A flat /24 per room would have run out after two rooms; equal-sized subnets would have wasted 62 addresses on a two-workstation conferencing room.',
-        'The four staff rooms added later fit into the untouched 172.16.37.0 half without renumbering anything already deployed.',
+        'Half the block is still unspoken for — 260 contiguous addresses for the next expansion.',
+        'The four staff rooms added later fit into the untouched 172.16.37.0 half with nothing renumbered.',
+        'The /30 transit links cost 12 addresses in total, against 256 if each had taken a /24.',
       ],
     },
     {
       title: 'Static and EIGRP on the same three routers',
       tag: 'routing',
       body:
-        'Every prefix is reachable two ways: a static route pinning the predetermined path, and EIGRP learning it independently. Running both made the trade-off visible on live routing tables rather than in the abstract.',
+        'Every prefix is reachable two ways: a static route pinning the predetermined path, and EIGRP learning it independently. Running both put the trade-off on a live routing table rather than in the abstract.',
       details: [
-        'Static routes are predictable and cost nothing to run, but each of the three routers needed four of them by hand — and that count grows with every room added.',
-        'EIGRP converges on its own and reroutes around a failed link; the routing tables show it discovering the third leg of the triangle as a feasible successor.',
-        'With both configured, the static route wins on administrative distance and EIGRP sits behind it as the fallback — which is a defensible posture, but two sources of truth for one prefix.',
+        'Static costs nothing to run, but each router needed four by hand — a count that grows with every room.',
+        'EIGRP converges on its own and finds the second path around the triangle.',
+        'Static wins on administrative distance, so EIGRP sits behind it — defensible, but two sources of truth for one prefix.',
       ],
     },
     {
       title: 'Four staff-room VLANs on one router-on-a-stick',
       tag: 'layer 2',
       body:
-        'The four staff rooms are separate broadcast domains — VLANs 10, 20, 30 and 40 — trunked back to a single physical interface on Router-FF-B and routed by four dot1Q subinterfaces.',
+        'The four staff rooms are separate broadcast domains trunked back to a single physical interface on Router-FF-B and routed by four dot1Q subinterfaces.',
       details: [
-        'Access ports are pinned with switchport mode access so a workstation port can never negotiate itself into a trunk.',
-        'Each trunk carries an explicit allowed list — 10 and 20 on one, 30 and 40 on the other — rather than every VLAN the switch happens to know about.',
-        'Subinterfaces fa1/0.10 through fa1/0.40 each own their /29 gateway, so inter-VLAN traffic is routed and filterable instead of bridged.',
+        'Access ports are pinned with switchport mode access, so a workstation port can never negotiate a trunk.',
+        'Each trunk carries an explicit allowed list rather than every VLAN the switch knows about.',
         'Staff Rooms 3 and 4 sit on the ground floor but route through a first-floor subinterface — VLANs follow the org chart, not the staircase.',
       ],
     },
@@ -959,65 +1012,82 @@ export const campusNetwork = {
       title: 'Ten DHCP pools in one place, reached by relay',
       tag: 'addressing',
       body:
-        'Every pool lives on Router-GF — one per lab, conferencing room, and staff room. The other two routers forward client broadcasts to it, so a DHCP request crosses routed boundaries that would otherwise stop it dead.',
+        'Every pool lives on Router-GF. The other two routers forward client broadcasts to it, so a DHCP request crosses routed boundaries that would otherwise stop it dead.',
       details: [
-        'An ip helper-address on each client-facing interface points at 172.16.36.218, turning a broadcast the router would drop into a unicast it will forward.',
-        'The VLAN subinterfaces need helper addresses of their own — a trunk does not inherit the physical interface’s relay configuration.',
-        'Each pool excludes its own gateway and first host before handing anything out, so the addresses configured statically are never leased to someone else.',
-        'Pools are named for their rooms rather than numbered, which is what makes a misconfigured lease legible at a glance.',
+        'An ip helper-address turns a broadcast the router would drop into a unicast it will forward.',
+        'The VLAN subinterfaces need helper addresses of their own — a trunk does not inherit the physical interface’s relay config.',
+        'Each pool excludes its gateway and first host, so statically configured addresses are never leased away.',
       ],
     },
   ] as DesignDecision[],
 
+  /** Verbatim from Router-FF-A's table in the report. The point is the
+      pair of equal-cost EIGRP paths sitting behind a static route for a
+      neighbouring prefix — administrative distance, observed. */
+  routingProof: {
+    caption: 'Router-FF-A · show ip route',
+    lines: [
+      'Gateway of last resort is not set',
+      '',
+      '     172.16.0.0/16 is variably subnetted, 13 subnets, 5 masks',
+      'S       172.16.36.0/26 [1/0] via 172.16.36.210',
+      'C       172.16.36.64/26 is directly connected, FastEthernet0/0',
+      'S       172.16.36.160/27 [1/0] via 172.16.36.210',
+      'C       172.16.36.208/30 is directly connected, Serial0/0/0',
+      'D       172.16.36.216/30 [90/2681856] via 172.16.36.214, Serial0/0/1',
+      '                         [90/2681856] via 172.16.36.210, Serial0/0/0',
+    ],
+    readout:
+      'S is the hand-written route, D is EIGRP’s. The last prefix carries two equal-cost paths — the triangle’s second leg, discovered rather than configured. Where both a static route and an EIGRP route exist for one prefix, the static wins on administrative distance and the dynamic one waits behind it.',
+  },
+
   verification: {
     intro:
-      'Every room was ping-tested against every other room, then every room was made to request a lease. The detail worth keeping is in the failures that are not failures: almost every first packet across a router timed out and the following three succeeded. That is ARP resolving a cold cache, not a broken route — and telling the two apart from a 25% loss figure is most of what verification actually is.',
-    checks: [
-      {
-        source: 'General Purpose Lab',
-        destination: 'Network Lab',
-        result: 'pass',
-        note: 'Across the FF-A ↔ FF-B serial link. 4/4 replies, cache already warm.',
-      },
-      {
-        source: 'Computer Security Lab',
-        destination: 'IoT Lab',
-        result: 'pass',
-        note: 'First packet lost, then 3/3 — the signature of ARP resolving, not of a missing route.',
-      },
-      {
-        source: 'General Purpose Lab',
-        destination: 'Video Conferencing Room 2',
-        result: 'pass',
-        note: 'First floor to ground floor through Router-GF, two hops down the triangle.',
-      },
-      {
-        source: 'Staff Room 1 · VLAN 10',
-        destination: 'Computer Security Lab',
-        result: 'pass',
-        note: 'Up the trunk, through the fa1/0.10 subinterface, out across the estate.',
-      },
-      {
-        source: 'Staff Room 1 · VLAN 10',
-        destination: 'Staff Room 3 · VLAN 30',
-        result: 'pass',
-        note: 'VLAN to VLAN across two floors — routed at the subinterface, never bridged.',
-      },
-      {
-        source: 'Workstation in every room',
-        destination: 'DHCP pool on Router-GF',
-        result: 'pass',
-        note: 'All ten pools issued a lease with the correct mask, gateway, and DNS — including through both relay agents.',
-      },
-    ] as ConnectivityCheck[],
-  },
+      'Every room was pinged from every other room, and every room was made to request a lease. Nothing here is blocked by design — this network has no ACLs — so the grid is a coverage check, and the interesting detail is underneath it.',
+    sources: [
+      'General Purpose Lab',
+      'Computer Security Lab',
+      'Network Lab',
+      'IoT Lab',
+      'Video Conferencing Room 1',
+      'Video Conferencing Room 2',
+      'Staff Room 1',
+    ],
+    destinations: [
+      'General Purpose Lab',
+      'Computer Security Lab',
+      'Network Lab',
+      'IoT Lab',
+      'Video Conferencing Room 1',
+      'Video Conferencing Room 2',
+      'Staff Room 3',
+    ],
+    destinationsShort: ['GP', 'CS', 'NET', 'IoT', 'VC1', 'VC2', 'SR3'],
+    cells: [
+      ['pass', 'pass', 'pass', 'pass', 'pass', 'pass', 'untested'],
+      ['pass', 'pass', 'pass', 'pass', 'pass', 'pass', 'untested'],
+      ['pass', 'pass', 'pass', 'pass', 'pass', 'pass', 'untested'],
+      ['pass', 'pass', 'pass', 'pass', 'pass', 'pass', 'untested'],
+      ['pass', 'pass', 'pass', 'pass', 'pass', 'pass', 'untested'],
+      ['pass', 'pass', 'pass', 'pass', 'pass', 'pass', 'untested'],
+      ['pass', 'pass', 'pass', 'pass', 'pass', 'pass', 'pass'],
+    ],
+    readout: [
+      'The six original rooms were tested against each other exhaustively — 36 of 36 pairs, before the staff rooms existed.',
+      'Staff Room 1 was then tested against all seven destinations once the VLANs were trunked in.',
+      'The blank column is honest rather than passing: the six original rooms were never re-tested against Staff Room 3 after it was added. Re-running the full grid after a change is the habit that column is missing.',
+    ],
+  } as ConnectivityMatrix,
+
+  verificationNote:
+    'Almost every first packet across a router timed out and the following three succeeded. That is ARP resolving a cold cache, not a broken route — and telling the two apart from a 25% loss figure is most of what verification actually is. All ten DHCP pools issued a lease with the correct mask, gateway, and DNS, including through both relay agents.',
 
   whatsNext: [
     'Retire the static routes now that EIGRP has converged — two sources of truth for one prefix is a fault waiting for a maintenance window.',
     'Move from EIGRP to OSPF: the estate is small enough that the migration is cheap, and it stops the design depending on one vendor.',
     'Add switchport port-security and DHCP snooping to the access layer, so an unknown host plugged into a lab port does not simply get an address.',
     'Put switch and router management on a VLAN of its own instead of sharing a broadcast domain with lab workstations.',
-    'Summarise the estate as a single 172.16.36.0/23 at the edge rather than advertising thirteen prefixes outward.',
+    'Re-run the full connectivity grid after every change, so a column is never left untested the way Staff Room 3 was.',
   ],
 };
 

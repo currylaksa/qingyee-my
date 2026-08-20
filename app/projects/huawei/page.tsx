@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Container from '@/components/Container';
 import Kicker from '@/components/Kicker';
 import TechTag from '@/components/TechTag';
+import PracticeMatrix from '@/components/PracticeMatrix';
 import { huawei } from '@/lib/content';
 
 export const metadata: Metadata = {
@@ -99,23 +100,14 @@ export default function HuaweiPage() {
         </Container>
       </section>
 
-      {/* ── Network-security relevance ───────────────────────── */}
+      {/* ── Practices, cross-referenced to the tools ─────────── */}
       <section>
         <Container className="py-12 sm:py-20">
           <Kicker>engineering practices carried forward</Kicker>
-          <ul className="mt-6 grid gap-3 sm:grid-cols-2">
-            {huawei.securityRelevance.map((item) => (
-              <li
-                key={item}
-                className="flex gap-3 rounded-[var(--radius-card)] border border-hairline bg-card p-4 text-sm"
-              >
-                <span aria-hidden="true" className="font-mono text-secure">
-                  ✓
-                </span>
-                <span>{item}</span>
-              </li>
-            ))}
-          </ul>
+          <p className="mt-4 max-w-3xl text-muted">{huawei.practicesNote}</p>
+          <div className="mt-8">
+            <PracticeMatrix tools={huawei.tools} practices={huawei.practices} />
+          </div>
         </Container>
       </section>
     </>

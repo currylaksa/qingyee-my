@@ -4,6 +4,7 @@ import Container from '@/components/Container';
 import Kicker from '@/components/Kicker';
 import TechTag from '@/components/TechTag';
 import SunrayTopology from '@/components/SunrayTopology';
+import ConnectivityMatrix from '@/components/ConnectivityMatrix';
 import { sunray, personalInfo } from '@/lib/content';
 
 export const metadata: Metadata = {
@@ -202,28 +203,17 @@ export default function SunrayPage() {
             {sunray.verification.intro}
           </p>
 
-          <ul className="mt-8 grid gap-3 sm:grid-cols-2">
-            {sunray.verification.checks.map((check) => (
-              <li
-                key={`${check.source}-${check.destination}`}
-                className="flex gap-3 rounded-[var(--radius-card)] border border-hairline bg-card p-4"
-              >
-                <span
-                  aria-hidden="true"
-                  className={`font-mono ${
-                    check.result === 'pass' ? 'text-secure' : 'text-accent'
-                  }`}
-                >
-                  {check.result === 'pass' ? '✓' : '✕'}
+          <div className="mt-8">
+            <ConnectivityMatrix matrix={sunray.verification} />
+          </div>
+
+          <ul className="mt-8 max-w-3xl space-y-3">
+            {sunray.verification.readout.map((line) => (
+              <li key={line} className="flex gap-3 text-muted">
+                <span aria-hidden="true" className="font-mono text-accent">
+                  →
                 </span>
-                <div>
-                  <p className="text-sm font-medium">
-                    {check.source}{' '}
-                    <span className="font-mono text-xs text-muted">→</span>{' '}
-                    {check.destination}
-                  </p>
-                  <p className="mt-1 text-sm text-muted">{check.note}</p>
-                </div>
+                <span>{line}</span>
               </li>
             ))}
           </ul>
