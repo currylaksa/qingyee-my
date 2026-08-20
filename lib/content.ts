@@ -1,6 +1,6 @@
 /* ============================================================
    Single source of truth for site content (ported from the Astro
-   build's src/data/content.ts). Canonical facts: 7 projects,
+   build's src/data/content.ts). Canonical facts: 8 projects,
    26 controls, DIGITEX 2026 = Silver, status = graduand.
    Positioning: network & security engineering, with the applied-ML
    and full-stack work as the secondary story (automation depth).
@@ -169,6 +169,15 @@ export const projects: Project[] = [
       'A free QR code generator that runs entirely in the browser — no build step, no frameworks, nothing uploaded or tracked.',
     liveUrl: 'https://currylaksa.github.io/qrcode_generator_free/',
     repoUrl: 'https://github.com/currylaksa/qrcode_generator_free',
+  },
+  {
+    slug: 'xiangqi-shifu',
+    title: 'Xiangqi Shifu',
+    stack: ['FastAPI', 'React', 'Pikafish NNUE', 'Python'],
+    description:
+      'A Chinese Chess coach that explains why a move was wrong — Pikafish search paired with deterministic tactic detectors (static exchange evaluation, pins, double attacks), so every claim is derived from the board rather than an LLM. 141 backend tests.',
+    liveUrl: null,
+    repoUrl: 'https://github.com/currylaksa/xiangqi-shifu',
   },
 ];
 
