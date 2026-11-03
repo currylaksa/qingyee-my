@@ -8,6 +8,7 @@ const SITE = 'https://qingyee.my';
 // Trailing slashes to match next.config trailingSlash + CF Pages routing.
 const routes = [
   '/',
+  '/experience/',
   '/projects/',
   '/projects/secureexam/',
   '/projects/huawei/',

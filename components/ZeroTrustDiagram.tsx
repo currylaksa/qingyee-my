@@ -99,7 +99,7 @@ export default function ZeroTrustDiagram() {
         {/* one-shot packet travelling down the rail */}
         <span
           aria-hidden="true"
-          className="pointer-events-none absolute -left-[5px] h-2.5 w-2.5 rounded-full bg-accent shadow-[0_0_0_4px_rgba(178,58,31,0.12)]"
+          className="pointer-events-none absolute -left-[5px] h-2.5 w-2.5 rounded-full bg-accent shadow-[0_0_0_4px_rgba(240,138,93,0.18)]"
           style={{ animation: 'packet-descend 2.6s ease-in-out 0.3s 1 both' }}
         />
 

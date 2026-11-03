@@ -1,10 +1,10 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { GeistSans } from 'geist/font/sans';
 import { GeistMono } from 'geist/font/mono';
 import { Fraunces } from 'next/font/google';
 import Nav from '@/components/Nav';
 import Footer from '@/components/Footer';
-import { personalInfo, valueProp } from '@/lib/content';
+import { personalInfo } from '@/lib/content';
 import './globals.css';
 
 // Fraunces is reserved for the single Wilderfarer pull-quote only (brief §10).
@@ -21,17 +21,23 @@ export const metadata: Metadata = {
     default: `${personalInfo.fullName} — ${personalInfo.tagline}`,
     template: `%s — ${personalInfo.fullName}`,
   },
-  description: valueProp,
+  description:
+    'Test Solutions Engineer at Micron Technology, Singapore — wafer-level probe test, test programs, and test data.',
   keywords: [
-    'Network Engineer',
-    'Network Security Engineer',
-    'CCNA',
-    'OSPF',
-    'VLAN',
-    'Zero Trust',
-    'Network Automation',
+    'Test Solutions Engineer',
+    'Semiconductor Test',
+    'Wafer Probe',
+    'Wafer Sort',
+    'Test Program',
+    'C++',
+    'Python',
+    'Linux',
+    'Micron',
     'Singapore',
     'Chan Qing Yee',
+    'Network Security',
+    'CCNA',
+    'Zero Trust',
   ],
   authors: [{ name: personalInfo.fullName, url: 'https://qingyee.my' }],
   creator: personalInfo.fullName,
@@ -47,30 +53,38 @@ export const metadata: Metadata = {
   },
 };
 
+export const viewport: Viewport = {
+  themeColor: '#0c0d0f',
+};
+
 // JSON-LD Person schema (brief §11).
 const personJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Person',
   name: personalInfo.fullName,
   url: 'https://qingyee.my',
-  jobTitle: 'Network & Security Engineer',
+  jobTitle: personalInfo.tagline,
+  worksFor: { '@type': 'Organization', name: 'Micron Technology' },
   alumniOf: { '@type': 'CollegeOrUniversity', name: personalInfo.university },
   address: {
     '@type': 'PostalAddress',
-    addressLocality: 'Johor Bahru',
-    addressCountry: 'MY',
+    addressLocality: 'Singapore',
+    addressCountry: 'SG',
   },
   email: `mailto:${personalInfo.email}`,
   sameAs: [personalInfo.github, personalInfo.linkedin],
   knowsAbout: [
+    'Wafer Probe Test',
+    'Semiconductor Test Engineering',
+    'Test Program Development',
+    'Test Data Analysis',
+    'C++',
+    'Python',
+    'Linux',
     'Computer Networking',
-    'Routing and Switching',
     'Network Security',
     'Zero Trust Architecture',
-    'Firewalls and Access Control Lists',
     'Network Automation',
-    'Cloud Deployment',
-    'Applied Machine Learning',
   ],
 };
 
@@ -83,6 +97,7 @@ export default function RootLayout({
       className={`${GeistSans.variable} ${GeistMono.variable} ${fraunces.variable}`}
     >
       <body className="flex min-h-screen flex-col">
+        <div className="scroll-progress" aria-hidden="true" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}

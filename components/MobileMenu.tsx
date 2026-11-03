@@ -27,7 +27,7 @@ export default function MobileMenu({ hasCv }: { hasCv: boolean }) {
   useEffect(() => setOpen(false), [pathname]);
 
   return (
-    <div className="md:hidden">
+    <div className="lg:hidden">
       <button
         type="button"
         onClick={() => setOpen(true)}
@@ -56,7 +56,7 @@ export default function MobileMenu({ hasCv }: { hasCv: boolean }) {
           if (e.target === ref.current) setOpen(false);
         }}
         aria-label="Site menu"
-        className="m-0 h-full max-h-none w-full max-w-none bg-paper p-0 text-ink backdrop:bg-ink/40"
+        className="m-0 h-full max-h-none w-full max-w-none bg-paper p-0 text-ink backdrop:bg-scrim"
       >
         <div className="flex h-full flex-col">
           <div className="flex h-14 shrink-0 items-center justify-between border-b border-hairline px-5">

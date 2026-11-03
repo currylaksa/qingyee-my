@@ -2,19 +2,21 @@
 
 /* ============================================================
    Design tokens — qingyee.my rebuild (brief §10)
-   Light, recruiter-safe, hybrid. High-contrast ink on warm paper.
-   Tailwind v4 reads these to generate utilities (bg-paper, text-ink…).
+   Dark, technical, high-contrast. Warm off-white ink on graphite,
+   copper accent. Tailwind v4 reads these to generate utilities
+   (bg-paper, text-ink…).
    ============================================================ */
 @theme {
-  --color-paper: #fcfbf8; /* warm off-white page background */
-  --color-card: #ffffff; /* card surfaces */
-  --color-ink: #1a1a1a; /* primary text — the core readability fix */
-  --color-muted: #6b6862; /* secondary text */
-  --color-accent: #b23a1f; /* refined deep rust — links, CTAs, active states */
-  --color-accent-hover: #98311a;
-  --color-secure: #1f7a4d; /* secure/pass green — badges, diagram "pass" */
-  --color-threat: #c0392b; /* threat red — diagram pills only */
-  --color-hairline: rgb(26 26 26 / 0.1); /* hairline borders */
+  --color-paper: #0c0d0f; /* graphite page background */
+  --color-card: #14161a; /* raised card surfaces */
+  --color-ink: #f2f0eb; /* warm off-white primary text */
+  --color-muted: #a3a09a; /* secondary text */
+  --color-accent: #f08a5d; /* copper — links, CTAs, active states */
+  --color-accent-hover: #f6a37e;
+  --color-secure: #5fd39a; /* secure/pass green — badges, diagram "pass" */
+  --color-threat: #ff7b72; /* threat red — diagram pills only */
+  --color-hairline: rgb(255 255 255 / 0.12); /* hairline borders */
+  --color-scrim: rgb(0 0 0 / 0.65); /* modal backdrop */
 
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
@@ -26,6 +28,8 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    color-scheme: dark;
+    background-color: var(--color-paper);
     /* Stop iOS Safari inflating body text when a phone is rotated. */
     -webkit-text-size-adjust: 100%;
   }
@@ -98,5 +102,104 @@
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
     }
+  }
+}
+
+/* ============================================================
+   Visual storytelling helpers
+   Scroll-driven effects are progressive enhancement: browsers
+   without support show the final state, with no JS required.
+   ============================================================ */
+
+.dot-grid {
+  background-image: radial-gradient(
+    rgb(255 255 255 / 0.07) 1px,
+    transparent 1px
+  );
+  background-size: 24px 24px;
+  -webkit-mask-image: linear-gradient(to bottom, black, transparent 72%);
+  mask-image: linear-gradient(to bottom, black, transparent 72%);
+}
+
+@keyframes flow-pulse {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(320%);
+    opacity: 0;
+  }
+}
+
+.flow-pulse {
+  animation: flow-pulse 2.8s linear infinite;
+}
+
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@supports (animation-timeline: view()) {
+  .reveal {
+    animation: reveal-up linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 70%;
+  }
+}
+
+@keyframes progress-grow {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.scroll-progress {
+  display: none;
+}
+
+@supports (animation-timeline: scroll()) {
+  .scroll-progress {
+    position: fixed;
+    inset: 0 0 auto 0;
+    z-index: 50;
+    display: block;
+    height: 2px;
+    transform-origin: 0 50%;
+    background-color: var(--color-accent);
+    animation: progress-grow linear;
+    animation-timeline: scroll(root);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .flow-pulse {
+    animation: none !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+
+  .scroll-progress {
+    display: none !important;
   }
 }

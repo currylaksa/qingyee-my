@@ -3,13 +3,22 @@ import Link from 'next/link';
 import Container from '@/components/Container';
 import Kicker from '@/components/Kicker';
 import TechTag from '@/components/TechTag';
+import CareerPath from '@/components/CareerPath';
+import RunningStats from '@/components/RunningStats';
 import { getAssetPresence } from '@/lib/assetPresence.server';
-import { about, wilderfarer, personalInfo, runningLog } from '@/lib/content';
+import {
+  about,
+  wilderfarer,
+  personalInfo,
+  runningLog,
+  experience,
+  now,
+} from '@/lib/content';
 
 export const metadata: Metadata = {
   title: 'About',
   description:
-    'Chan Qing Yee — a Computer Science (Computer Network and Security) graduand from UTM who deploys and secures networks, CCNA-certified, targeting network and security engineering roles in Singapore.',
+    'Chan Qing Yee — Test Solutions Engineer at Micron Technology, Singapore, working in wafer-level probe test. Computer Science graduate from UTM, specialising in Networks & Security, CCNA-certified, former Huawei intern, and DIGITEX 2026 Silver Medalist.',
 };
 
 export default function AboutPage() {
@@ -27,7 +36,7 @@ export default function AboutPage() {
                 {personalInfo.fullName}
               </h1>
               <p className="mt-2 font-mono text-sm text-muted">
-                {personalInfo.programme} · {personalInfo.gradYear}
+                {personalInfo.status}
               </p>
               <div className="mt-6 space-y-4 text-lg text-muted">
                 {about.bio.map((para) => (
@@ -45,20 +54,45 @@ export default function AboutPage() {
               </dl>
             </div>
 
-            {hasHeadshot && (
-              <div className="order-first lg:order-none">
-                {/* Static export: Image Optimization is off, so a plain img with
-                    explicit dimensions (no layout shift) is the right call. */}
-                <img
-                  src="/headshot.jpg"
-                  alt={`Portrait of ${personalInfo.fullName}`}
-                  width={787}
-                  height={1400}
-                  className="w-full max-w-xs rounded-[var(--radius-card)] border border-hairline object-cover"
-                />
+            <div>
+              {hasHeadshot && (
+                <div className="relative mx-auto w-full max-w-xs">
+                  <div
+                    aria-hidden="true"
+                    className="absolute -inset-2 rounded-[calc(var(--radius-card)+4px)] border border-accent/25"
+                  />
+                  {/* Static export: Image Optimization is off, so a plain img with
+                      explicit dimensions (no layout shift) is the right call. */}
+                  <img
+                    src="/headshot.jpg"
+                    alt={`Portrait of ${personalInfo.fullName}`}
+                    width={787}
+                    height={1400}
+                    className="relative w-full rounded-[var(--radius-card)] border border-hairline object-cover"
+                  />
+                </div>
+              )}
+
+              <div className="mx-auto mt-6 w-full max-w-xs rounded-[var(--radius-card)] border border-hairline bg-card p-4">
+                <p className="font-mono text-xs text-accent">// now</p>
+                <p className="mt-1 text-sm font-medium">
+                  {now.role} · {now.org}
+                </p>
+                <p className="mt-1 font-mono text-xs text-muted">
+                  {now.location}
+                </p>
+                <p className="mt-2 text-xs text-muted">{now.focus}</p>
               </div>
-            )}
+            </div>
           </div>
+        </Container>
+      </section>
+
+      {/* ── Path ─────────────────────────────────────────────── */}
+      <section className="border-b border-hairline">
+        <Container className="py-10 sm:py-14">
+          <Kicker>path</Kicker>
+          <CareerPath entries={experience} className="mt-6" />
         </Container>
       </section>
 
@@ -66,27 +100,22 @@ export default function AboutPage() {
       <section>
         <Container className="py-12 sm:py-20">
           <Kicker>off the keyboard — Wilderfarer</Kicker>
-          <blockquote className="mt-6 max-w-3xl font-serif text-2xl leading-snug sm:text-3xl">
+          <blockquote className="reveal mt-6 max-w-3xl font-serif text-2xl leading-snug sm:text-3xl">
             “{wilderfarer.pullQuote}”
           </blockquote>
           <p className="mt-6 max-w-3xl text-lg text-muted">{wilderfarer.narrative}</p>
 
-          <div className="mt-8 flex flex-col gap-5">
-            <ul className="flex flex-wrap gap-2">
-              {personalInfo.identity.map((trait) => (
-                <li key={trait}>
-                  <TechTag>{trait}</TechTag>
-                </li>
-              ))}
-            </ul>
-            <dl className="flex flex-wrap gap-x-6 gap-y-2 font-mono text-xs text-muted">
-              {runningLog.map((stat) => (
-                <div key={stat.label} className="flex items-baseline gap-1.5">
-                  <dt>{stat.label}</dt>
-                  <dd className="text-ink">{stat.value}</dd>
-                </div>
-              ))}
-            </dl>
+          <div className="mt-8 grid gap-6 lg:grid-cols-[1.2fr_1fr] lg:items-start">
+            <div>
+              <ul className="flex flex-wrap gap-2">
+                {personalInfo.identity.map((trait) => (
+                  <li key={trait}>
+                    <TechTag>{trait}</TechTag>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <RunningStats stats={runningLog} />
           </div>
 
           <Link

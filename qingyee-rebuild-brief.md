@@ -130,7 +130,7 @@ Cards, each with a 1-line summary + tech tags + live/repo links:
 
 ### Credentials (`/credentials`)
 - Certifications grid: CCNA Routing & Switching, CCNA Enterprise, Cisco DevNet Associate, Google Cybersecurity, Oracle OCI Associate. Each with issuer + (optional) verify link.
-- Education: B.Sc. Computer Science (Networks & Security), UTM, 2026, CGPA 3.90.
+- Education: B.Sc. Computer Science (Networks & Security), UTM, 2026, CGPA 3.91.
 - Keep it scannable — this is the recruiter's checklist page.
 
 ### About (`/about`)

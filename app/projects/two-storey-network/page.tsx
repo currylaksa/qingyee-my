@@ -307,8 +307,7 @@ export default function TwoStoreyNetworkPage() {
       <section>
         <Container className="py-12 text-center sm:py-20">
           <p className="text-muted">
-            Happy to walk through the subnetting or the routing tables in an
-            interview.
+            Questions about the subnetting or the routing tables?
           </p>
           <div className="mt-6 flex flex-wrap justify-center gap-3">
             <Link

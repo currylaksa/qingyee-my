@@ -20,20 +20,20 @@ export const OG_CONTENT_TYPE = 'image/png';
 export const OG_ALT = `${personalInfo.fullName} — ${personalInfo.tagline}`;
 
 // Design tokens, mirrored from globals.css. Satori cannot read CSS vars.
-const PAPER = '#fcfbf8';
-const CARD = '#ffffff';
-const INK = '#1a1a1a';
-const MUTED = '#6b6862';
-const ACCENT = '#b23a1f';
-const SECURE = '#1f7a4d';
-const HAIRLINE = 'rgba(26,26,26,0.1)';
+const PAPER = '#0c0d0f';
+const CARD = '#14161a';
+const INK = '#f2f0eb';
+const MUTED = '#a3a09a';
+const ACCENT = '#f08a5d';
+const SECURE = '#5fd39a';
+const HAIRLINE = 'rgba(255,255,255,0.12)';
 
 /** The short, punchy card headline — deliberately not the full value prop,
     which is ~95 characters and would force the type down by a third. */
-const HEADLINE = 'I design, secure, and operate networks.';
-const SUBHEAD = 'Routing · segmentation · zero-trust';
+const HEADLINE = 'I test silicon at the wafer level.';
+const SUBHEAD = 'Probe test · test programs · data';
 /** Card-specific copy, like the headline — kept short enough for one row. */
-const CHIPS = ['OSPF', 'VLANs', 'ACLs', 'IPsec VPN', 'Firewalls'];
+const CHIPS = ['Wafer sort', 'Test programs', 'C/C++', 'Python', 'Linux'];
 
 const font = (file: string) =>
   readFileSync(path.join(process.cwd(), 'node_modules/geist/dist/fonts', file));
@@ -138,7 +138,7 @@ export function renderOgCard() {
           </div>
 
           <div style={{ marginTop: 'auto', fontSize: 24, color: MUTED }}>
-            {`${personalInfo.fullName} — ${personalInfo.programme}, ${personalInfo.gradYear}`}
+            {`${personalInfo.fullName} — ${personalInfo.tagline}, Micron`}
           </div>
         </div>
 

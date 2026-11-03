@@ -172,7 +172,7 @@ export default function SecureExamPage() {
       <section>
         <Container className="py-12 text-center sm:py-20">
           <p className="text-muted">
-            Want to walk through any layer in an interview?
+            Questions about the zero-trust layers or the build?
           </p>
           <div className="mt-6 flex flex-wrap justify-center gap-3">
             <Link

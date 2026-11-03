@@ -1,5 +1,12 @@
 import Container from './Container';
-import { personalInfo, findMe } from '@/lib/content';
+import { personalInfo, findMe, siteLastUpdated } from '@/lib/content';
+
+const lastUpdated = new Intl.DateTimeFormat('en-GB', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+  timeZone: 'UTC',
+}).format(new Date(`${siteLastUpdated}T00:00:00Z`));
 
 // Static, verifiable security-posture badge (brief §9). Each claim links to a
 // real third-party scan rather than a fragile client-side check.
@@ -52,9 +59,14 @@ export default function Footer() {
         </div>
 
         <div className="flex flex-col justify-between gap-4 border-t border-hairline pt-6 sm:flex-row sm:items-center">
-          <p className="text-sm text-muted">
-            © {year} {personalInfo.fullName}. {personalInfo.location}.
-          </p>
+          <div>
+            <p className="text-sm text-muted">
+              © {year} {personalInfo.fullName}. {personalInfo.location}.
+            </p>
+            <p className="mt-1 font-mono text-xs text-muted">
+              Last updated {lastUpdated}
+            </p>
+          </div>
           <ul className="flex flex-wrap gap-4 text-sm">
             {findMe.map((link) => (
               <li key={link.label}>

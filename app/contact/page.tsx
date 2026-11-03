@@ -1,11 +1,12 @@
 import type { Metadata } from 'next';
 import Container from '@/components/Container';
 import Kicker from '@/components/Kicker';
+import CopyEmail from '@/components/CopyEmail';
 import { personalInfo, contactChannels, contactFacts } from '@/lib/content';
 
 export const metadata: Metadata = {
   title: 'Contact',
-  description: `Get in touch with ${personalInfo.fullName} — open to network and security engineering roles in Singapore.`,
+  description: `Get in touch with ${personalInfo.fullName} — Test Solutions Engineer at Micron Technology, Singapore.`,
 };
 
 export default function ContactPage() {
@@ -21,12 +22,12 @@ export default function ContactPage() {
             <span className="h-1.5 w-1.5 rounded-full bg-secure" aria-hidden="true" />
             {personalInfo.status}
           </span>{' '}
-          — based in {personalInfo.location}, ready for Singapore. The fastest way
-          to reach me is below.
+          — based in {personalInfo.location}. The fastest way to reach me is
+          below.
         </p>
 
         <div className="mt-10 grid gap-10 lg:grid-cols-2 lg:items-start">
-          {/* Direct channels — label above the real address so a recruiter can
+          {/* Direct channels — label above the real address so a visitor can
               read and copy it without clicking through. */}
           <div>
             <h2 className="font-mono text-sm text-accent">// direct channels</h2>
@@ -68,15 +69,18 @@ export default function ContactPage() {
               ))}
             </dl>
             <p className="mt-4 text-sm text-muted">
-              Hiring for a network or security role? A line about the team and
-              the stack is enough — I’ll reply with availability and a CV.
+              Whether it’s test engineering, automation, or a project on this
+              site, a short note is enough — I’ll reply.
             </p>
-            <a
-              href={`mailto:${personalInfo.email}`}
-              className="mt-6 inline-flex items-center rounded-md bg-accent px-5 py-3 text-sm font-medium text-paper transition-colors hover:bg-accent-hover"
-            >
-              Email me
-            </a>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <a
+                href={`mailto:${personalInfo.email}`}
+                className="inline-flex items-center rounded-md bg-accent px-5 py-3 text-sm font-medium text-paper transition-colors hover:bg-accent-hover"
+              >
+                Email me
+              </a>
+              <CopyEmail email={personalInfo.email} />
+            </div>
           </div>
         </div>
       </Container>

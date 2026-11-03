@@ -1,13 +1,13 @@
 import type { Metadata } from 'next';
 import Container from '@/components/Container';
 import Kicker from '@/components/Kicker';
-import ProjectCard from '@/components/ProjectCard';
+import ProjectDossier from '@/components/ProjectDossier';
 import { projects } from '@/lib/content';
 
 export const metadata: Metadata = {
   title: 'Projects',
   description:
-    'Network and security projects: a production zero-trust platform, a segmented enterprise network design (OSPF, VLANs, ACLs, VPN), carrier 5G deployment work and automation tooling, plus encrypted peer-to-peer file transfer and native Swift utilities.',
+    'Software and test projects: a production zero-trust platform, a test-heavy Xiangqi coach with 141 backend tests, carrier 5G automation tooling, native Swift utilities, and segmented enterprise network designs (OSPF, VLANs, ACLs, VPN).',
 };
 
 export default function ProjectsPage() {
@@ -16,22 +16,18 @@ export default function ProjectsPage() {
       <Container className="py-12 sm:py-20">
         <Kicker>projects</Kicker>
         <h1 className="mt-4 max-w-3xl text-3xl font-semibold tracking-tight sm:text-4xl">
-          Networks designed, secured, and shipped
+          Things I’ve designed, tested, and shipped
         </h1>
         <p className="mt-4 max-w-2xl text-lg text-muted">
-          SecureExam is a production zero-trust platform; the Sunray project
-          is a segmented enterprise network built on OSPF routing, VLANs,
-          and VPN; the campus design carves one /23 into thirteen subnets
-          across two floors; the Huawei internship was carrier-network
-          deployment across 100+ teams. Designed, deployed, and measured —
-          with what shipped and what stayed a design each labelled as such.
+          SecureExam is a production zero-trust platform; Xiangqi Shifu is a
+          test-heavy chess coach with 141 backend tests; the Huawei internship
+          shipped five automation tools on a carrier 5G rollout; the campus and
+          enterprise designs apply the CCNA material end to end. Ordered by
+          what sits closest to the work I do now — software, test, and data.
+          What shipped and what stayed a design are each labelled as such.
         </p>
 
-        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {projects.map((project) => (
-            <ProjectCard key={project.slug} project={project} />
-          ))}
-        </div>
+        <ProjectDossier projects={projects} />
       </Container>
     </section>
   );

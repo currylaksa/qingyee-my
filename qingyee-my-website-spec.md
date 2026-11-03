@@ -23,7 +23,7 @@ This spec is complete enough to build the full shell, layout, and all content **
 - ✅ Real headshot photo (with initials fallback)
 - ✅ Real working contact **form** via Web3Forms (not just a mailto)
 - ✅ SecureExam = **26 security controls** total (AI Behavioural Risk Scoring counts as #26)
-- ✅ Contact: email · LinkedIn · phone/WhatsApp all live
+- ✅ Contact: email · LinkedIn · GitHub all live
 
 ---
 
@@ -164,7 +164,7 @@ The site is a **single-page** design with anchor-linked sections (Option A — c
   - Tagline: "Wilderfarer — Builder — Security Engineer" — Josefin Sans 300, 11px, letter-spacing 4px, uppercase, muted colour
 - **Right block:** SVG star badge
   - 10-point star polygon, fill: `--color-rust`, stroke: `--color-rust-dark`
-  - Centre text line 1: "3.90" — Abril Fatface, 14px, cream
+  - Centre text line 1: "3.91" — Abril Fatface, 14px, cream
   - Centre text line 2: "CGPA" — Josefin Sans, 7px, rust-light
   - Below badge: "UTM 2026" — Courier Prime, 9px, rust, letter-spacing 1px
 
@@ -214,11 +214,10 @@ The site is a **single-page** design with anchor-linked sections (Option A — c
 
 **Widget: Find Me**
 - Dark header with link icon
-- Four links with icons (all live values below):
+- Three links with icons (all live values below):
   - GitHub (brand-github icon) → `https://github.com/currylaksa`
   - LinkedIn (brand-linkedin icon) → `https://www.linkedin.com/in/chanqingyee`
   - Email (mail icon) → `mailto:qingyee0219@gmail.com`
-  - WhatsApp (brand-whatsapp icon) → `https://wa.me/60137339035` (label as "WhatsApp / +60 13-733 9035")
 
 ### 6.6 Main Content Area
 
@@ -349,7 +348,7 @@ All content on one `index.astro` with smooth scroll to anchor IDs:
 - `#projects` — Full project case studies (expanded cards with Live/Code links)
 - `#credentials` — All certs with dates
 - `#wilderfarer` — Personal brand, running journey, hiking log
-- `#contact` — Web3Forms contact form + email/LinkedIn/WhatsApp
+- `#contact` — Web3Forms contact form + email/LinkedIn/GitHub
 
 > Multi-page Astro (separate pages sharing the 3-column shell component) is a **future** upgrade path, not part of v1.
 
@@ -362,13 +361,12 @@ All content on one `index.astro` with smooth scroll to anchor IDs:
 | Full name | Chan Qing Yee |
 | Initials | QY |
 | Email | qingyee0219@gmail.com |
-| Phone / WhatsApp | +60 13-733 9035 (`wa.me/60137339035`) |
 | LinkedIn | www.linkedin.com/in/chanqingyee |
 | GitHub | currylaksa (`github.com/currylaksa`) |
 | University | Universiti Teknologi Malaysia (UTM), Faculty of Computing |
 | Programme | CS (Networks & Security) |
 | Supervisor | Prof. Madya Ts. Dr. Siti Hajar Binti Othman |
-| CGPA | 3.90 |
+| CGPA | 3.91 |
 | Location | Johor Bahru, Malaysia → targeting Singapore |
 | Personal brand | Wilderfarer (selenophile · hodophile · dendrophile) |
 | FYP project | SecureExam UTM — secureexam-cqy.tech |

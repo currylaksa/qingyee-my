@@ -1,14 +1,20 @@
 /* ============================================================
-   Single source of truth for site content (ported from the Astro
-   build's src/data/content.ts). Canonical facts: 8 projects,
-   26 controls, DIGITEX 2026 = Silver, status = graduand.
-   Positioning: network & security engineering, with the applied-ML
-   and full-stack work as the secondary story (automation depth).
+   Single source of truth for site content.
+   Canonical facts: 26 controls, DIGITEX 2026 = Silver.
+   Positioning: Test Solutions Engineer at Micron Singapore,
+   built on a Computer Science foundation, with networking/security
+   as a specialisation rather than the headline.
    A `null` URL means "not yet supplied" — links to it are hidden
    (see lib/projectLinks.ts — the "no dead links" policy).
    ============================================================ */
 
 export type NavItem = { label: string; href: string };
+
+export type ProjectTrack =
+  | 'Test & automation'
+  | 'Software'
+  | 'Networks'
+  | 'Security';
 
 export type Project = {
   slug: string;
@@ -17,6 +23,10 @@ export type Project = {
   description: string;
   liveUrl: string | null;
   repoUrl: string | null;
+  /** Curated dossier grouping used by the projects filter. */
+  track?: ProjectTrack;
+  /** One headline number for cards and index rows. */
+  metric?: { value: string; label: string; note?: string };
   /** Internal detail/case-study route, when one exists. */
   href?: string;
   /** Link text for the internal route; defaults to "View →". */
@@ -34,45 +44,45 @@ export type PersonalInfo = {
   initials: string;
   tagline: string;
   brand: string;
-  programme: string;
   university: string;
-  cgpa: string;
-  gradYear: string;
   location: string;
   status: string;
   email: string;
   linkedin: string;
   github: string;
-  whatsapp: string;
-  whatsappLabel: string;
   identity: string[];
 };
 
 export const personalInfo: PersonalInfo = {
   fullName: 'Chan Qing Yee',
   initials: 'QY',
-  tagline: 'Network & Security Engineer',
+  tagline: 'Test Solutions Engineer',
   brand: 'Wilderfarer',
-  programme: 'CS (Networks & Security)',
   university: 'Universiti Teknologi Malaysia',
-  cgpa: '3.90',
-  gradYear: 'UTM 2026',
-  location: 'Johor Bahru, Malaysia',
-  status: 'Open to Singapore roles',
+  location: 'Singapore',
+  status: 'Test Solutions Engineer @ Micron Technology',
   email: 'qingyee0219@gmail.com',
   linkedin: 'https://www.linkedin.com/in/chanqingyee',
   github: 'https://github.com/currylaksa',
-  whatsapp: 'https://wa.me/60137339035',
-  whatsappLabel: '+60 13-733 9035',
   identity: ['Selenophile', 'Dendrophile', 'Hodophile'],
 };
 
-/** Primary one-line value prop (brief §3). */
+/** Primary one-line value prop. */
 export const valueProp =
-  'I design, secure, and operate networks — from routing and segmentation to production zero-trust.';
+  'Test Solutions Engineer at Micron Technology, Singapore.';
+
+export const siteLastUpdated = '2026-11-03';
+
+/** Compact "what I am doing now" strip used on Home and About. */
+export const now = {
+  role: 'Test Solutions Engineer',
+  org: 'Micron Technology',
+  location: 'Singapore',
+  focus: 'Wafer-level probe test · test programs · C/C++ & Python',
+};
 
 export const navItems: NavItem[] = [
-  { label: 'Home', href: '/' },
+  { label: 'Experience', href: '/experience' },
   { label: 'Projects', href: '/projects' },
   { label: 'Credentials', href: '/credentials' },
   { label: 'About', href: '/about' },
@@ -81,17 +91,90 @@ export const navItems: NavItem[] = [
 
 export const about = {
   bio: [
-    'Chan Qing Yee is a Computer Science (Computer Network and Security) graduand from Universiti Teknologi Malaysia, finishing with a 3.90 CGPA, who deploys and secures networks end to end. He has completed the Cisco CCNA curriculum across Switching, Routing and Wireless Essentials; Enterprise Networking, Security and Automation; and DevNet Associate — and applied it on a team project designing a segmented enterprise network with VLANs, inter-VLAN routing, OSPF, DHCP, ACL filtering, and VPN tunnelling.',
-    'He interned as a Project Engineer at Huawei Technologies Malaysia on the U Mobile 5G Network Upgrade (RAN and Microwave), coordinating daily deployment across 100+ subcontractor teams and overseeing 1,000+ site acceptance deliverables — while shipping 5 Python and PowerShell automation tools that cut daily reporting from 15 minutes to 1, a 93% reduction. His final-year project, SecureExam UTM, took that further into production: a 26-control zero-trust layer on a hardened DigitalOcean Singapore host, which earned Silver at DIGITEX 2026 under Prof. Madya Ts. Dr. Siti Hajar Binti Othman. Based in Johor Bahru, he is targeting network and security engineering roles in Singapore.',
+    'Chan Qing Yee is a Test Solutions Engineer at Micron Technology in Singapore, working in wafer-level probe test — the step after fabrication and before assembly/packaging that tests die while they are still on the wafer. He works inside remote test environments with VS Code and MobaXterm, debugging test programs and reading test data to catch bad die early.',
+    'He graduated from Universiti Teknologi Malaysia with a B.Sc. in Computer Science, specialising in Networks & Security, and a 3.91 CGPA. The specialisation is the foundation; the day-to-day work is test programs, C/C++, Python, and test data. Before Micron, he interned as a Project Engineer at Huawei Technologies Malaysia on the U Mobile 5G Network Upgrade (RAN and Microwave), coordinating deployment across 100+ subcontractor teams and shipping five Python and PowerShell automation tools that cut daily reporting from 15 minutes to 1, a 93% reduction. His final-year project, SecureExam UTM, took that further into production: a 26-control zero-trust layer on a hardened DigitalOcean Singapore host, which earned Silver at DIGITEX 2026 under Prof. Madya Ts. Dr. Siti Hajar Binti Othman.',
   ],
   details: [
+    { label: 'Current role', value: 'Test Solutions Engineer, Micron Technology' },
+    { label: 'Based in', value: 'Singapore' },
     { label: 'University', value: 'Universiti Teknologi Malaysia (UTM), Faculty of Computing' },
-    { label: 'Programme', value: 'CS (Networks & Security)' },
-    { label: 'CGPA', value: '3.90' },
+    { label: 'Degree', value: 'B.Sc. Computer Science, 3.91 CGPA' },
+    { label: 'Specialisation', value: 'Networks & Security' },
+    { label: 'Graduated', value: 'July 2026' },
     { label: 'Supervisor', value: 'Prof. Madya Ts. Dr. Siti Hajar Binti Othman' },
-    { label: 'Location', value: 'Johor Bahru → Singapore' },
   ],
 };
+
+export type ExperienceEntry = {
+  role: string;
+  org: string;
+  period: string;
+  location: string;
+  summary: string;
+  bullets: string[];
+  kind?: 'role' | 'internship' | 'education';
+  monogram?: string;
+  shortOrg?: string;
+  current?: boolean;
+  href?: string;
+  hrefLabel?: string;
+};
+
+export const experience: ExperienceEntry[] = [
+  {
+    role: 'Test Solutions Engineer',
+    org: 'Micron Technology',
+    period: 'Oct 2026 – present',
+    location: 'Singapore',
+    kind: 'role',
+    monogram: 'MU',
+    shortOrg: 'Micron',
+    current: true,
+    summary:
+      'Wafer-level probe test (wafer sort) on memory products — testing die after fabrication and before assembly/packaging, while they are still on the wafer.',
+    bullets: [
+      'Work in remote test environments with VS Code and MobaXterm to run and debug probe test programs.',
+      'Read and analyse test data to separate real failures from test noise.',
+      'Build depth in C/C++, Python, test-program structure, and semiconductor test methodology.',
+      'Still learning the product, process, and production flow from the engineers around me.',
+    ],
+  },
+  {
+    role: 'Project Engineer Intern',
+    org: 'Huawei Technologies Malaysia',
+    period: 'Sep 2025 – Feb 2026',
+    location: 'Malaysia',
+    kind: 'internship',
+    monogram: 'HW',
+    shortOrg: 'Huawei',
+    summary:
+      'U Mobile 5G Network Upgrade (RAN and Microwave) — deployment coordination plus automation tooling.',
+    bullets: [
+      'Coordinated daily deployment across 100+ subcontractor teams, resolving bottlenecks between Huawei, subcontractors, and the client.',
+      'Shipped five Python and PowerShell automation tools, cutting daily reporting from 15 minutes to under 1 (93%).',
+      'Managed handover of 1,000+ site acceptance deliverables, including UAT and Launch Completion Reports.',
+    ],
+    href: '/projects/huawei',
+    hrefLabel: 'Read the automation case study',
+  },
+  {
+    role: 'B.Sc. Computer Science',
+    org: 'Universiti Teknologi Malaysia',
+    period: 'Oct 2022 – Jul 2026',
+    location: 'Johor Bahru, Malaysia',
+    kind: 'education',
+    monogram: 'UTM',
+    shortOrg: 'UTM',
+    summary:
+      'Specialised in Networks & Security. Graduated July 2026 with a 3.91 CGPA. Final-year project: SecureExam UTM, DIGITEX 2026 Silver.',
+    bullets: [
+      'Completed the Cisco CCNA curriculum across Switching, Routing & Wireless Essentials; Enterprise Networking, Security & Automation; and DevNet Associate.',
+      'Built, deployed, and operated SecureExam UTM — 26 mapped zero-trust controls over 35+ endpoints, on a hardened DigitalOcean Singapore host.',
+    ],
+    href: '/credentials',
+    hrefLabel: 'See credentials',
+  },
+];
 
 export const wilderfarer = {
   pullQuote: 'Not all those who wander are lost.',
@@ -106,6 +189,8 @@ export const projects: Project[] = [
     stack: ['Zero Trust', 'Nginx', 'TLS 1.3', 'Node.js'],
     description:
       'Production zero-trust platform: 26 mapped controls over 35+ endpoints, per-request IP binding, JWT stage-machine MFA, and an Nginx/UFW/fail2ban edge. DIGITEX 2026 Silver.',
+    track: 'Security',
+    metric: { value: '26', label: 'mapped controls' },
     liveUrl: 'https://secureexam-cqy.tech',
     repoUrl: 'https://github.com/currylaksa/zero-trust-exam',
     href: '/projects/secureexam',
@@ -117,9 +202,34 @@ export const projects: Project[] = [
     stack: ['5G RAN', 'Microwave', 'Python', 'PowerShell'],
     description:
       'Project Engineer internship on Huawei’s U Mobile 5G upgrade — deployment coordination across 100+ subcontractor teams and 1,000+ site acceptance deliverables, plus 5 automation tools cutting daily reporting by 93%.',
+    track: 'Test & automation',
+    metric: { value: '93%', label: 'faster reporting', note: '15 min → 1 min' },
     liveUrl: null,
     repoUrl: null,
     href: '/projects/huawei',
+  },
+  {
+    slug: 'xiangqi-shifu',
+    title: 'Xiangqi Shifu',
+    stack: ['FastAPI', 'React', 'Pikafish NNUE', 'Python'],
+    description:
+      'A Chinese Chess coach that explains why a move was wrong — Pikafish search paired with deterministic tactic detectors (static exchange evaluation, pins, double attacks), so every claim is derived from the board rather than an LLM. 141 backend tests.',
+    track: 'Software',
+    metric: { value: '141', label: 'backend tests' },
+    liveUrl: null,
+    repoUrl: 'https://github.com/currylaksa/xiangqi-shifu',
+  },
+  {
+    slug: 'macos-menubar',
+    title: 'macOS menu-bar utilities',
+    stack: ['Swift', 'AppKit', 'Core Graphics'],
+    description:
+      'Three native, zero-dependency Swift menu-bar apps — a Claude session-usage gauge, a RAM monitor reading the Mach kernel directly, and a procedurally generated pixel hiker.',
+    track: 'Software',
+    metric: { value: '3', label: 'native apps' },
+    liveUrl: null,
+    repoUrl: null,
+    href: '/projects/macos-menubar',
   },
   {
     slug: 'sunray-network',
@@ -127,6 +237,8 @@ export const projects: Project[] = [
     stack: ['OSPF', 'VLANs', 'ACLs', 'IPsec VPN'],
     description:
       'A network design for a Malaysian SME, built and verified in Cisco Packet Tracer: 8 routers over 7 departmental segments, OSPF area 0, VLAN-segmented staff floors, relayed DHCP, an IPsec remote-access VPN, and ACLs that keep remote workers out of Finance.',
+    track: 'Networks',
+    metric: { value: '8', label: 'routers · 7 segments' },
     liveUrl: null,
     repoUrl: null,
     href: '/projects/sunray',
@@ -139,6 +251,8 @@ export const projects: Project[] = [
     stack: ['VLSM', 'EIGRP', 'VLANs', 'DHCP relay'],
     description:
       'A campus network for a new two-storey faculty building, designed from the floor plan up in Cisco Packet Tracer: one /23 cut by VLSM into 13 right-sized subnets, static and EIGRP routing compared on the same three routers, four staff-room VLANs on one router-on-a-stick, and 10 DHCP pools reached by relay agents.',
+    track: 'Networks',
+    metric: { value: '13', label: 'subnets from one /23' },
     liveUrl: null,
     repoUrl: null,
     href: '/projects/two-storey-network',
@@ -151,6 +265,8 @@ export const projects: Project[] = [
     stack: ['WebRTC', 'libsodium', 'PWA'],
     description:
       'WebRTC P2P file transfer PWA with libsodium end-to-end encryption. No server persistence — pure peer-to-peer.',
+    track: 'Software',
+    metric: { value: 'P2P', label: 'encrypted transfer' },
     liveUrl: 'https://duodrop.pages.dev',
     repoUrl: 'https://github.com/currylaksa/duodrop',
   },
@@ -160,18 +276,10 @@ export const projects: Project[] = [
     stack: ['React', 'PWA'],
     description:
       '"Worth Staying Up For" — a Malaysian-timezone match planner for the 48-team 2026 format.',
+    track: 'Software',
+    metric: { value: '48', label: 'teams · one planner' },
     liveUrl: 'https://3am-club.pages.dev',
     repoUrl: 'https://github.com/currylaksa/3am-club',
-  },
-  {
-    slug: 'macos-menubar',
-    title: 'macOS menu-bar utilities',
-    stack: ['Swift', 'AppKit', 'Core Graphics'],
-    description:
-      'Three native, zero-dependency Swift menu-bar apps — a Claude session-usage gauge, a RAM monitor reading the Mach kernel directly, and a procedurally generated pixel hiker.',
-    liveUrl: null,
-    repoUrl: null,
-    href: '/projects/macos-menubar',
   },
   {
     slug: 'qrcode-generator',
@@ -179,17 +287,10 @@ export const projects: Project[] = [
     stack: ['Vanilla JS', 'HTML'],
     description:
       'A free QR code generator that runs entirely in the browser — no build step, no frameworks, nothing uploaded or tracked.',
+    track: 'Software',
+    metric: { value: '0', label: 'trackers' },
     liveUrl: 'https://currylaksa.github.io/qrcode_generator_free/',
     repoUrl: 'https://github.com/currylaksa/qrcode_generator_free',
-  },
-  {
-    slug: 'xiangqi-shifu',
-    title: 'Xiangqi Shifu',
-    stack: ['FastAPI', 'React', 'Pikafish NNUE', 'Python'],
-    description:
-      'A Chinese Chess coach that explains why a move was wrong — Pikafish search paired with deterministic tactic detectors (static exchange evaluation, pins, double attacks), so every claim is derived from the board rather than an LLM. 141 backend tests.',
-    liveUrl: null,
-    repoUrl: 'https://github.com/currylaksa/xiangqi-shifu',
   },
 ];
 
@@ -210,10 +311,13 @@ export const certs: Cert[] = [
 ];
 
 export const education = {
-  degree: 'B.Sc. Computer Science (Networks & Security)',
+  degree: 'B.Sc. Computer Science',
+  formalDegree: 'B.Sc. Computer Science (Networks & Security)',
+  specialisation: 'Networks & Security',
   university: 'Universiti Teknologi Malaysia',
   year: 'Jul 2026',
-  cgpa: '3.90',
+  cgpa: '3.91',
+  verifyUrl: 'https://bsea.utm.my/verQr?bsea=9482027971397',
 };
 
 /** Competition results (resume §Achievements). */
@@ -237,10 +341,24 @@ export const achievements: Achievement[] = [
 ];
 
 /** Grouped technical skills (resume §Technical Skills). */
-export type SkillGroup = { label: string; items: string[] };
+export type SkillGroup = { label: string; blurb?: string; items: string[] };
 export const skillGroups: SkillGroup[] = [
   {
+    label: 'Test & semiconductor',
+    blurb: 'Probe test, ATE, test-program debug, and yield data.',
+    items: [
+      'Wafer sort / probe',
+      'ATE',
+      'Test-program debug',
+      'Test data & yield analysis',
+      'Remote test environments',
+      'MobaXterm',
+      'VS Code',
+    ],
+  },
+  {
     label: 'Networking',
+    blurb: 'Routing, switching, segmentation, and the CCNA lab work.',
     items: [
       'OSPF',
       'VLANs',
@@ -255,6 +373,7 @@ export const skillGroups: SkillGroup[] = [
   },
   {
     label: 'Security',
+    blurb: 'Zero-trust design, access control, and hardening.',
     items: [
       'Zero-Trust architecture',
       'Access Control Lists (ACLs)',
@@ -268,6 +387,7 @@ export const skillGroups: SkillGroup[] = [
   },
   {
     label: 'Cloud & infrastructure',
+    blurb: 'Linux hosts, reverse proxies, and deployment.',
     items: [
       'Oracle Cloud (OCI)',
       'DigitalOcean',
@@ -282,10 +402,12 @@ export const skillGroups: SkillGroup[] = [
   },
   {
     label: 'Automation & scripting',
+    blurb: 'Python and PowerShell tools that remove manual work.',
     items: ['Python', 'PowerShell', 'Selenium', 'Pandas'],
   },
   {
     label: 'Software & data',
+    blurb: 'Full-stack apps, APIs, and data models.',
     items: [
       'Node.js',
       'Express',
@@ -300,11 +422,13 @@ export const skillGroups: SkillGroup[] = [
       'TypeScript',
       'Swift',
       'Java',
+      'C',
       'C++',
     ],
   },
   {
     label: 'Applied machine learning',
+    blurb: 'Anomaly detection and behavioural risk scoring.',
     items: [
       'Isolation Forest anomaly detection',
       'Behavioural risk scoring',
@@ -313,24 +437,25 @@ export const skillGroups: SkillGroup[] = [
   },
   {
     label: 'Languages spoken',
+    blurb: 'Comfortable across Mandarin, English, and Malay.',
     items: ['Mandarin (native)', 'English (fluent)', 'Malay (fluent)'],
   },
 ];
 
-/** Proof pillars under the hero (brief §3). */
+/** Proof pillars under the hero. */
 export type Pillar = { label: string; text: string };
 export const pillars: Pillar[] = [
   {
-    label: 'carrier networks',
-    text: 'Huawei Malaysia — U Mobile 5G RAN & Microwave upgrade, 100+ teams',
+    label: 'wafer-level test',
+    text: 'Micron Singapore — probe test on memory products, die still on the wafer',
   },
   {
-    label: 'routing & segmentation',
-    text: 'Full Cisco CCNA curriculum — OSPF, VLANs, ACLs, VPN, DHCP',
+    label: 'debugging',
+    text: 'Remote test environments — VS Code, MobaXterm, C/C++ and Python',
   },
   {
-    label: 'production security',
-    text: 'Zero-trust platform shipped and operated — DIGITEX 2026 Silver',
+    label: 'automation',
+    text: 'Huawei Malaysia — 5 Python & PowerShell tools, 93% faster daily reporting',
   },
 ];
 
@@ -1161,7 +1286,6 @@ export const findMe: Link[] = [
   { label: 'GitHub', href: personalInfo.github },
   { label: 'LinkedIn', href: personalInfo.linkedin },
   { label: 'Email', href: `mailto:${personalInfo.email}` },
-  { label: personalInfo.whatsappLabel, href: personalInfo.whatsapp },
 ];
 
 /** Same channels as `findMe`, carrying the readable value the contact page
@@ -1169,13 +1293,12 @@ export const findMe: Link[] = [
 export const contactChannels: (Link & { value: string })[] = [
   { label: 'Email', value: personalInfo.email, href: `mailto:${personalInfo.email}` },
   { label: 'LinkedIn', value: 'linkedin.com/in/chanqingyee', href: personalInfo.linkedin },
-  { label: 'WhatsApp', value: personalInfo.whatsappLabel, href: personalInfo.whatsapp },
   { label: 'GitHub', value: 'github.com/currylaksa', href: personalInfo.github },
 ];
 
 export const contactFacts: Stat[] = [
-  { label: 'Time zone', value: 'GMT+8 — same as Singapore' },
+  { label: 'Time zone', value: 'GMT+8 — Singapore' },
   { label: 'Typical reply', value: 'Within one business day' },
-  { label: 'Based in', value: 'Johor Bahru → Singapore' },
+  { label: 'Based in', value: 'Singapore' },
   { label: 'Best channel', value: 'Email or LinkedIn' },
 ];

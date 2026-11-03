@@ -21,12 +21,12 @@ export default function Nav() {
           <span className="truncate">{personalInfo.fullName}</span>
         </Link>
 
-        <nav aria-label="Primary" className="hidden md:block">
+        <nav aria-label="Primary" className="hidden lg:block">
           <NavLinks />
         </nav>
 
         <div className="flex shrink-0 items-center gap-1 sm:gap-3">
-          <span className="hidden items-center gap-2 font-mono text-xs text-secure sm:inline-flex">
+          <span className="hidden items-center gap-2 whitespace-nowrap font-mono text-xs text-secure xl:inline-flex">
             <span
               className="h-1.5 w-1.5 rounded-full bg-secure"
               aria-hidden="true"

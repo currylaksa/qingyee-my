@@ -1,6 +1,6 @@
 # qingyee.my
 
-Personal portfolio of **Chan Qing Yee** — Network & Security Engineer, CS graduand (UTM), DIGITEX 2026 Silver Medalist, and *Wilderfarer*. Theme: **Warm Rust & Cream / Retro Americana**.
+Personal portfolio of **Chan Qing Yee** — Test Solutions Engineer at Micron Technology, Singapore; CS graduate (UTM), DIGITEX 2026 Silver Medalist, and *Wilderfarer*. Theme: **Graphite & Copper** — dark, technical, high-contrast.
 
 🔗 **Live:** https://qingyee.my
 
@@ -32,6 +32,7 @@ Node 20 (pinned in `.node-version`).
 app/
 ├── layout.tsx              # chrome: nav, footer, metadata, JSON-LD Person
 ├── page.tsx                # home
+├── experience/             # Micron → Huawei → UTM timeline
 ├── projects/               # index + secureexam, huawei, macos-menubar
 ├── credentials/ about/ contact/
 ├── globals.css             # design tokens + Tailwind
@@ -50,8 +51,7 @@ All copy and data live in [`lib/content.ts`](lib/content.ts) — edit there to u
 
 The site renders gracefully without these and auto-includes them once present:
 
-- `public/cv.pdf` — Network & Security resume; "Download CV" button in the nav and hero (hidden until added)
-- `public/cv-ai.pdf` — secondary AI engineering resume
+- `public/cv.pdf` — current resume; "Download CV" button in the nav and hero (hidden until added)
 - `public/headshot.jpg` — About-page portrait (section omitted until added)
 - Cert dates and `verifyUrl`s in `lib/content.ts` (omitted while `null`)
 
